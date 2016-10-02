@@ -22,7 +22,7 @@ Project Rojak.
 
 Sebelum memantapkan pilihan nya, hal pertama yang di lakukan oleh para
 peserta Pilkada DKI 2017 adalah mencari tau informasi tentang pasangan
-cagubicawagub di media daring Indonesia. Sayangnya, **tidak ada** media
+cagub-cawagub di media daring Indonesia. Sayangnya, **tidak ada** media
 yang memberikan pandangan objektif/netral kepada pasangan cagub-cawagub
 yang akan bertanding. Hal ini lah yang akan mempengaruhi pandangan
 peserta pilkada terhadap masing-masing pasangan cagub-cawagub.
@@ -77,6 +77,7 @@ adalah:
 * Web-based interface ala [libscore](https://libscore.com) oleh
   [Donny](https://www.facebook.com/DonnyStaark)
 * Facebook Bot a.k.a "Relawan Rojak" oleh [Rio](https://www.facebook.com/riordhn)
+* Android apps oleh [Vicky](https://www.facebook.com/vickyvernandodasta)
 
 Dan masih banyak yang bisa kita eksplor lagi.
 
@@ -97,6 +98,7 @@ Progress akan di update oleh PIC masing-masing:
 * rojak-api: **In Progress**, PIC: -
 * rojak-ui-web: **In Progress**, PIC: Dony
 * rojak-ui-bot: **In Progress**, PIC: Rio
+* rojak-ui-app: **In Progress**, PIC: Vicky
 
 ## Contributors
 
@@ -106,6 +108,7 @@ In alphabetical order:
 * [Donny Stark](https://www.facebook.com/DonnyStaark)
 * [Rio Ramadhan Dharmawan](https://www.facebook.com/riordhn)
 * [Rahmat Iqbal Rizaldi Pratama](https://www.facebook.com/rahmat.iqbal13)
+* [Vicky Vernando Dasta](https://www.facebook.com/vickyvernandodasta)
 * Kamu!! (Silahkan kontak salah satu dari kami)
 
 Semua berkontribusi secara sama.
