@@ -22,8 +22,8 @@ Project Rojak.
 
 Sebelum memantapkan pilihan nya, hal pertama yang di lakukan oleh para
 peserta Pilkada DKI 2017 adalah mencari tau informasi tentang pasangan
-cagub-cawagub di media daring Indonesia. Sayangnya, **tidak ada** media
-yang memberikan pandangan objektif/netral kepada pasangan cagub-cawagub
+cagub-cawagub di media daring Indonesia. Sayangnya, kebanyakan media
+tidak memberikan pandangan objektif/netral kepada pasangan cagub-cawagub
 yang akan bertanding. Hal ini lah yang akan mempengaruhi pandangan
 peserta pilkada terhadap masing-masing pasangan cagub-cawagub.
 
@@ -33,9 +33,9 @@ berita negatif tentang pasangan tersebut. Padahal media yang menerbitkan
 berita negatif tersebut memberitakan hal-hal negatif karena mendukung
 pasangan cagub-cawagub yang lain.
 
-*Dengan kita tau media yang kita baca mendukung pasangan cagub-cawagub
+Dengan kita tau media yang kita baca mendukung pasangan cagub-cawagub
 mana/condong ke pasangan yang mana, kita bisa menjadi pembaca yang bijak
-dan tidak mudah terprovokasi*.
+dan tidak mudah terprovokasi.
 
 ## Tujuan
 
@@ -55,11 +55,11 @@ membangun Rojak beserta interaksinya:
 
 Masing-masing tugas utama komponen:
 
-* *rojak-pantau*: Memantau seluruh media daring di Indonesia
-* *rojak-analyzer*: Menentukan sentimen suatu berita
-* *rojak-database*: Menyimpan hasil analisa
-* *rojak-api*: Memberikan akses dari public ke *rojak-database*
-* *rojak-ui*: Menampilkan hasil analisa dari Rojak
+* **rojak-pantau**: Memantau seluruh media daring di Indonesia
+* **rojak-analyzer**: Menentukan sentimen suatu berita
+* **rojak-database**: Menyimpan hasil analisa
+* **rojak-api**: Memberikan akses dari public ke *rojak-database*
+* **rojak-ui**: Menampilkan hasil analisa dari Rojak
 
 Salah satu komponen terpenting adalah *rojak-ui*, komponen ini adalah
 abstraksi yang berinteraksi langsung dengan peserta Pilkada. *rojak-ui*
@@ -90,28 +90,61 @@ Rojak bisa menghubungi [Bayu](https://www.facebook.com/bayualdiyansyah)
 
 ## Progress
 
-Progress akan di update oleh PIC masing-masing:
-
-* rojak-pantau: **In Progress**, PIC: Bayu
-* rojak-analyzer: **In Progress**, PIC: Bayu
-* rojak-database: **In Progress**, PIC: Bayu
-* rojak-api: **In Progress**, PIC: -
-* rojak-ui-web: **In Progress**, PIC: Dony
-* rojak-ui-bot: **In Progress**, PIC: Rio
-* rojak-ui-app: **In Progress**, PIC: Vicky
+*In Progress*
 
 ## Contributors
 
-In alphabetical order:
+### Tim UI
+Tugas utama tim UI adalah membuat interface yang digunakan masyarakat untuk
+melihat hasil analisa dari Rojak.
 
-* [Bayu Aldi Yansyah](https://www.facebook.com/bayualdiyansyah)
+Anggota, In alphabetical order:
+
 * [Donny Stark](https://www.facebook.com/DonnyStaark)
 * [Rio Ramadhan Dharmawan](https://www.facebook.com/riordhn)
-* [Rahmat Iqbal Rizaldi Pratama](https://www.facebook.com/rahmat.iqbal13)
+* [Sonny Lazuardi Hermawan](https://www.facebook.com/sonny.lazuardi)
 * [Vicky Vernando Dasta](https://www.facebook.com/vickyvernandodasta)
-* Kamu!! (Silahkan kontak salah satu dari kami)
 
 Semua berkontribusi secara sama.
+
+### Tim API
+Tugas utama tim API adalah membuat API yg mengfasilitasi akses data ke
+`rojak-database` oleh publik.
+
+Anggota, In alphabetical order:
+
+* [Bobby Priambodo](https://www.facebook.com/bobbypriambodo)
+* [Fajar Maulana Firdaus](https://www.facebook.com/fajarmf)
+
+Semua berkontribusi secara sama.
+
+### Tim Data
+Tugas utama tim Data adalah untuk membuat pemantau berita dan analisa sentimen
+berita menggunakan Natural Language Processing dan Machine Learning.
+
+Anggota, In alphabetical order:
+
+* [Bayu Aldi Yansyah](https://www.facebook.com/bayualdiyansyah)
+* [Fawwaz Muhammad](https://www.facebook.com/fawwazmuhammad)
+* [Imre Nagi](https://www.facebook.com/imrenagi)
+* [Teofebano Kristo](https://www.facebook.com/teofebano.kristo)
+
+Semua berkontribusi secara sama.
+
+### Ide
+
+Konsep Rojak merupakan hasil diskusi di kantin kampus oleh:
+
+* [Bayu Aldi Yansyah](https://www.facebook.com/bayualdiyansyah)
+* [Rahmat Iqbal Rizaldi Pratama](https://www.facebook.com/rahmat.iqbal13)
+* [Rio Ramadhan Dharmawan](https://www.facebook.com/riordhn)
+
+
+## Infrastructure Support
+
+Rojak akan berjalan di atas `Komandan` cluster [Sale Stock
+Engineering](https://careers.salestock.io)
+
 
 ## License
 
