@@ -44,15 +44,25 @@ DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news` (
     `id` int(10) unsigned NOT NULL UNIQUE auto_increment,
     `media_id` int(10) unsigned NOT NULL,
-    `sentiment_id` int(10) unsigned NOT NULL,
     `title` varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE,
     `content` text collate utf8_unicode_ci NOT NULL,
     `url` varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE,
     FOREIGN KEY (`media_id`) REFERENCES media(`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`sentiment_id`) REFERENCES sentiment(`id`) ON DELETE CASCADE,
     `inserted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+DROP TABLE IF EXISTS `news_sentiment`;
+CREATE TABLE `news_sentiment` (
+    `id` int(10) unsigned NOT NULL UNIQUE auto_increment,
+    `news_id` int(10) unsigned NOT NULL,
+    `sentiment_id` int(10) unsigned NOT NULL,
+    FOREIGN KEY (`news_id`) REFERENCES news(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`sentiment_id`) REFERENCES sentiment(`id`) ON DELETE CASCADE,
+    `inserted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
