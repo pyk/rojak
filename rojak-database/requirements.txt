@@ -1,0 +1,5 @@
+Faker==0.7.3
+ipaddress==1.0.17
+MySQL-python==1.2.5
+python-dateutil==2.5.3
+six==1.10.0
