@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.define "rojak" do |rojak|
+    rojak.vm.box = "ubuntu/trusty64"
+    rojak.vm.hostname = "rojak-vm"
+    rojak.vm.network "private_network", ip: "192.168.44.10"
+
+    rojak.vm.provider :virtualbox do |vb|
+      vb.gui = false
+      vb.memory = (2 * 2048)
+      vb.cpus = 2
+    end
+
+    rojak.vm.synced_folder "../.", "/home/vagrant/rojak/"
+  end
+
+end
