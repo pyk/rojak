@@ -14,12 +14,11 @@ VALUES ('{}', '{}', '{}', '{}', '{}');
 '''
 
 MAX_MEDIA=100
-fake = Factory.create('it_IT')
+fake = Factory.create()
 for i in xrange(MAX_MEDIA):
     # Generate random data for the media
     media_name = fake.name() + ' Media ' + str(i)
     website_name = media_name.lower().replace(' ', '')
-    website_name = website_name.replace("'", '')
     website_url = 'https://{}.com'.format(website_name)
     cat_txt = website_name
     cat_img = 'http://lorempixel.com/500/500/cats/{}'.format(cat_txt)
