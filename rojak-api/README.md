@@ -20,8 +20,18 @@ Pastikan [Docker](https://docs.docker.com/engine/installation/) dan [Docker Comp
 MySQL server untuk development menyala di [docker_host]:3306.
 
 ```
-mysql -u root -h [docker_host]
+$ mysql -u root -h [docker_host]
 ```
+
+### Konfigurasi port
+
+Jika aplikasi ingin dijalankan di port selain yang telah ditentukan, kita bisa melakukannya dengan memberikan env variable PORT dan DB_PORT untuk perintah `docker-compose up`. Contoh:
+
+```
+$ PORT=5000 DB_PORT=3307 docker-compose up
+```
+
+Dengan perintah ini, API dapat diakses pada [docker host]:5000 dan MySQL pada [docker host]:3307.
 
 ## Spesifikasi API
 
