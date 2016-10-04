@@ -102,6 +102,7 @@ Anggota, In alphabetical order:
 
 * [Donny Stark](https://www.facebook.com/DonnyStaark)
 * [Rio Ramadhan Dharmawan](https://www.facebook.com/riordhn)
+* [Rohmat Sasmito](https://www.facebook.com/rohmad.sasmito)
 * [Sonny Lazuardi Hermawan](https://www.facebook.com/sonny.lazuardi)
 * [Vicky Vernando Dasta](https://www.facebook.com/vickyvernandodasta)
 
@@ -115,6 +116,7 @@ Anggota, In alphabetical order:
 
 * [Bobby Priambodo](https://www.facebook.com/bobbypriambodo)
 * [Fajar Maulana Firdaus](https://www.facebook.com/fajarmf)
+* [Nur Maulidiyah](https://www.facebook.com/nur.maulidiyah.14)
 
 Semua berkontribusi secara sama.
 
@@ -124,9 +126,13 @@ berita menggunakan Natural Language Processing dan Machine Learning.
 
 Anggota, In alphabetical order:
 
+* [Aldi Doanta Kurnia Ginting](https://www.facebook.com/aldidoanta)
 * [Bayu Aldi Yansyah](https://www.facebook.com/bayualdiyansyah)
 * [Fawwaz Muhammad](https://www.facebook.com/fawwazmuhammad)
+* [Hayyu Luthfi Hanifah](https://www.facebook.com/plloopy)
 * [Imre Nagi](https://www.facebook.com/imrenagi)
+* [Rachmat Fajrin](https://www.facebook.com/rachmatfajrin)
+* [Syafiq Al Atiiq](https://www.facebook.com/syafiq.atiiq)
 * [Teofebano Kristo](https://www.facebook.com/teofebano.kristo)
 
 Semua berkontribusi secara sama.
@@ -138,13 +144,6 @@ Konsep Rojak merupakan hasil diskusi di kantin kampus oleh:
 * [Bayu Aldi Yansyah](https://www.facebook.com/bayualdiyansyah)
 * [Rahmat Iqbal Rizaldi Pratama](https://www.facebook.com/rahmat.iqbal13)
 * [Rio Ramadhan Dharmawan](https://www.facebook.com/riordhn)
-
-
-## Infrastructure Support
-
-Rojak akan berjalan di atas `Komandan` cluster [Sale Stock
-Engineering](https://careers.salestock.io)
-
 
 ## License
 
