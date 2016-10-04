@@ -5,7 +5,9 @@ defmodule RojakAPI.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", RojakAPI do
+  scope "/", RojakAPI do
     pipe_through :api
+
+    get "/", IndexController, :index
   end
 end
