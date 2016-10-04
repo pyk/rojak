@@ -21,3 +21,15 @@ MySQL server untuk development menyala di [docker_host]:3306.
 ```
 mysql -u root -h [docker_host]
 ```
+
+## Spesifikasi API
+
+Spesifikasi API dapat dilihat [di sini](api-spec.md) (WIP).
+
+Spesifikasi API dibuat dengan menggunakan [RAML](http://raml.org/). Versi RAML yang digunakan adalah RAML 0.8. File [`api-spec.md`](api-spec.md) di-generate dengan otomatis menggunakan perkakas [`raml2md`](https://github.com/raml2html/raml2md). Untuk mengubah spesifikasi:
+
+1. Pastikan sudah terinstall Node.js
+2. Jalankan `npm i -g raml2md`
+3. Ubah file [`api-spec.raml`](api-spec.raml)
+4. Jalankan perintah `raml2md api-spec.raml > api-spec.md`
+5. Commit kedua file tersebut.
