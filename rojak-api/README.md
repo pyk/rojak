@@ -8,9 +8,10 @@ Pastikan [Docker](https://docs.docker.com/engine/installation/) dan [Docker Comp
 
 1. Clone repo ini
 2. `cd rojak-api`
-3. `docker-compose up` (akan menyalakan service web dan db mysql)
-4. Setup database lokal [(ikuti petunjuk di sini)](../rojak-database)
-5. Open up [docker_host]:4000 and start hacking!
+3. `docker-compose run --rm --no-deps web mix deps.get` (instalasi dependencies)
+4. `docker-compose up` (akan menyalakan service web dan db mysql)
+5. Setup database lokal [(ikuti petunjuk di sini)](../rojak-database)
+6. Open up [docker_host]:4000 and start hacking!
 
 ## Notes
 
