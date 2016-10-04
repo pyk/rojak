@@ -1,19 +1,23 @@
 # RojakAPI
 
-To start your Phoenix app:
+API untuk komunikasi antara rojak-ui-* dengan rojak-database.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Start Phoenix endpoint with `mix phoenix.server`
+## Development
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Pastikan [Docker](https://docs.docker.com/engine/installation/) dan [Docker Compose](https://docs.docker.com/compose/install/) sudah terinstall.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+1. Clone repo ini
+2. `cd rojak-api`
+3. `docker-compose up` (akan menyalakan service web dan db mysql)
+4. Setup database lokal [(ikuti petunjuk di sini)](../rojak-database)
+5. Open up <docker_host>:4000 and start hacking!
 
-## Learn more
+## Notes
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+### MySQL server
+
+MySQL server untuk development menyala di <docker_host>:3306.
+
+```
+mysql -u root -h <docker_host>
+```
