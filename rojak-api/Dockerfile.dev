@@ -1,0 +1,10 @@
+FROM elixir
+
+# Install hex and rebar
+RUN mix local.hex --force
+RUN mix local.rebar --force
+
+# Install phoenix
+RUN mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
+
+WORKDIR /app

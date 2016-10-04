@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :rojak_api, RojakAPI.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username: "root",
-  password: "",
-  database: "rojak_api_test",
-  hostname: "localhost",
+  username: System.get_env("DB_USERNAME") || "root",
+  password: System.get_env("DB_PASSWORD") || "",
+  database: System.get_env("DB_NAME") || "rojak_api_test",
+  hostname: System.get_env("DB_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

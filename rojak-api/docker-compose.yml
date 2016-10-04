@@ -1,0 +1,26 @@
+version: '2'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: mix phoenix.server
+    environment:
+      - MIX_ENV=dev
+      - PORT=4000
+      - DB_USERNAME=root
+      - DB_HOST=db
+      - DB_NAME=rojak_database
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+    links:
+      - db
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=rojak_database
+    ports:
+      - "3306:3306"
