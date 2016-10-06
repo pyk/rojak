@@ -16,6 +16,7 @@ services:
       - .:/app
     links:
       - db
+
   db:
     image: mysql
     environment:
@@ -23,3 +24,13 @@ services:
       - MYSQL_DATABASE=rojak_database
     ports:
       - "${DB_PORT}:3306"
+
+  # Container for building releases. Basically
+  # we just reuse the web image but without
+  # links and environment variables.
+  builder:
+    image: rojakapi_web
+    ports:
+      - "${PORT}:4000"
+    volumes:
+      - .:/app
