@@ -1,15 +1,22 @@
 import MySQLdb as mysql
 from faker import Factory
+import os
+
+ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
+ROJAK_DB_USER = os.getenv('ROJAK_DB_USER', 'root')
+ROJAK_DB_PASS = os.getenv('ROJAK_DB_PASS', 'rojak')
+ROJAK_DB_NAME = os.getenv('ROJAK_DB_NAME', 'rojak_database')
 
 # Open database connection
-db = mysql.connect('localhost', 'root', 'rojak', 'rojak_database')
+db = mysql.connect(ROJAK_DB_HOST, ROJAK_DB_USER,
+        ROJAK_DB_PASS, ROJAK_DB_NAME)
 
 # Create new db cursor
 cursor = db.cursor()
 
 sql = '''
-INSERT INTO `media`(`name`, `website_url`, `logo_url`, `facebookpage_url`,
-    `slogan`)
+INSERT INTO `media`(`name`, `website_url`, `logo_url`, `fbpage_username`,
+    `description`)
 VALUES ('{}', '{}', '{}', '{}', '{}');
 '''
 
@@ -20,15 +27,14 @@ for i in xrange(MAX_MEDIA):
     media_name = fake.name() + ' Media ' + str(i)
     website_name = media_name.lower().replace(' ', '')
     website_url = 'https://{}.com'.format(website_name)
-    cat_txt = website_name
-    cat_img = 'http://lorempixel.com/500/500/cats/{}'.format(cat_txt)
+    cat_img = 'http://lorempixel.com/500/500/cats/{}'.format(website_name)
     logo_url = cat_img
-    facebookpage_url = 'https://facebook.com/{}'.format(website_name)
-    slogan = ' '.join(fake.text().split()[:5])
+    fbpage_username = website_name
+    description = fake.text()
 
     # Parse the SQL command
     insert_sql = sql.format(media_name, website_url, logo_url,
-        facebookpage_url, slogan)
+        fbpage_username, description)
 
     # insert to the database
     try:

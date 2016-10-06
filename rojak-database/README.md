@@ -23,7 +23,13 @@ then exit.
 Insert the tables:
 
 ```shell
-mysql -u root -p rojak_database < mysql_tables.sql
+mysql -u root -p rojak_database < rojak_schema_latest.sql
+```
+
+Generate the dummy data:
+
+```shell
+ROJAK_DB_NAME=rojak_database sh populate_rojak_database_with_dummy_data.sh
 ```
 
 ## Debug
