@@ -16,7 +16,7 @@ ALTER TABLE `candidate`
     CHANGE `facebookpage_url` `fbpage_username`
         varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE;
 
--- Ubah nama column `slogan` jadi `description` dan allow null
+-- Ubah nama column `slogan` jadi `description` dan allow null di `candidate`
 ALTER TABLE `candidate`
     CHANGE `slogan` `description`
         text collate utf8_unicode_ci;
@@ -24,6 +24,16 @@ ALTER TABLE `candidate`
 -- Hapus column `logo_url` dari table `candidate`
 ALTER TABLE `candidate`
     DROP COLUMN `logo_url`;
+
+-- Ubah nama column `facebookpage_url` di `media` jadi `fbpage_username`
+ALTER TABLE `media`
+    CHANGE `facebookpage_url` `fbpage_username`
+        varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE;
+
+-- Ubah nama column `slogan` jadi `description` dan allow null di `media`
+ALTER TABLE `media`
+    CHANGE `slogan` `description`
+        text collate utf8_unicode_ci;
 
 -- Buat table baru pair_of_candidates
 CREATE TABLE `pair_of_candidates` (
@@ -52,8 +62,8 @@ ALTER TABLE `sentiment`
     REFERENCES candidate(`id`)
     ON DELETE CASCADE;
 
--- Tambah column `score` di table `sentiment`
-ALTER TABLE `sentiment`
+-- Tambah column `score` di table `news_sentiment`
+ALTER TABLE `news_sentiment`
     ADD `score` double NOT NULL;
 
 -- Tambah table `mention`
@@ -70,4 +80,3 @@ CREATE TABLE `mention` (
     UNIQUE (`news_id`, `candidate_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-COMMIT;

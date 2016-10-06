@@ -43,8 +43,8 @@ CREATE TABLE `media` (
     `name` varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE,
     `website_url` varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE,
     `logo_url` varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE,
-    `facebookpage_url` varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE,
-    `slogan` varchar(255) collate utf8_unicode_ci NOT NULL,
+    `fbpage_username` varchar(255) collate utf8_unicode_ci NOT NULL UNIQUE,
+    `description` varchar(255) collate utf8_unicode_ci,
     `inserted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
