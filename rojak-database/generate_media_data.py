@@ -3,13 +3,15 @@ from faker import Factory
 import os
 
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
+ROJAK_DB_PORT = os.getenv('ROJAK_DB_PORT', '3306')
 ROJAK_DB_USER = os.getenv('ROJAK_DB_USER', 'root')
 ROJAK_DB_PASS = os.getenv('ROJAK_DB_PASS', 'rojak')
 ROJAK_DB_NAME = os.getenv('ROJAK_DB_NAME', 'rojak_database')
 
 # Open database connection
-db = mysql.connect(ROJAK_DB_HOST, ROJAK_DB_USER,
-        ROJAK_DB_PASS, ROJAK_DB_NAME)
+db = mysql.connect(host=ROJAK_DB_HOST, port=ROJAK_DB_PORT,
+        user=ROJAK_DB_USER, passwd=ROJAK_DB_PASS,
+        db=ROJAK_DB_NAME)
 
 # Create new db cursor
 cursor = db.cursor()
