@@ -44,3 +44,30 @@ Spesifikasi API dibuat dengan menggunakan [RAML](http://raml.org/). Versi RAML y
 3. Ubah file [`api-spec.raml`](./api-spec.raml)
 4. Jalankan perintah `raml2md api-spec.raml > api-spec.md`
 5. Commit kedua file tersebut.
+
+## Docker Production Build Instruction
+
+Kita menggunakan [Distillery](https://github.com/bitwalker/distillery) untuk membuat OTP release dari app. Metode ini membundle Erlang Run Time System (ERTS) agar hasil kompilasi dapat menjadi executable binary tanpa dependency terhadap Erlang dan Elixir. Lebih jauh dapat dilihat [di issue ini](https://github.com/pyk/rojak/issues/15#issue-181098631).
+
+### Building
+
+Berikut adalah step untuk melakukan build image production:
+
+1. Bump version di file [`mix.exs`](./mix.exs)
+2. Lakukan release version tersebut (misal versi 1.0.0):
+    ```
+    $ ./build-release.sh 1.0.0
+    ```
+3. Perintah tersebut akan menghasilkan sebuah docker image bernama `rojak/rojak-api` dengan tag sesuai version yang siap untuk dijalankan.
+
+### Usage
+
+```
+$ docker run -p [port]:4000 \
+    -e SECRET_KEY_BASE=[lengthy_secret_key_base] \
+    -e DB_USERNAME=[db_username] \
+    -e DB_PASSWORD=[db_password] \
+    -e DB_NAME=[db_name] \
+    -e DB_HOST=[db_host] \
+    rojak/rojak-api:[tag]
+```
