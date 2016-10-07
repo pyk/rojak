@@ -1,6 +1,6 @@
-FROM msaraiva/erlang
+FROM alpine
 
-RUN apk --update add erlang-crypto erlang-sasl && rm -rf /var/cache/apk/*
+RUN apk --update add ncurses-libs && rm -rf /var/cache/apk/*
 
 ENV VERSION 0.0.1
 ENV PORT 4000
