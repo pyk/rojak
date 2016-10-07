@@ -30,7 +30,5 @@ services:
   # links and environment variables.
   builder:
     image: rojakapi_web
-    ports:
-      - "${PORT}:4000"
     volumes:
       - .:/app
