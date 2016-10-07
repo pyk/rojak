@@ -2,7 +2,7 @@ FROM alpine
 
 RUN apk --update add ncurses-libs && rm -rf /var/cache/apk/*
 
-ENV VERSION 0.0.1
+ARG VERSION
 ENV PORT 4000
 ENV APP_NAME rojak_api
 
