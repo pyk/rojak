@@ -13,7 +13,8 @@ if [[ -z $VERSION ]]; then
 fi
 
 # Build a release
-docker-compose run --rm --no-deps -e MIX_ENV=prod builder mix release --env=prod
+docker-compose -f docker-compose.build.yml run --rm --no-deps \
+      -e MIX_ENV=prod builder mix release --env=prod
 
 # Build the docker container
 docker build --build-arg VERSION=$VERSION -t rojak/rojak-api:$VERSION .
