@@ -49,6 +49,8 @@ Spesifikasi API dibuat dengan menggunakan [RAML](http://raml.org/). Versi RAML y
 
 Kita menggunakan [Distillery](https://github.com/bitwalker/distillery) untuk membuat OTP release dari app. Metode ini membundle Erlang Run Time System (ERTS) agar hasil kompilasi dapat menjadi executable binary tanpa dependency terhadap Erlang dan Elixir. Lebih jauh dapat dilihat [di issue ini](https://github.com/pyk/rojak/issues/15#issue-181098631).
 
+Pastikan kita sudah memiliki image `rojakapi_web` dari hasil build docker-compose (dapat dicek dengan perintah `docker images`). Jika belum ada, jalankan perintah `docker-compose build` sebelum melanjutkan ke bagian selanjutnya.
+
 ### Building
 
 Berikut adalah step untuk melakukan build image production:
