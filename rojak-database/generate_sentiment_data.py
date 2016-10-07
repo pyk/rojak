@@ -23,7 +23,7 @@ VALUES ('{}', '{}');
 # Get list of the candidates
 candidates = []
 sql_get_candidates = '''
-SELECT id,name FROM candidate;
+SELECT id,full_name FROM candidate;
 '''
 
 try:
