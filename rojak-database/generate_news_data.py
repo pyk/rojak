@@ -5,7 +5,7 @@ import os
 import sys
 
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
-ROJAK_DB_PORT = os.getenv('ROJAK_DB_PORT', '3306')
+ROJAK_DB_PORT = int(os.getenv('ROJAK_DB_PORT', 3306))
 ROJAK_DB_USER = os.getenv('ROJAK_DB_USER', 'root')
 ROJAK_DB_PASS = os.getenv('ROJAK_DB_PASS', 'rojak')
 ROJAK_DB_NAME = os.getenv('ROJAK_DB_NAME', 'rojak_database')
