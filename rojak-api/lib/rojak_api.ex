@@ -1,6 +1,11 @@
 defmodule RojakAPI do
   use Application
 
+  # Get version from mix config
+  # Usage: RojakAPI.version
+  @version Mix.Project.config[:version]
+  def version, do: @version
+
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
