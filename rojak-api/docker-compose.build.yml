@@ -1,0 +1,9 @@
+version: '2'
+services:
+  # Container for building releases. Basically
+  # we just reuse the web image but without
+  # links and environment variables.
+  builder:
+    image: rojakapi_web
+    volumes:
+      - .:/app
