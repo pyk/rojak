@@ -9,7 +9,7 @@ defmodule RojakAPI.Media do
     field :description, :string
 
     # Relationship
-    has_many :news, News
+    has_many :news, RojakAPI.News
 
     timestamps()
   end

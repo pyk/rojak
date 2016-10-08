@@ -1,16 +1,12 @@
 defmodule RojakAPI.NewsSentiment do
   use RojakAPI.Web, :model
 
-  alias RojakAPI.News
-  alias RojakAPI.Sentiment
-
-  alias RojakAPI.Sentiment
   schema "news_sentiment" do
     field :score, :float
 
     # Relationship
-    belongs_to :news, News
-    belongs_to :sentiment, Sentiment
+    belongs_to :news, RojakAPI.News
+    belongs_to :sentiment, RojakAPI.Sentiment
 
     timestamps()
   end
