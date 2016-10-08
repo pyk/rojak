@@ -67,7 +67,7 @@ except mysql.Error as err:
 # Generate random data for the news
 MAX_NEWS=100
 sql_insert_news = '''
-INSERT INTO `news`(`media_id`, `title`, `content`, `url`)
+INSERT INTO `news`(`media_id`, `title`, `raw_content`, `url`)
 VALUES ('{}', '{}', '{}', '{}');
 '''
 sql_insert_sentiment = '''
