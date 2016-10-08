@@ -18,8 +18,8 @@ cursor = db.cursor()
 
 sql = '''
 INSERT INTO `media`(`name`, `website_url`, `logo_url`, `fbpage_username`,
-    `description`)
-VALUES ('{}', '{}', '{}', '{}', '{}');
+    `twitter_username`, `instagram_username`)
+VALUES ('{}', '{}', '{}', '{}', '{}', '{}');
 '''
 
 MAX_MEDIA=100
@@ -32,11 +32,12 @@ for i in xrange(MAX_MEDIA):
     cat_img = 'http://lorempixel.com/500/500/cats/{}'.format(website_name)
     logo_url = cat_img
     fbpage_username = website_name
-    description = fake.text()
+    twitter_username = website_name
+    instagram_username = website_name
 
     # Parse the SQL command
     insert_sql = sql.format(media_name, website_url, logo_url,
-        fbpage_username, description)
+        fbpage_username, twitter_username, instagram_username)
 
     # insert to the database
     try:
@@ -48,5 +49,4 @@ for i in xrange(MAX_MEDIA):
 
 # Close the DB connection
 db.close()
-
 
