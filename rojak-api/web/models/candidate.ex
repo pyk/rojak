@@ -13,6 +13,10 @@ defmodule RojakAPI.Candidate do
     field :instagram_username, :string
     field :twitter_username, :string
 
+    # Relationship
+    has_many :sentiments, Sentiment
+    many_to_many :mentioned_in, News, join_through: "mention"
+
     timestamps()
   end
 
