@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Ahok Djarot",
     "cagub_id": 1,
     "cawagub_id": 2,
@@ -14,6 +15,7 @@
     "updated_at": 1341533193
   },
   {
+    "id": 2,
     "name": "Anies Sandi",
     "cagub_id": 3,
     "cawagub_id": 4,
