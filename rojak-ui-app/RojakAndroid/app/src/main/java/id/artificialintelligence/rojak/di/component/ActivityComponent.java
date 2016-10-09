@@ -1,7 +1,7 @@
-package com.rojak.rojakandroid.di.component;
+package id.artificialintelligence.rojak.di.component;
 
-import com.rojak.rojakandroid.RojakBaseApplication;
-import com.rojak.rojakandroid.di.ActivityScope;
+import id.artificialintelligence.rojak.RojakBaseApplication;
+import id.artificialintelligence.rojak.di.ActivityScope;
 
 import dagger.Component;
 

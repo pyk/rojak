@@ -1,14 +1,14 @@
-package com.rojak.rojakandroid;
+package id.artificialintelligence.rojak;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.support.annotation.VisibleForTesting;
 
-import com.rojak.rojakandroid.di.component.ApplicationComponent;
-import com.rojak.rojakandroid.di.component.DaggerApplicationComponent;
-import com.rojak.rojakandroid.di.module.ApplicationModule;
-import com.rojak.rojakandroid.events.AuthenticationErrorEvent;
+import id.artificialintelligence.rojak.di.component.ApplicationComponent;
+import id.artificialintelligence.rojak.di.component.DaggerApplicationComponent;
+import id.artificialintelligence.rojak.di.module.ApplicationModule;
+import id.artificialintelligence.rojak.events.AuthenticationErrorEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

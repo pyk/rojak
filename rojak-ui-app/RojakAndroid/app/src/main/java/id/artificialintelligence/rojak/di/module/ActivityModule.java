@@ -1,4 +1,4 @@
-package com.rojak.rojakandroid.di.module;
+package id.artificialintelligence.rojak.di.module;
 
 import android.app.Activity;
 import android.content.Context;

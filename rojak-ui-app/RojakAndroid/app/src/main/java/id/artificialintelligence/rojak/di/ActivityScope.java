@@ -1,4 +1,4 @@
-package com.rojak.rojakandroid.di;
+package id.artificialintelligence.rojak.di;
 
 
 import java.lang.annotation.Retention;

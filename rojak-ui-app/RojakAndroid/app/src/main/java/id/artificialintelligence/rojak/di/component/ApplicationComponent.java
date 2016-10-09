@@ -1,10 +1,10 @@
-package com.rojak.rojakandroid.di.component;
+package id.artificialintelligence.rojak.di.component;
 
-import com.rojak.rojakandroid.RojakBaseApplication;
-import com.rojak.rojakandroid.data.local.PreferencesHelper;
-import com.rojak.rojakandroid.data.remote.APIService;
-import com.rojak.rojakandroid.data.remote.UnauthorisedInterceptor;
-import com.rojak.rojakandroid.di.module.ApplicationModule;
+import id.artificialintelligence.rojak.RojakBaseApplication;
+import id.artificialintelligence.rojak.data.local.PreferencesHelper;
+import id.artificialintelligence.rojak.data.remote.APIService;
+import id.artificialintelligence.rojak.data.remote.UnauthorisedInterceptor;
+import id.artificialintelligence.rojak.di.module.ApplicationModule;
 
 import org.greenrobot.eventbus.EventBus;
 

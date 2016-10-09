@@ -1,9 +1,9 @@
-package com.rojak.rojakandroid.data.remote;
+package id.artificialintelligence.rojak.data.remote;
 
 import android.content.Context;
 
-import com.rojak.rojakandroid.BuildConfig;
-import com.rojak.rojakandroid.data.local.PreferencesHelper;
+import id.artificialintelligence.rojak.BuildConfig;
+import id.artificialintelligence.rojak.data.local.PreferencesHelper;
 
 import java.util.concurrent.TimeUnit;
 

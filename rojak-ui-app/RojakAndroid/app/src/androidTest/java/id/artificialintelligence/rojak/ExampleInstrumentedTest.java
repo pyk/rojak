@@ -1,4 +1,4 @@
-package com.rojak.rojakandroid;
+package id.artificialintelligence.rojak;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

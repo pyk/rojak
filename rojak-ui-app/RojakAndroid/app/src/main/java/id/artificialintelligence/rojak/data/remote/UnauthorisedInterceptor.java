@@ -1,11 +1,11 @@
-package com.rojak.rojakandroid.data.remote;
+package id.artificialintelligence.rojak.data.remote;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.rojak.rojakandroid.RojakBaseApplication;
-import com.rojak.rojakandroid.events.AuthenticationErrorEvent;
+import id.artificialintelligence.rojak.RojakBaseApplication;
+import id.artificialintelligence.rojak.events.AuthenticationErrorEvent;
 
 import org.greenrobot.eventbus.EventBus;
 

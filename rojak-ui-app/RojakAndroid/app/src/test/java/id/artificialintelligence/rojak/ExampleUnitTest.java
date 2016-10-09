@@ -1,4 +1,4 @@
-package com.rojak.rojakandroid;
+package id.artificialintelligence.rojak;
 
 import org.junit.Test;
 

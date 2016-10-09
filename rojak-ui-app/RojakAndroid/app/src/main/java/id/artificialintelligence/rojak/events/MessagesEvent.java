@@ -1,4 +1,4 @@
-package com.rojak.rojakandroid.events;
+package id.artificialintelligence.rojak.events;
 
 import android.support.annotation.Nullable;
 

@@ -1,4 +1,4 @@
-package com.rojak.rojakandroid.data.local;
+package id.artificialintelligence.rojak.data.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
