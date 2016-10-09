@@ -15,7 +15,6 @@ class SaveToMySQL(object):
     '''
 
     def process_item(self, item, spider):
-        print '==DEBUG: test save to mysql pipeline'
         url = item.get('url')
         title = item.get('title')
         author_name = item.get('author_name')
