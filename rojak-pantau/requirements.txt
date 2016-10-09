@@ -18,9 +18,11 @@ PyDispatcher==2.0.5
 pyOpenSSL==16.1.0
 python-dateutil==2.5.3
 queuelib==1.4.2
+requests==2.11.1
 Scrapy==1.2.0
 service-identity==16.0.0
 six==1.10.0
+slacker==0.9.25
 Twisted==16.4.1
 w3lib==1.15.0
 zope.interface==4.3.2
