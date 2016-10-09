@@ -7,8 +7,11 @@
 
 import scrapy
 
+class News(scrapy.Item):
+    url = scrapy.Field()
+    title = scrapy.Field()
+    author_name = scrapy.Field()
+    raw_content = scrapy.Field()
+    published_at = scrapy.Field()
+    media_id = scrapy.Field()
 
-class RojakPantauItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
