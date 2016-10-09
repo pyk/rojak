@@ -37,55 +37,11 @@ resourceTypes:
 /pairings:
   type:
     collection:
-      exampleCollection: |
-        [
-          {
-            "name": "Ahok Djarot",
-            "cagub_id": 1,
-            "cawagub_id": 2,
-            "website_url": "http://ahokdjarot.id",
-            "logo_url": "http://ahokdjarot.id/themes/custom/jakartabaru/logo.png",
-            "fbpage_username": "AhokDjarot",
-            "twitter_username": "AhokDjarot",
-            "instagram_username": "ahokdjarot",
-            "slogan": "TETAP AHOK-DJAROT!",
-            "description": "Jangan biarkan Jakarta Baru berhenti sampai disini! Mari Bersama-sama Dukung Ahok & Djarot sebagai Cagub & Cawagub DKI Jakarta 2017.",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193
-          },
-          {
-            "name": "Anies Sandi",
-            "cagub_id": 3,
-            "cawagub_id": 4,
-            "website_url": "",
-            "logo_url": "",
-            "fbpage_username": "",
-            "twitter_username": "",
-            "instagram_username": "",
-            "slogan": "",
-            "description": "",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193
-          }
-        ]
+      exampleCollection: !include examples/pairings-list.sample
   /{pairingId}:
     type:
       collection-item:
-        exampleItem: |
-          {
-            "name": "Agus Sylvi",
-            "cagub_id": 5,
-            "cawagub_id": 6,
-            "website_url": "http://relawanagussylvi.com",
-            "logo_url": "https://pbs.twimg.com/profile_images/783564904460460032/VgVxZX-l.jpg",
-            "fbpage_username": "RelawanAgusSylvi",
-            "twitter_username": "RelAgusSylvi",
-            "instagram_username": "",
-            "slogan": "Jakarta Untuk Rakyat",
-            "description": "",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193
-          }
+        exampleItem: !include examples/pairing.sample
     /news:
       get:
         description: Get list of news mentioning both or either of the candidates with their sentiments.
@@ -105,56 +61,11 @@ resourceTypes:
 /candidates:
   type:
     collection:
-      exampleCollection: |
-        [
-          {
-            "id": 1,
-            "full_name": "Basuki Tjahaja Purnama",
-            "alias_name": "Ahok",
-            "place_of_birth": "Manggar, Belitung Timur",
-            "date_of_birth": "1966-06-29",
-            "religion": "Kristen Protestan",
-            "website_url": "http://ahok.org",
-            "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
-            "fbpage_username": "AhokBTP",
-            "twitter_username": "basuki_btp",
-            "instagram_username": "basukibtp",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193
-          },
-          {
-            "full_name": "Anies Baswedan",
-            "alias_name": "Anies",
-            "place_of_birth": "Kuningan",
-            "date_of_birth": "1969-05-07",
-            "religion": "Islam",
-            "website_url": "http://aniesbaswedan.com"
-            "photo_url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Anies-baswedan-Dec-2010.jpg",
-            "fbpage_username": "aniesbaswedan",
-            "twitter_username": "aniesbaswedan",
-            "instagram_username": "aniesbaswedan",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193
-          }
-        ]
+      exampleCollection: !include examples/candidates-list.sample
   /{candidateId}:
     type:
       collection-item:
-        exampleItem: |
-          {
-            "full_name": "Agus Harimurti Yudhoyono",
-            "alias_name": "Agus Yudhoyono",
-            "place_of_birth": "Bandung, Jawa Barat",
-            "date_of_birth": "1978-08-10",
-            "religion": "Islam",
-            "website_url": ""
-            "photo_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Mayor_Infanteri_Agus_Harimurti_Yudhoyono%2C_M.Sc.%2C_MPA.png",
-            "fbpage_username": "",
-            "twitter_username": "agusyudhoyono",
-            "instagram_username": "agusyudhoyono",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193
-          }
+        exampleItem: !include examples/candidate.sample
     /news:
       get:
         description: Get list of news mentioning this candidate.
@@ -175,40 +86,11 @@ resourceTypes:
 /news:
   type:
     collection:
-      exampleCollection: |
-        [
-          {
-            "id": 1,
-            "mediaId": 3,
-            "title": "Kunjungan Presiden Jokowi ke Depok",
-            "url": "https://rojaktv.com/jokowi-jalan-jalan-ke-depok",
-            "author_name": "Anto",
-            "insertedAt": 1341533193,
-            "updatedAt": 1341533193
-          },
-          {
-            "id": 1,
-            "mediaId": 3,
-            "title": "Budi Berpasangan dengan Ani",
-            "url": "https://rojaktv.com/budi-berpasangan-ani",
-            "author_name": "Anto",
-            "insertedAt": 1341533201,
-            "updatedAt": 1341533201
-          }
-        ]
+      exampleCollection: !include examples/news-list.sample
   /{newsId}:
     type:
       collection-item:
-        exampleItem: |
-          {
-            "id": 1,
-            "mediaId": 3,
-            "title": "Kunjungan Presiden Jokowi ke Depok",
-            "url": "https://rojaktv.com/jokowi-jalan-jalan-ke-depok",
-            "author_name": "Anto",
-            "insertedAt": 1341533193,
-            "updatedAt": 1341533193
-          }
+        exampleItem: !include examples/news.sample
     /candidates:
       get:
         description: Get list of candidates mentioned in this article.
@@ -219,33 +101,11 @@ resourceTypes:
 /media:
   type:
     collection:
-      exampleCollection: |
-        [
-          {
-            "name": "detikcom",
-            "website_url": "http://detik.com",
-            "logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
-            "fbpage_username": "detikcom",
-            "twitter_username": "detikcom",
-            "instagram_username": "detikcom",
-            "insertedAt": 1341533193,
-            "updatedAt": 1341533193
-          }
-        ]
+      exampleCollection: !include examples/media-list.sample
   /{mediaId}:
     type:
       collection-item:
-        exampleItem: |
-          {
-            "name": "detikcom",
-            "website_url": "http://detik.com",
-            "logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
-            "fbpage_username": "detikcom",
-            "twitter_username": "detikcom",
-            "instagram_username": "detikcom",
-            "insertedAt": 1341533193,
-            "updatedAt": 1341533193
-          }
+        exampleItem: !include examples/media.sample
     /news:
       get:
         description: Get list of news articles of this media.
