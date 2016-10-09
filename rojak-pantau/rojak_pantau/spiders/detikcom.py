@@ -54,9 +54,11 @@ class DetikcomSpider(scrapy.Spider):
             raise NotConfigured('Unable to fetch media data: %s' % err)
 
         if ROJAK_SLACK_TOKEN != '':
+            self.is_slack = True
             self.slack = Slacker(ROJAK_SLACK_TOKEN)
         else:
-            raise NotConfigured('ROJAK_SLACK_TOKEN is not set')
+            self.is_slack = False
+            self.logger.info('Post error to #rojak-pantau-errors is disabled')
 
     # Capture the signal spider_opened and spider_closed
     # https://doc.scrapy.org/en/latest/topics/signals.html
@@ -91,16 +93,18 @@ class DetikcomSpider(scrapy.Spider):
                 self.logger.error('Unable to update last_scraped_at: %s', err)
                 self.db.rollback()
                 self.db.close()
-                error_msg = '{}: Unable to update last_scraped_at: {}'.format(
+                if self.is_slack:
+                    error_msg = '{}: Unable to update last_scraped_at: {}'.format(
                         spider.name, err)
-                self.slack.chat.post_message('#rojak-pantau-errors', error_msg,
+                    self.slack.chat.post_message('#rojak-pantau-errors', error_msg,
                         as_user=True)
         else:
-            # Send error to slack
-            error_msg = '{}: Spider fail because: {}'.format(
+            if self.is_slack:
+                # Send error to slack
+                error_msg = '{}: Spider fail because: {}'.format(
                     self.name, reason)
-            self.slack.chat.post_message('#rojak-pantau-errors', error_msg,
-                        as_user=True)
+                self.slack.chat.post_message('#rojak-pantau-errors',
+                        error_msg, as_user=True)
 
     def parse(self, response):
         self.logger.info('parse: %s' % response)
