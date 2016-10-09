@@ -37,14 +37,6 @@ Dengan perintah ini, API dapat diakses pada [docker host]:5000 dan MySQL pada [d
 
 Spesifikasi API dapat dilihat [di sini](./spec/api-spec.md) (WIP).
 
-Spesifikasi API dibuat dengan menggunakan [RAML](http://raml.org/). Versi RAML yang digunakan adalah RAML 0.8. File [`api-spec.md`](./api-spec.md) di-generate dengan otomatis menggunakan perkakas [`raml2md`](https://github.com/raml2html/raml2md). Untuk mengubah spesifikasi:
-
-1. Pastikan sudah terinstall Node.js
-2. Jalankan `npm i -g raml2md`
-3. Ubah file [`api-spec.raml`](./api-spec.raml)
-4. Jalankan perintah `raml2md api-spec.raml > api-spec.md`
-5. Commit kedua file tersebut.
-
 ## Docker Production Build Instruction
 
 Kita menggunakan [Distillery](https://github.com/bitwalker/distillery) untuk membuat OTP release dari app. Metode ini membundle Erlang Run Time System (ERTS) agar hasil kompilasi dapat menjadi executable binary tanpa dependency terhadap Erlang dan Elixir. Lebih jauh dapat dilihat [di issue ini](https://github.com/pyk/rojak/issues/15#issue-181098631).
