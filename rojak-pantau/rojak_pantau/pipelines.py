@@ -29,8 +29,8 @@ class SaveToMySQL(object):
         except mysql.Error as err:
             spider.db.rollback()
             if self.is_slack:
-                error_msg = '{}: Unable to save news: {}'.format(
-                    spider.name, err)
+                error_msg = '{}: Unable to save news: {}\n```\n{}\n```\n'.format(
+                    spider.name, url, err)
                 spider.slack.chat.post_message('#rojak-pantau-errors', error_msg,
                     as_user=True)
 
