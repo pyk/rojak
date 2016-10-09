@@ -3,49 +3,99 @@ https://api.rojak.com/
 
 ---
 
+## /pairings
+Collection of available pairings.
+
+### /pairings
+
+* **get**: Get a list of pairings.
+
+### /pairings/{pairingId}
+Entity representing a pairing.
+
+* **get**: Get the pairing
+with pairingId =
+{pairingId}.
+
+### /pairings/{pairingId}/news
+
+* **get**: Get list of news mentioning both or either of the candidates with their sentiments.
+
+### /pairings/{pairingId}/sentiments
+
+* **get**: Get the overall sentiments for these pairing.
+
+### /pairings/{pairingId}/sentiments/media
+
+* **get**: Get a breakdown of media with their sentiment for these candidates.
+
+### /pairings/{pairingId}/sentiments/media/{mediaId}
+
+* **get**: Get the sentiment by this media for these candidates.
+
+### /pairings/{pairingId}/sentiments/media/{mediaId}/news
+
+* **get**: Get a breakdown of sentiments from the news of this media.
+
 ## /candidates
-List of candidates
+Collection of available candidates.
 
 ### /candidates
 
-* **get**: Get list of candidates
+* **get**: Get a list of candidates.
 
 ### /candidates/{candidateId}
+Entity representing a candidate.
 
-* **get**: Get specific candidate information based on their id
+* **get**: Get the candidate
+with candidateId =
+{candidateId}.
 
 ### /candidates/{candidateId}/news
 
-* **get**: Get list of news for this candidate
+* **get**: Get list of news mentioning this candidate.
 
 ## /news
-List of news on rojak api
+Collection of available news.
 
 ### /news
 
-* **get**: 
+* **get**: Get a list of news.
 
 ### /news/{newsId}
+Entity representing a news.
 
-* **get**: Retrieve a specific news
+* **get**: Get the news
+with newsId =
+{newsId}.
 
-### /news/{newsId}/mentions
+### /news/{newsId}/candidates
 
-* **get**: 
+* **get**: Get list of candidates mentioned in this article.
 
-### /news/{newsId}/newsSentiments
+### /news/{newsId}/sentiments
 
-* **get**: 
+* **get**: Get the sentiments score of this article for each candidate.
 
 ## /media
+Collection of available media.
 
 ### /media
 
-* **get**: 
+* **get**: Get a list of media.
 
-## /sentiments
+### /media/{mediaId}
+Entity representing a media.
 
-### /sentiments
+* **get**: Get the media
+with mediaId =
+{mediaId}.
 
-* **get**: 
+### /media/{mediaId}/news
+
+* **get**: Get list of news articles of this media.
+
+### /media/{mediaId}/sentiments
+
+* **get**: Get the sentiments score of this media for each candidate.
 
