@@ -55,6 +55,22 @@ with candidateId =
 
 * **get**: Get list of news mentioning this candidate.
 
+### /candidates/{candidateId}/sentiments
+
+* **get**: Get the overall sentiments for this candidate.
+
+### /candidates/{candidateId}/sentiments/media
+
+* **get**: Get a breakdown of media with their sentiment for this candidate.
+
+### /candidates/{candidateId}/sentiments/media/{mediaId}
+
+* **get**: Get the sentiment by this media for this candidate.
+
+### /candidates/{candidateId}/sentiments/media/{mediaId}/news
+
+* **get**: Get a breakdown of sentiments from the news of this media.
+
 ## /news
 Collection of available news.
 
