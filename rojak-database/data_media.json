@@ -7,6 +7,110 @@
         "fbpage_username": "detikcom",
         "twitter_username": "detikcom",
         "instagram_username": "detikcom"
+    },
+    {
+        "name": "kompas",
+        "website_url": "http://www.kompas.com",
+        "logo_url": "http://assets.kompas.com/data/2016/wp/images/logokompascom.png",
+        "fbpage_username": "KOMPAScom",
+        "twitter_username": "kompascom",
+        "instagram_username": "kompascom"
+    },
+    {
+        "name": "viva",
+        "website_url": "http://www.viva.co.id",
+        "logo_url": "http://cdn-media.viva.id/appaux/portal/img/element/logo.png",
+        "fbpage_username": "vivacoid",
+        "twitter_username": "vivacoid",
+        "instagram_username": "vivacoid"
+    },
+    {
+        "name": "metrotvnews",
+        "website_url": "http://www.metrotvnews.com",
+        "logo_url": "http://va.metrotvnews.com/mobile/m/2015/default/images/main/logo.png",
+        "fbpage_username": "metrotv",
+        "twitter_username": "Metro_TV",
+        "instagram_username": "metrotv"
+    },
+    {
+        "name": "beritasatu",
+        "website_url": "http://www.beritasatu.com",
+        "logo_url": "http://img1.beritasatu.com/assets/cloud/layoutbiru/logo-large.png",
+        "fbpage_username": "beritasatu",
+        "twitter_username": "Beritasatu",
+        "instagram_username": "beritasatu"
+    },
+    {
+        "name": "cnnindonesia",
+        "website_url": "http://www.cnnindonesia.com",
+        "logo_url": "http://www.cnnindonesia.com/assets/image/logo_new.png",
+        "fbpage_username": "CNNindonesia",
+        "twitter_username": "cnnindonesia",
+        "instagram_username": "cnnindonesia"
+    },
+    {
+        "name": "bbcindonesia",
+        "website_url": "http://www.bbc.com/indonesia",
+        "logo_url": "http://static.bbci.co.uk/frameworks/barlesque/3.20.5/orb/4/img/bbc-blocks-dark.png",
+        "fbpage_username": "BBC-Indonesia",
+        "twitter_username": "bbcindonesia",
+        "instagram_username": "bbcindonesia"
+    },
+    {
+        "name": "tempo.co",
+        "website_url": "https://www.tempo.co",
+        "logo_url": "http://www.tempo.co/assets/teco/images/logo-footer2.png",
+        "fbpage_username": "TempoMedia",
+        "twitter_username": "tempodotco",
+        "instagram_username": "tempodotco"
+    },
+    {
+        "name": "okezone",
+        "website_url": "http://www.okezone.com",
+        "logo_url": "https://pbs.twimg.com/profile_images/755338029816881152/EYL7v8YN.jpg",
+        "fbpage_username": "OkezoneCom",
+        "twitter_username": "okezonenews",
+        "instagram_username": "okezonecom"
+    },
+    {
+        "name": "merdeka.com",
+        "website_url": "https://www.merdeka.com",
+        "logo_url": "https://cdns.klimg.com/merdeka.com/media/i/a/logo-merdeka.png",
+        "fbpage_username": "MDKcom",
+        "twitter_username": "merdekadotcom",
+        "instagram_username": "merdekadotcom"
+    },
+    {
+        "name": "liputan6",
+        "website_url": "http://www.liputan6.com",
+        "logo_url": "http://cdn0-a.production.liputan6.static6.com/logos/188/original/036464100_1471848255-logo_liputan6_web.png",
+        "fbpage_username": "liputan6online",
+        "twitter_username": "liputan6dotcom",
+        "instagram_username": "liputan6"
+    },
+    {
+        "name": "jawapos",
+        "website_url": "http://www.jawapos.com",
+        "logo_url": "http://www.jawapos.com/assets/images/general/logoicojp.jpg",
+        "fbpage_username": "jawaposonline",
+        "twitter_username": "jawapos",
+        "instagram_username": "jawapos"
+    },
+    {
+        "name": "sindonews",
+        "website_url": "http://www.sindonews.com",
+        "logo_url": "https://pbs-0.twimg.com/profile_images/775940504483602432/q3SNwRJk.jpg",
+        "fbpage_username": "sindonews",
+        "twitter_username": "SINDOnews",
+        "instagram_username": ""
+    },
+    {
+        "name": "tribunnews",
+        "website_url": "http://www.tribunnews.com",
+        "logo_url": "http://cdn-1.tstatic.net/img/logo/tribun/svg/tribunnews.svg",
+        "fbpage_username": "tribunnews",
+        "twitter_username": "tribunnews",
+        "instagram_username": "tribunnews"
     }
     ]
 }
