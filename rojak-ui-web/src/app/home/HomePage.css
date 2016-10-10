@@ -1,0 +1,35 @@
+.homepageWrapper {
+  text-align: center;
+}
+
+.halo {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 2;
+}
+
+.rojakLogo {
+  composes: bg-white from "../../assets/css/colors.css";
+  width: 200px;
+  height: 200px;
+}
+
+.cardWrapper {
+  composes: bg-white from "../../assets/css/colors.css";
+  padding: 20px;
+  margin: 20px 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  composes: bg-white from "../../assets/css/colors.css";
+  padding: 20px;
+}
+
+.learnMoreButton {
+  composes: bg-transparent from "../../assets/css/colors.css";
+  color: rgb(51, 51, 51);
+  border: 2px solid rgb(51, 51, 51);
+  border-radius: 0;
+}

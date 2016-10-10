@@ -1,0 +1,14 @@
+.navbar {
+  composes: bg-transparent from "../../assets/css/colors.css";
+  border: 0;
+  padding: 10px;
+}
+
+.homeLink {
+  composes: bg-transparent from "../../assets/css/colors.css";
+  border: 0 !important; /* Need to use important */
+}
+
+.logo {
+  height: 50px;
+}
