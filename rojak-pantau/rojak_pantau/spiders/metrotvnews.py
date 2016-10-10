@@ -2,7 +2,7 @@
 import os
 import MySQLdb as mysql
 from datetime import datetime
-from scrapy import Spider, signals
+from scrapy import Spider, Request, signals
 from scrapy.exceptions import CloseSpider, NotConfigured
 from scrapy.loader import ItemLoader
 from slacker import Slacker
@@ -29,7 +29,7 @@ class MetrotvnewsSpider(Spider):
     name = "metrotvnews"
     allowed_domains = ["metrotvnews.com"]
     start_urls = (
-        'http://www.metrotvnews.com/topic/8602',
+        'http://www.metrotvnews.com/topic/8602/0',
     )
 
     # Initialize database connection then retrieve media ID and
@@ -94,8 +94,54 @@ class MetrotvnewsSpider(Spider):
                 self.db.rollback()
                 self.db.close()
 
-                if self.is_slack:
-                    error_msg = '{}: Unable to update last_scraped_at: {}'.format(
-                        spider.name, err)
-                    self.slack.chat.post_message('#rojak-pantau-errors',
-                        error_msg, as_user=True)
+        else:
+            if self.is_slack:
+                error_msg = '{}: Unable to update last_scraped_at: {}'.format(
+                    spider.name, err)
+                self.slack.chat.post_message('#rojak-pantau-errors',
+                    error_msg, as_user=True)
+
+    def parse(self, response):
+        self.logger.info('parse: {}'.format(response))
+        is_scraped = False
+
+        # Collect list of news from current page
+        for i, article in enumerate(
+                response.css('div.topic') + response.css('li:not(.last) > div.grid')):
+            if i == 0:
+                url = article.css('h1 > a::attr(href)').extract()[0]
+            else:
+                url = article.css('h2 > a::attr(href)').extract()[0]
+
+            # Example: Minggu, 09 Oct 2016 15:14
+            info = article.css('div.reg::text').extract()[1].strip()
+
+            # Parse date information
+            try:
+                # Example: 09 Oct 2016 15:14
+                info_time = info.split(',')[1].strip()
+                self.logger.info('info_time: {}'.format(info_time))
+                published_at = datetime.strptime(info_time,
+                    '%d %b %Y %H:%M')
+            except Exception as e:
+                raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+            if self.media['last_scraped_at'] >= published_at:
+                is_scraped = True
+                break
+            # For each url we create new scrapy request
+            yield Request(url, callback=self.parse_news)
+
+        if is_scraped:
+            self.logger.info('Media have no update')
+            return
+
+        # Collect news on next page
+        if response.css('div.bu.fr > a'):
+            next_page = response.css('div.bu.fr > a::attr(href)')[0].extract()
+            next_page_url = response.urljoin(next_page)
+            yield Request(next_page_url, callback=self.parse)
+
+    # Collect news item
+    def parse_news(self, response):
+        pass
