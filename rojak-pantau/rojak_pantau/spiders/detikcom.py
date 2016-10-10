@@ -24,8 +24,6 @@ sql_update_media = '''
 UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
 '''
 
-# TODO: understanding di scheduler works not only once
-# TODO: save state last_scraped_at
 class DetikcomSpider(scrapy.Spider):
     name = "detikcom"
     allowed_domains = ["detik.com"]
@@ -159,7 +157,7 @@ class DetikcomSpider(scrapy.Spider):
         loader.add_value('title', title)
         author_name = response.css('div.author > strong::text').extract()[0]
         loader.add_value('author_name', author_name)
-        raw_content = response.css('article > div.text_detail::text').extract()
+        raw_content = response.css('article > div.text_detail').extract()[0]
         raw_content = ' '.join(raw_content)
         loader.add_value('raw_content', raw_content)
 
