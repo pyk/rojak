@@ -10,6 +10,15 @@ antara lain:
 3. Lengkapnya dokumentasi
 
 ## Setup
+Pastikan kamu sudah mensetup instance MySQL lokal lalu mempopulate database
+nya:
+
+    cd rojak-database
+    python insert_candidate_data.py
+    python insert_media_data.py
+
+
+## Jalanin pemantau
 
     sh install_dependencies.sh
     scrapy crawl detikcom # untuk jalanin rojak-pantau-detik
@@ -21,6 +30,11 @@ lalu mengubah nama file dan class sesuai nama media.
 
 Lalu tinggal memodifikasi `name`, `start_urls`, method `parse` dan
 method `parse_news`
+
+## Catatan untuk untuk membuat spider baru
+
+* `raw_content` harus berisi raw HTML bukan raw plain text. Karena ini kita
+gunakan untuk proses selanjutnya. (Contoh: extract first paragraph)
 
 ## Resources
 
