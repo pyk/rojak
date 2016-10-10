@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-import scrapy
-import MySQLdb as MySQLdb
 import os
+import MySQLdb as mysql
 from datetime import datetime
+from scrapy import Spider, signals
 from scrapy.exceptions import CloseSpider, NotConfigured
-from scrapy import signals
 from scrapy.loader import ItemLoader
-from rojak_pantau.items import News
 from slacker import Slacker
+
+from rojak_pantau.items import News
 
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
 ROJAK_DB_PORT = int(os.getenv('ROJAK_DB_PORT', 3306))
@@ -17,15 +17,15 @@ ROJAK_DB_NAME = os.getenv('ROJAK_DB_NAME', 'rojak_database')
 ROJAK_SLACK_TOKEN = os.getenv('ROJAK_SLACK_TOKEN', '')
 
 sql_get_media = '''
-SELECT id,last_scraped_at FROM media WHERE name={};
+SELECT id,last_scraped_at FROM media WHERE name=%s;
 '''
 
 sql_update_media = '''
-UPDATE `media` SET last_scraped_at={} WHERE name={};
+UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
 '''
 
 
-class MetrotvnewsSpider(scrapy.Spider):
+class MetrotvnewsSpider(Spider):
     name = "metrotvnews"
     allowed_domains = ["metrotvnews.com"]
     start_urls = (
@@ -42,15 +42,15 @@ class MetrotvnewsSpider(scrapy.Spider):
 
         self.media = {}
         try:
-            # Get media informatino from the database
+            # Get media information from the database
             self.logger.info('Fetching media information')
             self.cursor.execute(sql_get_media, [self.name])
             row = self.cursor.fetchone()
             self.media['id'] = row[0]
             self.media['last_scraped_at'] = row[1]
         except mysql.Error as err:
-            self.logger.error('Unable to fetch media data: {}', err)
-            raise NotConfigured('Unable to fetch media data: {}', err)
+            self.logger.error('Unable to fetch media data: {}'.format(err))
+            raise NotConfigured('Unable to fetch media data: {}'.format(err))
 
         if ROJAK_SLACK_TOKEN != '':
             self.is_slack = True
@@ -59,4 +59,43 @@ class MetrotvnewsSpider(scrapy.Spider):
             self.is_slack = False
             self.logger.info('Post error to #rojak-pantau-errors is disabled')
 
-    
+    # Capture the signal spider_opened and spider_closed
+    # https://doc.scrapy.org/en/latest/topics/signals.html
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        spider = super(MetrotvnewsSpider, cls).from_crawler(crawler,
+                *args, **kwargs)
+        crawler.signals.connect(spider.spider_opened,
+                signal=signals.spider_opened)
+        crawler.signals.connect(spider.spider_closed,
+                signal=signals.spider_closed)
+        return spider
+
+    def spider_opened(self, spider):
+        # Using UTF-8 Encoding
+        self.db.set_character_set('utf8')
+        self.cursor.execute('SET NAMES utf8;')
+        self.cursor.execute('SET CHARACTER SET utf8;')
+        self.cursor.execute('SET character_set_connection=utf8;')
+
+    def spider_closed(self, spider, reason):
+        spider.logger.info('Spider closed: {} {}'.format(spider.name, reason))
+
+        # update last_scraped_at if spider finished without error
+        if reason == 'finished':
+            try:
+                self.logger.info('Updating media last_scraped_at information')
+                self.cursor.execute(sql_update_media, [datetime.now(),
+                    self.name])
+                self.db.commit()
+                self.db.close()
+            except mysql.Error as err:
+                self.logger.error('Unable to update last_scraped_at: {}'.format(err))
+                self.db.rollback()
+                self.db.close()
+
+                if self.is_slack:
+                    error_msg = '{}: Unable to update last_scraped_at: {}'.format(
+                        spider.name, err)
+                    self.slack.chat.post_message('#rojak-pantau-errors',
+                        error_msg, as_user=True)
