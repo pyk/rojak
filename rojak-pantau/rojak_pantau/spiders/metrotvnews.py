@@ -23,7 +23,7 @@ SELECT id,last_scraped_at FROM media WHERE name=%s;
 '''
 
 sql_update_media = '''
-UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
+UPDATE `media` SET last_scraped_at=UTC_TIMESTAMP() WHERE name=%s;
 '''
 
 
@@ -87,8 +87,7 @@ class MetrotvnewsSpider(Spider):
         if reason == 'finished':
             try:
                 self.logger.info('Updating media last_scraped_at information')
-                self.cursor.execute(sql_update_media, [datetime.utcnow(),
-                    self.name])
+                self.cursor.execute(sql_update_media, [self.name])
                 self.db.commit()
                 self.db.close()
             except mysql.Error as err:
