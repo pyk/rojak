@@ -32,11 +32,9 @@ class CnnindonesiaSpider(Spider):
     allowed_domains = ["cnnindonesia.com"]
     start_urls = (
         'http://www.cnnindonesia.com/politik/focus/genderang-pilkada-jakarta-3335/berita',
-
+        'http://www.cnnindonesia.com/politik/focus/berebut-suara-warga-jakarta-3338/berita',
+        'http://www.cnnindonesia.com/politik/focus/janji-manis-calon-gubernur-3348/berita'
     )
-    # TODO: add 2 more URLs
-    # 'http://www.cnnindonesia.com/politik/focus/berebut-suara-warga-jakarta-3338/berita',
-    # 'http://www.cnnindonesia.com/politik/focus/janji-manis-calon-gubernur-3348/berita'
 
     # Initialize database connection then retrieve media ID and
     # last_scraped_at information
