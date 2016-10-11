@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 import os
+import json
+import re
 import MySQLdb as mysql
 from datetime import datetime
 from scrapy import Spider, Request, signals
 from scrapy.exceptions import CloseSpider, NotConfigured
 from scrapy.loader import ItemLoader
+from scrapy.http import HtmlResponse
 from slacker import Slacker
 
 from rojak_pantau.items import News
@@ -26,13 +29,17 @@ sql_update_media = '''
 UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
 '''
 
+# NEWS_LIMIT = 600
+NEWS_LIMIT = 50
+PARAMS = 'taglistdetail.php?catName=pilgub-dki-2017&p=1&limit={}'.format(NEWS_LIMIT)
 
 class BeritasatuSpider(Spider):
     name = "beritasatu"
     allowed_domains = ["beritasatu.com"]
-    start_urls = (
-        'http://m.beritasatu.com/tag/pilgub-dki-2017'
-    )
+    start_urls = [
+        # Consume API directly, this returns JSON response
+        'http://m.beritasatu.com/static/json/mobile/{}'.format(PARAMS)
+    ]
 
     # Initialize database connection then retrieve media ID and
     # last_scraped_at information
@@ -103,3 +110,26 @@ class BeritasatuSpider(Spider):
                     spider.name, err)
                 self.slack.chat.post_message('#rojak-pantau-errors',
                     error_msg, as_user=True)
+
+    def parse(self, response):
+        data = json.loads(response.body_as_unicode())
+        response = HtmlResponse(url=response.url, body=data['content'].encode('utf-8'))
+
+        # Note: no next page button on beritasatu, all is loaded here
+        # adjust how many links to extract from NEWS_LIMIT const
+        for article in response.css('div.headfi'):
+            url = 'http://www.beritasatu.com{}'.format(
+                article.css('h4 > a::attr(href)').extract()[0])
+            # Example: Kamis, 06 Oktober 2016 | 10:11 -
+            info = article.css('div.ptime > span.datep::text').extract()[0]
+
+            # Parse date information
+            try:
+                # Example: 06 October 2016 | 10:11
+                info_time = re.split('[\s,|-]', info)
+                info_time = ' '.join([_(s) for s in info_time[1:] if s])
+                print info_time
+            except Exception as e:
+                raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+        pass
