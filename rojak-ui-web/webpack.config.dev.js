@@ -50,6 +50,10 @@ module.exports = {
         {
             test: /\.(svg|png|jpg|jpeg)$/i,
             loader: 'file',
+        },
+        {
+            test: /\.json$/i,
+            loader: 'json',
         }],
     },
 };
