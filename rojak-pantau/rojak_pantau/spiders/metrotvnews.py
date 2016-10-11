@@ -9,6 +9,7 @@ from slacker import Slacker
 
 from rojak_pantau.items import News
 from rojak_pantau.i18n import _
+from rojak_pantau.util.wib_to_utc import wib_to_utc
 
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
 ROJAK_DB_PORT = int(os.getenv('ROJAK_DB_PORT', 3306))
@@ -86,7 +87,7 @@ class MetrotvnewsSpider(Spider):
         if reason == 'finished':
             try:
                 self.logger.info('Updating media last_scraped_at information')
-                self.cursor.execute(sql_update_media, [datetime.now(),
+                self.cursor.execute(sql_update_media, [datetime.utcnow(),
                     self.name])
                 self.db.commit()
                 self.db.close()
@@ -123,8 +124,8 @@ class MetrotvnewsSpider(Spider):
                 # Example: 09 Oct 2016 15:14
                 info_time = info.split(',')[1].strip()
                 self.logger.info('info_time: {}'.format(info_time))
-                published_at = datetime.strptime(info_time,
-                    '%d %b %Y %H:%M')
+                published_at = wib_to_utc(
+                    datetime.strptime(info_time, '%d %b %Y %H:%M'))
             except Exception as e:
                 raise CloseSpider('cannot_parse_date: {}'.format(e))
 
@@ -176,8 +177,8 @@ class MetrotvnewsSpider(Spider):
             # Example: 10 Oktober 2016 21:10
             date_str = ' '.join([_(w) for w in date_str[:-4].split(' ')])
             self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
-            published_at = datetime.strptime(date_str,
-                '%d %B %Y %H:%M')
+            published_at = wib_to_utc(
+                datetime.strptime(date_str, '%d %B %Y %H:%M'))
             loader.add_value('published_at', published_at)
         except Exception as e:
             raise CloseSpider('cannot_parse_date: {}'.format(e))
