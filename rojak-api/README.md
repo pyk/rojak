@@ -35,7 +35,7 @@ Dengan perintah ini, API dapat diakses pada [docker host]:5000 dan MySQL pada [d
 
 ## Spesifikasi API
 
-Spesifikasi API dapat dilihat [di sini](./spec/api-spec.md) (WIP).
+Spesifikasi API dapat dilihat [di sini](https://rawgit.com/pyk/rojak/feature/rojak-api/api-spec/rojak-api/spec/api-spec.html) (WIP).
 
 ## Docker Production Build Instruction
 
