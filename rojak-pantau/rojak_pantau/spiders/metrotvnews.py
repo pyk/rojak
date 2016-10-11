@@ -8,7 +8,7 @@ from scrapy.loader import ItemLoader
 from slacker import Slacker
 
 from rojak_pantau.items import News
-from rojak_pantau.util import _
+from rojak_pantau.i18n import _
 
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
 ROJAK_DB_PORT = int(os.getenv('ROJAK_DB_PORT', 3306))
