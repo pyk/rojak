@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		038AB667ABCBA40A3E3439EA /* Pods_RojakUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D21124650F3FEDFEADA423 /* Pods_RojakUITests.framework */; };
+		56B419A685389D89BE26FBE4 /* Pods_Rojak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A67CAEF41F13134E4D10C0 /* Pods_Rojak.framework */; };
 		79B1307C1DACF13500A2B8B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1307B1DACF13500A2B8B0 /* AppDelegate.swift */; };
 		79B1307E1DACF13500A2B8B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1307D1DACF13500A2B8B0 /* ViewController.swift */; };
 		79B130811DACF13500A2B8B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B1307F1DACF13500A2B8B0 /* Main.storyboard */; };
@@ -14,6 +16,7 @@
 		79B130861DACF13500A2B8B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B130841DACF13500A2B8B0 /* LaunchScreen.storyboard */; };
 		79B130911DACF13500A2B8B0 /* RojakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B130901DACF13500A2B8B0 /* RojakTests.swift */; };
 		79B1309C1DACF13500A2B8B0 /* RojakUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1309B1DACF13500A2B8B0 /* RojakUITests.swift */; };
+		DAC1FDEC9FE14E02E42E9FEB /* Pods_RojakTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 579543158E4AF17ADC57563E /* Pods_RojakTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		34A9FBF709239190CFC879EB /* Pods-RojakTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RojakTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RojakTests/Pods-RojakTests.debug.xcconfig"; sourceTree = "<group>"; };
+		55D21124650F3FEDFEADA423 /* Pods_RojakUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RojakUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		579543158E4AF17ADC57563E /* Pods_RojakTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RojakTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B130781DACF13500A2B8B0 /* Rojak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rojak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B1307B1DACF13500A2B8B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79B1307D1DACF13500A2B8B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +53,12 @@
 		79B130971DACF13500A2B8B0 /* RojakUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RojakUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B1309B1DACF13500A2B8B0 /* RojakUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RojakUITests.swift; sourceTree = "<group>"; };
 		79B1309D1DACF13500A2B8B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85A67CAEF41F13134E4D10C0 /* Pods_Rojak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rojak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96FBB7644080B19047CD7BD2 /* Pods-RojakUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RojakUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RojakUITests/Pods-RojakUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C6E0761B450A1D65761F9DEE /* Pods-RojakTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RojakTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RojakTests/Pods-RojakTests.release.xcconfig"; sourceTree = "<group>"; };
+		D12E80F6CE778A8934AB6D18 /* Pods-Rojak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rojak.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rojak/Pods-Rojak.release.xcconfig"; sourceTree = "<group>"; };
+		D549BBD15236F8B749773092 /* Pods-RojakUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RojakUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RojakUITests/Pods-RojakUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DA848618E3F1AA1D5A20B07D /* Pods-Rojak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rojak.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rojak/Pods-Rojak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56B419A685389D89BE26FBE4 /* Pods_Rojak.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAC1FDEC9FE14E02E42E9FEB /* Pods_RojakTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,12 +82,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038AB667ABCBA40A3E3439EA /* Pods_RojakUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		788EB04484086C77AB976398 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85A67CAEF41F13134E4D10C0 /* Pods_Rojak.framework */,
+				579543158E4AF17ADC57563E /* Pods_RojakTests.framework */,
+				55D21124650F3FEDFEADA423 /* Pods_RojakUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		79B1306F1DACF13500A2B8B0 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +106,8 @@
 				79B1308F1DACF13500A2B8B0 /* RojakTests */,
 				79B1309A1DACF13500A2B8B0 /* RojakUITests */,
 				79B130791DACF13500A2B8B0 /* Products */,
+				8A67DEA48C13126DCC667616 /* Pods */,
+				788EB04484086C77AB976398 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +152,19 @@
 			path = RojakUITests;
 			sourceTree = "<group>";
 		};
+		8A67DEA48C13126DCC667616 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA848618E3F1AA1D5A20B07D /* Pods-Rojak.debug.xcconfig */,
+				D12E80F6CE778A8934AB6D18 /* Pods-Rojak.release.xcconfig */,
+				34A9FBF709239190CFC879EB /* Pods-RojakTests.debug.xcconfig */,
+				C6E0761B450A1D65761F9DEE /* Pods-RojakTests.release.xcconfig */,
+				96FBB7644080B19047CD7BD2 /* Pods-RojakUITests.debug.xcconfig */,
+				D549BBD15236F8B749773092 /* Pods-RojakUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +172,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79B130A01DACF13500A2B8B0 /* Build configuration list for PBXNativeTarget "Rojak" */;
 			buildPhases = (
+				B0802A9123D3F77FEA6D97C7 /* [CP] Check Pods Manifest.lock */,
 				79B130741DACF13500A2B8B0 /* Sources */,
 				79B130751DACF13500A2B8B0 /* Frameworks */,
 				79B130761DACF13500A2B8B0 /* Resources */,
+				D3A161339F2042576BD52E4D /* [CP] Embed Pods Frameworks */,
+				9164519D4172D396144D89E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79B130A31DACF13500A2B8B0 /* Build configuration list for PBXNativeTarget "RojakTests" */;
 			buildPhases = (
+				6FBC5513FD274C06C16D23EE /* [CP] Check Pods Manifest.lock */,
 				79B130881DACF13500A2B8B0 /* Sources */,
 				79B130891DACF13500A2B8B0 /* Frameworks */,
 				79B1308A1DACF13500A2B8B0 /* Resources */,
+				D8D46654D8BAB51D8E3B3074 /* [CP] Embed Pods Frameworks */,
+				C5E54B8D8D283F6FB52A2519 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79B130A61DACF13500A2B8B0 /* Build configuration list for PBXNativeTarget "RojakUITests" */;
 			buildPhases = (
+				DF0346C3399F39F00836A647 /* [CP] Check Pods Manifest.lock */,
 				79B130931DACF13500A2B8B0 /* Sources */,
 				79B130941DACF13500A2B8B0 /* Frameworks */,
 				79B130951DACF13500A2B8B0 /* Resources */,
+				CDF23B469A4B9286E54E200B /* [CP] Embed Pods Frameworks */,
+				0424F64A28F9A98FE6A6ECD9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -256,6 +305,144 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0424F64A28F9A98FE6A6ECD9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RojakUITests/Pods-RojakUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FBC5513FD274C06C16D23EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9164519D4172D396144D89E4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rojak/Pods-Rojak-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0802A9123D3F77FEA6D97C7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C5E54B8D8D283F6FB52A2519 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RojakTests/Pods-RojakTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDF23B469A4B9286E54E200B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RojakUITests/Pods-RojakUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3A161339F2042576BD52E4D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rojak/Pods-Rojak-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8D46654D8BAB51D8E3B3074 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RojakTests/Pods-RojakTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DF0346C3399F39F00836A647 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		79B130741DACF13500A2B8B0 /* Sources */ = {
@@ -413,6 +600,7 @@
 		};
 		79B130A11DACF13500A2B8B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA848618E3F1AA1D5A20B07D /* Pods-Rojak.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KP79W26TNA;
@@ -427,6 +615,7 @@
 		};
 		79B130A21DACF13500A2B8B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D12E80F6CE778A8934AB6D18 /* Pods-Rojak.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = KP79W26TNA;
@@ -441,6 +630,7 @@
 		};
 		79B130A41DACF13500A2B8B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34A9FBF709239190CFC879EB /* Pods-RojakTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -456,6 +646,7 @@
 		};
 		79B130A51DACF13500A2B8B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C6E0761B450A1D65761F9DEE /* Pods-RojakTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -471,6 +662,7 @@
 		};
 		79B130A71DACF13500A2B8B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96FBB7644080B19047CD7BD2 /* Pods-RojakUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = KP79W26TNA;
@@ -485,6 +677,7 @@
 		};
 		79B130A81DACF13500A2B8B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D549BBD15236F8B749773092 /* Pods-RojakUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = KP79W26TNA;
@@ -516,6 +709,7 @@
 				79B130A21DACF13500A2B8B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		79B130A31DACF13500A2B8B0 /* Build configuration list for PBXNativeTarget "RojakTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +718,7 @@
 				79B130A51DACF13500A2B8B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		79B130A61DACF13500A2B8B0 /* Build configuration list for PBXNativeTarget "RojakUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +727,7 @@
 				79B130A81DACF13500A2B8B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
