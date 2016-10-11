@@ -8,6 +8,7 @@ from scrapy.loader import ItemLoader
 from slacker import Slacker
 
 from rojak_pantau.items import News
+from rojak_pantau.util import _
 
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
 ROJAK_DB_PORT = int(os.getenv('ROJAK_DB_PORT', 3306))
@@ -96,6 +97,7 @@ class MetrotvnewsSpider(Spider):
 
         else:
             if self.is_slack:
+                # Send error to slack
                 error_msg = '{}: Unable to update last_scraped_at: {}'.format(
                     spider.name, err)
                 self.slack.chat.post_message('#rojak-pantau-errors',
@@ -144,4 +146,45 @@ class MetrotvnewsSpider(Spider):
 
     # Collect news item
     def parse_news(self, response):
-        pass
+        self.logger.info('parse_news: {}'.format(response))
+        is_video = response.css('ul.breadcrumb > li > a::text').extract()[0] == 'VIDEO'
+
+        # Init item loader
+        # extract news title, published_at, author, content, url
+        loader = ItemLoader(item=News(), response=response)
+        loader.add_value('url', response.url)
+
+        if is_video:
+            title = response.css('div.part.detail > h1::text').extract()[0]
+            author_name = None
+            # Example: 10 Oktober 2016 21:10 wib
+            date_str = response.css('span.r.mright::text').extract()[0]
+
+        else:
+            title = response.css('div.part.lead.pr > h1::text').extract()[0]
+            info = response.css('div.part.lead.pr > span::text').extract()[0]
+            author_name = info.split('-')[0].strip()
+            # Example: 10 Oktober 2016 21:10 wib
+            date_str = info.split('-')[1].strip()
+
+        # Extract raw html, not the text
+        raw_content = response.css('div.part.article').extract()
+        raw_content = ' '.join(raw_content)
+        # Parse date information
+        try:
+
+            # Example: 10 Oktober 2016 21:10
+            date_str = ' '.join([_(w) for w in date_str[:-4].split(' ')])
+            self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
+            published_at = datetime.strptime(date_str,
+                '%d %B %Y %H:%M')
+            loader.add_value('published_at', published_at)
+        except Exception as e:
+            raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+        loader.add_value('title', title)
+        loader.add_value('author_name', author_name)
+        loader.add_value('raw_content', raw_content)
+
+        # Move scraped news to pipeline
+        return loader.load_item()
