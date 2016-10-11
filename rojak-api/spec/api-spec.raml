@@ -7,7 +7,6 @@ mediaType: application/json
 
 resourceTypes:
   - collection:
-      description: Collection of available <<resourcePathName>>.
       get:
         description: Get a list of <<resourcePathName>>.
         responses:
@@ -17,7 +16,6 @@ resourceTypes:
                 example: |
                   <<exampleCollection>>
   - collection-item:
-      description: Entity representing a <<resourcePathName|!singularize>>.
       get:
         description: |
           Get the <<resourcePathName|!singularize>>
