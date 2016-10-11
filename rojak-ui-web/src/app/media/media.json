@@ -1,0 +1,173 @@
+{
+	"data":
+	[
+		{
+			"id": 1,
+			"name": "detikcom",
+			"website_url": "http://detik.com",
+			"logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
+			"fbpage_username": "detikcom",
+			"twitter_username": "detikcom",
+			"instagram_username": "detikcom",
+			"last_scraped_at": "2016-10-10 22:30:03",
+			"inserted_at": "2016-10-09 06:59:29",
+			"updated_at": "2016-10-10 22:30:03"
+		},
+		{
+			"id": 3,
+			"name": "kompas",
+			"website_url": "http://www.kompas.com",
+			"logo_url": "http://assets.kompas.com/data/2016/wp/images/logokompascom.png",
+			"fbpage_username": "KOMPAScom",
+			"twitter_username": "kompascom",
+			"instagram_username": "kompascom",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 4,
+			"name": "viva",
+			"website_url": "http://www.viva.co.id",
+			"logo_url": "http://cdn-media.viva.id/appaux/portal/img/element/logo.png",
+			"fbpage_username": "vivacoid",
+			"twitter_username": "vivacoid",
+			"instagram_username": "vivacoid",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 5,
+			"name": "metrotvnews",
+			"website_url": "http://www.metrotvnews.com",
+			"logo_url": "http://va.metrotvnews.com/mobile/m/2015/default/images/main/logo.png",
+			"fbpage_username": "metrotv",
+			"twitter_username": "Metro_TV",
+			"instagram_username": "metrotv",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 6,
+			"name": "beritasatu",
+			"website_url": "http://www.beritasatu.com",
+			"logo_url": "http://img1.beritasatu.com/assets/cloud/layoutbiru/logo-large.png",
+			"fbpage_username": "beritasatu",
+			"twitter_username": "Beritasatu",
+			"instagram_username": "beritasatu",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 7,
+			"name": "cnnindonesia",
+			"website_url": "http://www.cnnindonesia.com",
+			"logo_url": "http://www.cnnindonesia.com/assets/image/logo_new.png",
+			"fbpage_username": "CNNindonesia",
+			"twitter_username": "cnnindonesia",
+			"instagram_username": "cnnindonesia",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 8,
+			"name": "bbcindonesia",
+			"website_url": "http://www.bbc.com/indonesia",
+			"logo_url": "http://static.bbci.co.uk/frameworks/barlesque/3.20.5/orb/4/img/bbc-blocks-dark.png",
+			"fbpage_username": "BBC-Indonesia",
+			"twitter_username": "bbcindonesia",
+			"instagram_username": "bbcindonesia",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 9,
+			"name": "tempo.co",
+			"website_url": "https://www.tempo.co",
+			"logo_url": "http://www.tempo.co/assets/teco/images/logo-footer2.png",
+			"fbpage_username": "TempoMedia",
+			"twitter_username": "tempodotco",
+			"instagram_username": "tempodotco",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 10,
+			"name": "okezone",
+			"website_url": "http://www.okezone.com",
+			"logo_url": "https://pbs.twimg.com/profile_images/755338029816881152/EYL7v8YN.jpg",
+			"fbpage_username": "OkezoneCom",
+			"twitter_username": "okezonenews",
+			"instagram_username": "okezonecom",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 11,
+			"name": "merdeka.com",
+			"website_url": "https://www.merdeka.com",
+			"logo_url": "https://cdns.klimg.com/merdeka.com/media/i/a/logo-merdeka.png",
+			"fbpage_username": "MDKcom",
+			"twitter_username": "merdekadotcom",
+			"instagram_username": "merdekadotcom",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 12,
+			"name": "liputan6",
+			"website_url": "http://www.liputan6.com",
+			"logo_url": "http://cdn0-a.production.liputan6.static6.com/logos/188/original/036464100_1471848255-logo_liputan6_web.png",
+			"fbpage_username": "liputan6online",
+			"twitter_username": "liputan6dotcom",
+			"instagram_username": "liputan6",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 13,
+			"name": "jawapos",
+			"website_url": "http://www.jawapos.com",
+			"logo_url": "http://www.jawapos.com/assets/images/general/logoicojp.jpg",
+			"fbpage_username": "jawaposonline",
+			"twitter_username": "jawapos",
+			"instagram_username": "jawapos",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 14,
+			"name": "sindonews",
+			"website_url": "http://www.sindonews.com",
+			"logo_url": "https://pbs-0.twimg.com/profile_images/775940504483602432/q3SNwRJk.jpg",
+			"fbpage_username": "sindonews",
+			"twitter_username": "SINDOnews",
+			"instagram_username": null,
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		},
+		{
+			"id": 15,
+			"name": "tribunnews",
+			"website_url": "http://www.tribunnews.com",
+			"logo_url": "http://cdn-1.tstatic.net/img/logo/tribun/svg/tribunnews.svg",
+			"fbpage_username": "tribunnews",
+			"twitter_username": "tribunnews",
+			"instagram_username": "tribunnews",
+			"last_scraped_at": "1970-01-01 00:00:01",
+			"inserted_at": "2016-10-10 15:08:51",
+			"updated_at": "2016-10-10 15:08:51"
+		}
+	]
+}

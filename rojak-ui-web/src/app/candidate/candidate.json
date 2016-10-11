@@ -1,0 +1,95 @@
+{
+	"data":
+	[
+		{
+			"id": 1,
+			"full_name": "Basuki Tjahaja Purnama",
+			"alias_name": "Ahok",
+			"place_of_birth": "Manggar, Belitung Timur",
+			"date_of_birth": "1966-06-29",
+			"religion": "Kristen Protestan",
+			"website_url": "http://ahok.org",
+			"photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
+			"fbpage_username": "AhokBTP",
+			"twitter_username": "basuki_btp",
+			"instagram_username": "basukibtp",
+			"inserted_at": "2016-10-09 06:59:24",
+			"updated_at": "2016-10-09 06:59:24"
+		},
+		{
+			"id": 2,
+			"full_name": "Djarot Saiful Hidayat",
+			"alias_name": "Djarot",
+			"place_of_birth": "Gorontalo",
+			"date_of_birth": "1955-10-30",
+			"religion": "Islam",
+			"website_url": null,
+			"photo_url": "https://upload.wikimedia.org/wikipedia/id/1/1a/Wagub_DKI_Djarot.jpg",
+			"fbpage_username": null,
+			"twitter_username": null,
+			"instagram_username": null,
+			"inserted_at": "2016-10-09 06:59:24",
+			"updated_at": "2016-10-09 06:59:24"
+		},
+		{
+			"id": 3,
+			"full_name": "Anies Baswedan",
+			"alias_name": "Anies",
+			"place_of_birth": "Kuningan",
+			"date_of_birth": "1969-05-07",
+			"religion": "Islam",
+			"website_url": "http://aniesbaswedan.com",
+			"photo_url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Anies-baswedan-Dec-2010.jpg",
+			"fbpage_username": "aniesbaswedan",
+			"twitter_username": "aniesbaswedan",
+			"instagram_username": "aniesbaswedan",
+			"inserted_at": "2016-10-09 06:59:24",
+			"updated_at": "2016-10-09 06:59:24"
+		},
+		{
+			"id": 4,
+			"full_name": "Sandiaga Salahuddin Uno",
+			"alias_name": "Sandi",
+			"place_of_birth": "Rumbai, Pekanbaru",
+			"date_of_birth": "1969-06-28",
+			"religion": "Islam",
+			"website_url": "http://sandiuno.com",
+			"photo_url": "https://pbs.twimg.com/profile_images/721893874768023552/XzOlwAp0.jpg",
+			"fbpage_username": "SandiSUno",
+			"twitter_username": "sandiuno",
+			"instagram_username": "sandiuno",
+			"inserted_at": "2016-10-09 06:59:24",
+			"updated_at": "2016-10-09 06:59:24"
+		},
+		{
+			"id": 5,
+			"full_name": "Agus Harimurti Yudhoyono",
+			"alias_name": "Agus Yudhoyono",
+			"place_of_birth": "Bandung, Jawa Barat",
+			"date_of_birth": "1978-08-10",
+			"religion": "Islam",
+			"website_url": null,
+			"photo_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Mayor_Infanteri_Agus_Harimurti_Yudhoyono%2C_M.Sc.%2C_MPA.png",
+			"fbpage_username": null,
+			"twitter_username": "agusyudhoyono",
+			"instagram_username": "agusyudhoyono",
+			"inserted_at": "2016-10-09 06:59:24",
+			"updated_at": "2016-10-09 06:59:24"
+		},
+		{
+			"id": 6,
+			"full_name": "Sylviana Murni",
+			"alias_name": "Sylvi",
+			"place_of_birth": "Jakarta",
+			"date_of_birth": "1958-10-11",
+			"religion": "Islam",
+			"website_url": "http://sylvianamurni.com",
+			"photo_url": "https://pbs.twimg.com/profile_images/781481260489125888/06iQrhGr.jpg",
+			"fbpage_username": "sylviana_murni",
+			"twitter_username": "sylviana_murni",
+			"instagram_username": "sylvianamurni_",
+			"inserted_at": "2016-10-09 06:59:24",
+			"updated_at": "2016-10-09 06:59:24"
+		}
+	]
+}

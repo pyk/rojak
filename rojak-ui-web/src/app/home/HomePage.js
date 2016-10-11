@@ -1,5 +1,9 @@
 import React from 'react';
 import rojak from '../../assets/images/rojak-black.svg';
+import Card from '../kit/Card';
+import Medias from './Medias';
+import Candidates from './Candidates';
+
 
 const styles = {
     homepageWrapper: {
@@ -34,14 +38,6 @@ const styles = {
     },
 };
 
-const Card = ({ children }) => {
-    return (
-        <div className="uk-grid" style={styles.cardWrapper}>
-            <div style={styles.card} className="uk-width-1-1">{children}</div>
-        </div>
-    );
-};
-
 const HomePage = () => (
     <div id="HomePage" className="uk-grid" style={styles.homepageWrapper}>
         <div className="uk-width-1-10" />
@@ -63,6 +59,14 @@ const HomePage = () => (
                     Pelajari selengkapnya →
                 </a>
             </Card>
+            <div className="uk-grid">
+                <div className="uk-width-1-2">
+                    <Medias />
+                </div>
+                <div className="uk-width-1-2">
+                    <Candidates />
+                </div>
+            </div>
             <br />
             <br />
             <p>
