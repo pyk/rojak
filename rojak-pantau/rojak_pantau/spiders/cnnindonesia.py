@@ -140,4 +140,34 @@ class CnnindonesiaSpider(Spider):
             return
 
     def parse_news(self, response):
-        pass
+        self.logger.info('parse_news: {}'.format(response))
+
+        # Init item loader
+        # extract news title, published_at, author, content, url
+        loader = ItemLoader(item=News(), response=response)
+        loader.add_value('url', response.url)
+
+        title = response.css('div.detail_text > h1::text').extract()[0]
+        author_name = response.css('div.author > strong::text').extract()[0]
+        # Example: Senin, 10/10/2016 05:12
+        date_str = response.css('div.date::text').extract()[0]
+        # Extract raw html, not the text
+        raw_content = response.css('div.detail_text').extract()[0]
+
+        # Parse date information
+        try:
+            # Example: 10/10/2016 05:12
+            date_str = date_str.split(',')[1].strip()
+            self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
+            published_at = wib_to_utc(
+                datetime.strptime(date_str, '%d/%m/%Y %H:%M'))
+            loader.add_value('published_at', published_at)
+        except Exception as e:
+            raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+        loader.add_value('title', title)
+        loader.add_value('author_name', author_name)
+        loader.add_value('raw_content', raw_content)
+
+        # Move scraped news to pipeline
+        return loader.load_item()

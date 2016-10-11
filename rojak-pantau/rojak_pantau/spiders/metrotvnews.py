@@ -173,7 +173,6 @@ class MetrotvnewsSpider(Spider):
         raw_content = ' '.join(raw_content)
         # Parse date information
         try:
-
             # Example: 10 Oktober 2016 21:10
             date_str = ' '.join([_(w) for w in date_str[:-4].split(' ')])
             self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
