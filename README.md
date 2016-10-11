@@ -129,6 +129,7 @@ Anggota, In alphabetical order:
 * [Aldi Doanta Kurnia Ginting](https://www.facebook.com/aldidoanta)
 * [Bayu Aldi Yansyah](https://www.facebook.com/bayualdiyansyah)
 * [Fawwaz Muhammad](https://www.facebook.com/fawwazmuhammad)
+* [Giri Kuncoro](https://www.facebook.com/girikuncoro)
 * [Hayyu Luthfi Hanifah](https://www.facebook.com/plloopy)
 * [Imre Nagi](https://www.facebook.com/imrenagi)
 * [Rachmat Fajrin](https://www.facebook.com/rachmatfajrin)
