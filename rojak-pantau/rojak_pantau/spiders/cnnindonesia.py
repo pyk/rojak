@@ -32,9 +32,11 @@ class CnnindonesiaSpider(Spider):
     allowed_domains = ["cnnindonesia.com"]
     start_urls = (
         'http://www.cnnindonesia.com/politik/focus/genderang-pilkada-jakarta-3335/berita',
-        'http://www.cnnindonesia.com/politik/focus/berebut-suara-warga-jakarta-3338/berita',
-        'http://www.cnnindonesia.com/politik/focus/janji-manis-calon-gubernur-3348/berita'
+
     )
+    # TODO: add 2 more URLs
+    # 'http://www.cnnindonesia.com/politik/focus/berebut-suara-warga-jakarta-3338/berita',
+    # 'http://www.cnnindonesia.com/politik/focus/janji-manis-calon-gubernur-3348/berita'
 
     # Initialize database connection then retrieve media ID and
     # last_scraped_at information
@@ -105,3 +107,37 @@ class CnnindonesiaSpider(Spider):
                     spider.name, err)
                 self.slack.chat.post_message('#rojak-pantau-errors',
                     error_msg, as_user=True)
+
+    def parse(self, response):
+        self.logger.info('parse: {}'.format(response))
+        is_scraped = False
+
+        # Collect list of news from current page
+        # Note: no next page button on cnnindonesia, all is loaded here
+        for article in response.css('a.list_kontribusi'):
+            url = article.css('a::attr(href)').extract()[0]
+            # Example: Jumat, 23/09/2016 21:17
+            info = article.css('div.text > div > span.tanggal::text').extract()[0]
+
+            # Parse date information
+            try:
+                # Example: 23/09/2016 21:17
+                info_time = info.split(',')[1].strip()
+                self.logger.info('info_time: {}'.format(info_time))
+                published_at = wib_to_utc(
+                    datetime.strptime(info_time, '%d/%m/%Y %H:%M'))
+            except Exception as e:
+                raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+            if self.media['last_scraped_at'] >= published_at:
+                is_scraped = True
+                break
+            # For each url we create new scrapy Request
+            yield Request(url, callback=self.parse_news)
+
+        if is_scraped:
+            self.logger.info('Media have no update')
+            return
+
+    def parse_news(self, response):
+        pass
