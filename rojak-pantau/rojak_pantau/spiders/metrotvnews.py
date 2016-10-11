@@ -30,7 +30,7 @@ class MetrotvnewsSpider(Spider):
     name = "metrotvnews"
     allowed_domains = ["metrotvnews.com"]
     start_urls = (
-        'http://www.metrotvnews.com/topic/8602/0',
+        'http://www.metrotvnews.com/more/topic/8602/0',
     )
 
     # Initialize database connection then retrieve media ID and
@@ -140,7 +140,7 @@ class MetrotvnewsSpider(Spider):
 
         # Collect news on next page
         if response.css('div.bu.fr > a'):
-            next_page = response.css('div.bu.fr > a::attr(href)')[0].extract()
+            next_page = response.css('div.bu.fr > a[rel="next"]::attr(href)').extract()[0]
             next_page_url = response.urljoin(next_page)
             yield Request(next_page_url, callback=self.parse)
 
