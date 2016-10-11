@@ -1,3 +1,4 @@
+Pods/
 
 # Created by https://www.gitignore.io/api/xcode,osx,windows,intellij
 
@@ -125,5 +126,5 @@ fabric.properties
 
 # *.iml
 # modules.xml
-# .idea/misc.xml 
+# .idea/misc.xml
 # *.ipr
