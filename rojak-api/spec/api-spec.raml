@@ -6,7 +6,7 @@ baseUri: https://api.rojak.com/v0
 mediaType: application/json
 
 resourceTypes:
-  - collection:
+  - resource-collection:
       get:
         description: Get a list of <<resourcePathName>>.
         responses:
@@ -15,7 +15,7 @@ resourceTypes:
               application/json:
                 example: |
                   <<exampleCollection>>
-  - collection-item:
+  - resource-collection-item:
       get:
         description: |
           Get the <<resourcePathName|!singularize>>
@@ -32,18 +32,43 @@ resourceTypes:
               application/json:
                 example: |
                   { "message" : "<<resourcePathName|!singularize>> not found" }
+  - generic-collection:
+      get:
+        description: <<description>>
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleCollection>>
+  - generic-item:
+      get:
+        description: <<description>>
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleItem>>
+          404:
+            body:
+              application/json:
+                example: |
+                  { "message" : "item not found" }
 
 /pairings:
   type:
-    collection:
+    resource-collection:
       exampleCollection: !include examples/pairing-list.sample
   /{pairingId}:
     type:
-      collection-item:
+      resource-collection-item:
         exampleItem: !include examples/pairing.sample
     /news:
-      get:
-        description: Get list of news mentioning both or either of the candidates with their sentiments.
+      type:
+        generic-collection:
+          description: Get list of news mentioning both or either of the candidates.
+          exampleCollection: !include examples/news-list.sample
     /sentiments:
       get:
         description: Get the overall sentiments for these pairing.
@@ -59,15 +84,17 @@ resourceTypes:
 
 /candidates:
   type:
-    collection:
+    resource-collection:
       exampleCollection: !include examples/candidate-list.sample
   /{candidateId}:
     type:
-      collection-item:
+      resource-collection-item:
         exampleItem: !include examples/candidate.sample
     /news:
-      get:
-        description: Get list of news mentioning this candidate.
+      type:
+        generic-collection:
+          description: Get list of news mentioning this candidate.
+          exampleCollection: !include examples/news-list.sample
     /sentiments:
       get:
         description: Get the overall sentiments for this candidate.
@@ -81,33 +108,36 @@ resourceTypes:
             get:
               description: Get a breakdown of sentiments from the news of this media.
 
-
 /news:
   type:
-    collection:
+    resource-collection:
       exampleCollection: !include examples/news-list.sample
   /{newsId}:
     type:
-      collection-item:
+      resource-collection-item:
         exampleItem: !include examples/news.sample
     /candidates:
-      get:
-        description: Get list of candidates mentioned in this article.
+      type:
+        generic-collection:
+          description: Get list of candidates mentioned in this article.
+          exampleCollection: !include examples/candidate-list.sample
     /sentiments:
       get:
         description: Get the sentiments score of this article for each candidate.
 
 /media:
   type:
-    collection:
+    resource-collection:
       exampleCollection: !include examples/media-list.sample
   /{mediaId}:
     type:
-      collection-item:
+      resource-collection-item:
         exampleItem: !include examples/media.sample
     /news:
-      get:
-        description: Get list of news articles of this media.
+      type:
+        generic-collection:
+          description: Get list of news articles of this media.
+          exampleCollection: !include examples/news-list.sample
     /sentiments:
       get:
         description: Get the sentiments score of this media for each candidate.
