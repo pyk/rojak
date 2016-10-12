@@ -140,7 +140,7 @@ class KompasComSpider(scrapy.Spider):
         self.logger.info('parse_news: %s' % response)
         
         title = ' '.join(response.css("div.kcm-read-top > h2::text").extract())
-        author_name = ' & '.join(response.css("span.pb_10::text").extract())
+        author_name = ', '.join(response.css("span.pb_10::text").extract())
         raw_content = response.css("div.kcm-read-text > p").extract()
         raw_content = ' '.join(raw_content)
         date = response.css("div.kcm-date::text").extract()[0];
@@ -151,5 +151,9 @@ class KompasComSpider(scrapy.Spider):
         loader.add_value('author_name', author_name)
         loader.add_value('raw_content', raw_content)
         loader.add_value('url', response.url)
-        loader.add_value('published_at',self.convert_date(date))
+        try:
+            loader.add_value('published_at',self.convert_date(date))
+        except Exception as e:
+            raise CloseSpider('cannot_parse_date: %s' % e)
+        
         return loader.load_item()
