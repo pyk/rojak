@@ -135,10 +135,10 @@ class KompasComSpider(scrapy.Spider):
         info_date = info_time[0].strip().split(' ');
         info_hours = info_time[1].strip().split(' ')[0].strip();
         day = info_date[0];
-        month = _.translate("idn")[info_date[1]];
+        month = _(info_date[1]);
         year = info_date[2];
         formatted_date = day+' '+month+' '+year+', ' + info_hours;
-        return datetime.strptime(formatted_date, '%d %B %Y, %H:%M');
+        return  wib_to_utc(datetime.strptime(formatted_date, '%d %B %Y, %H:%M'));
 
     def parse_news(self, response):
         self.logger.info('parse_news: %s' % response)
