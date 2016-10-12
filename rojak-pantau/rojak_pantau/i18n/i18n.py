@@ -17,7 +17,7 @@ class i18n(object):
             'April': 'April',
             'Mei': 'May',
             'Juni': 'June',
-            'July': 'July',
+            'Juli': 'July',
             'Agustus': 'August',
             'September': 'September',
             'Oktober': 'October',
