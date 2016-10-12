@@ -9,6 +9,7 @@ from scrapy.exceptions import CloseSpider, NotConfigured
 from scrapy.loader import ItemLoader
 
 from datetime import datetime
+from slacker import Slacker
 
 from rojak_pantau.items import News
 from rojak_pantau.util.wib_to_utc import wib_to_utc
