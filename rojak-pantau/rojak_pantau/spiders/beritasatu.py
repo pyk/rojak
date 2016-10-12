@@ -29,7 +29,7 @@ sql_update_media = '''
 UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
 '''
 
-NEWS_LIMIT = 600
+NEWS_LIMIT = 50
 PARAMS = 'taglistdetail.php?catName=pilgub-dki-2017&p=1&limit={}'.format(NEWS_LIMIT)
 
 class BeritasatuSpider(Spider):
@@ -148,4 +148,36 @@ class BeritasatuSpider(Spider):
             return
 
     def parse_news(self, response):
-        pass
+        self.logger.info('parse_news: {}'.format(response))
+
+        # Init item loader
+        # extract news title, published_at, author, content, url
+        loader = ItemLoader(item=News(), response=response)
+        loader.add_value('url', response.url)
+
+        title = response.css('div.content-detail > h4::text').extract()[0]
+        author_name = response.css('div.content-detail > p::text').extract()[0]
+        author_name = author_name.split('/')[0]
+        # Example: Selasa, 11 Oktober 2016 | 10:48
+        date_str = response.css('div.date::text').extract()[0]
+        # Extract raw html, not the text
+        raw_content = response.css('div.content-body').extract()[0]
+
+        # Parse date information
+        try:
+            # Example: 11 October 2016 10:48
+            date_str = re.split('[\s,|-]', date_str)
+            date_str = ' '.join([_(s) for s in date_str[1:] if s])
+            self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
+            published_at = wib_to_utc(
+                datetime.strptime(date_str, '%d %B %Y %H:%M'))
+            loader.add_value('published_at', published_at)
+        except Exception as e:
+            raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+        loader.add_value('title', title)
+        loader.add_value('author_name', author_name)
+        loader.add_value('raw_content', raw_content)
+
+        # Move scraped news to pipeline
+        return loader.load_item()
