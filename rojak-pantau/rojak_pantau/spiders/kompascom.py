@@ -24,7 +24,7 @@ SELECT id,last_scraped_at FROM media WHERE name=%s;
 '''
 
 sql_update_media = '''
-UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
+UPDATE `media` SET last_scraped_at=UTC_TIMESTAMP() WHERE name=%s;
 '''
 
 class KompasComSpider(scrapy.Spider):
@@ -32,6 +32,10 @@ class KompasComSpider(scrapy.Spider):
     start_urls = [
         'http://lipsus.kompas.com/topikpilihanlist/3754/1/Pilkada.DKI.2017'
     ]
+
+    custom_settings = {
+        'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:39.0) Gecko/20100101 Firefox/39.0'
+    }
 
     # Initialize database connection then retrieve media ID and
     # last_scraped_at information
@@ -82,7 +86,7 @@ class KompasComSpider(scrapy.Spider):
         if reason == 'finished':
             try:
                 self.logger.info('Updating media last_scraped_at information')
-                self.cursor.execute(sql_update_media, [datetime.now(), self.name])
+                self.cursor.execute(sql_update_media, [self.name])
                 self.db.commit()
                 self.db.close()
             except mysql.Error as err:
