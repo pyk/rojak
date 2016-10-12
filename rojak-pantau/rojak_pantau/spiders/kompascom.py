@@ -28,7 +28,7 @@ UPDATE `media` SET last_scraped_at=UTC_TIMESTAMP() WHERE name=%s;
 '''
 
 class KompasComSpider(scrapy.Spider):
-    name = "kompascom"
+    name = "kompas"
     start_urls = [
         'http://lipsus.kompas.com/topikpilihanlist/3754/1/Pilkada.DKI.2017'
     ]
