@@ -29,7 +29,7 @@ sql_update_media = '''
 UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
 '''
 
-NEWS_LIMIT = 50
+NEWS_LIMIT = 600
 PARAMS = 'taglistdetail.php?catName=pilgub-dki-2017&p=1&limit={}'.format(NEWS_LIMIT)
 
 class BeritasatuSpider(Spider):
