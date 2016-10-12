@@ -104,6 +104,18 @@ Anggota, In alphabetical order:
 * [Rio Ramadhan Dharmawan](https://www.facebook.com/riordhn)
 * [Rohmat Sasmito](https://www.facebook.com/rohmad.sasmito)
 * [Sonny Lazuardi Hermawan](https://www.facebook.com/sonny.lazuardi)
+
+Semua berkontribusi secara sama.
+
+### Tim Apps
+Tugas utama tim apps adalah membuat apps yang digunakan masyarakat untuk
+melihat hasil analisa dari Rojak.
+
+Anggota, In alphabetical order:
+
+* [Adi Nugroho](https://www.facebook.com/hidrodixtion)
+* [Andre Tampubolon](https://www.facebook.com/anta40)
+* [Nafian Wildana](https://www.facebook.com/nafianwildan)
 * [Vicky Vernando Dasta](https://www.facebook.com/vickyvernandodasta)
 
 Semua berkontribusi secara sama.
