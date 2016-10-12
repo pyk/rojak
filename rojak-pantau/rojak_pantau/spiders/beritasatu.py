@@ -29,8 +29,7 @@ sql_update_media = '''
 UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
 '''
 
-# NEWS_LIMIT = 600
-NEWS_LIMIT = 50
+NEWS_LIMIT = 600
 PARAMS = 'taglistdetail.php?catName=pilgub-dki-2017&p=1&limit={}'.format(NEWS_LIMIT)
 
 class BeritasatuSpider(Spider):
@@ -112,6 +111,10 @@ class BeritasatuSpider(Spider):
                     error_msg, as_user=True)
 
     def parse(self, response):
+        self.logger.info('parse: {}'.format(response))
+        is_scraped = False
+
+        # beritasatu response is HTML snippet wrapped in a JSON response
         data = json.loads(response.body_as_unicode())
         response = HtmlResponse(url=response.url, body=data['content'].encode('utf-8'))
 
@@ -125,11 +128,24 @@ class BeritasatuSpider(Spider):
 
             # Parse date information
             try:
-                # Example: 06 October 2016 | 10:11
+                # Example: 06 October 2016 10:11
                 info_time = re.split('[\s,|-]', info)
                 info_time = ' '.join([_(s) for s in info_time[1:] if s])
-                print info_time
+                self.logger.info('info_time: {}'.format(info_time))
+                published_at = wib_to_utc(
+                    datetime.strptime(info_time, '%d %B %Y %H:%M'))
             except Exception as e:
                 raise CloseSpider('cannot_parse_date: {}'.format(e))
 
+            if self.media['last_scraped_at'] >= published_at:
+                is_scraped = True
+                break
+            # For each url we create new scrapy Request
+            yield Request(url, callback=self.parse_news)
+
+        if is_scraped:
+            self.logger.info('Media have no update')
+            return
+
+    def parse_news(self, response):
         pass
