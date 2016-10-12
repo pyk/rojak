@@ -23,16 +23,18 @@ SELECT id,last_scraped_at FROM media WHERE name=%s;
 '''
 
 sql_update_media = '''
-UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
+UPDATE `media` SET last_scraped_at=UTC_TIMESTAMP() WHERE name=%s;
 '''
 
 
 class VivaSpider(Spider):
     name = "viva"
     allowed_domains = ["viva.co.id"]
-    start_urls = (
+    start_urls = [
         'http://www.viva.co.id/tag/Pilkada-DKI-Jakarta-2017/1',
-    )
+        'http://www.viva.co.id/tag/Pilkada-DKI-2017/1',
+        'http://www.viva.co.id/tag/pilkada-dki/1'
+    ]
 
     # Initialize database connection then retrieve media ID and
     # last_scraped_at information
@@ -87,8 +89,7 @@ class VivaSpider(Spider):
         if reason == 'finished':
             try:
                 self.logger.info('Updating media last_scraped_at information')
-                self.cursor.execute(sql_update_media, [datetime.utcnow(),
-                    self.name])
+                self.cursor.execute(sql_update_media, [self.name])
                 self.db.commit()
                 self.db.close()
             except mysql.Error as err:
@@ -144,5 +145,39 @@ class VivaSpider(Spider):
                 next_page_url = response.urljoin(next_page)
                 yield Request(next_page_url, callback=self.parse)
 
+    # Collect news item
     def parse_news(self, response):
-        pass
+        self.logger.info('parse_news: {}'.format(response))
+
+        # Init item loader
+        # extract news title, published_at, author, content, url
+        loader = ItemLoader(item=News(), response=response)
+        loader.add_value('url', response.url)
+
+        title = response.css('h1.title-big-detail::text').extract()[0].strip()
+        info = response.css('span.meta-author span::text').extract()
+        author_name = info[0].strip()
+        # Example: Sabtu, 1 Oktober 2016, 15:47 WIB
+        date_str = info[-1].strip()
+        # Extract raw html, not the text
+        raw_content = response.css('div.detail-content').extract()[0]
+
+        # Parse date information
+        try:
+            # Example: 1 October 2016 15:47
+            date_str = date_str.replace(',', '').split(' ')[1:-1]
+            date_str = ' '.join([_(s) for s in date_str])
+            self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
+
+            published_at_wib = datetime.strptime(date_str, '%d %B %Y %H:%M')
+            published_at = wib_to_utc(published_at_wib)
+            loader.add_value('published_at', published_at)
+        except Exception as e:
+            raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+        loader.add_value('title', title)
+        loader.add_value('author_name', author_name)
+        loader.add_value('raw_content', raw_content)
+
+        # Move scraped news to pipeline
+        return loader.load_item()
