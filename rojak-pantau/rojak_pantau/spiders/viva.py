@@ -27,12 +27,14 @@ UPDATE `media` SET last_scraped_at=UTC_TIMESTAMP() WHERE name=%s;
 '''
 
 
-class MetrotvnewsSpider(Spider):
-    name = "metrotvnews"
-    allowed_domains = ["metrotvnews.com"]
-    start_urls = (
-        'http://www.metrotvnews.com/more/topic/8602/0',
-    )
+class VivaSpider(Spider):
+    name = "viva"
+    allowed_domains = ["viva.co.id"]
+    start_urls = [
+        'http://www.viva.co.id/tag/Pilkada-DKI-Jakarta-2017/1',
+        'http://www.viva.co.id/tag/Pilkada-DKI-2017/1',
+        'http://www.viva.co.id/tag/pilkada-dki/1'
+    ]
 
     # Initialize database connection then retrieve media ID and
     # last_scraped_at information
@@ -65,7 +67,7 @@ class MetrotvnewsSpider(Spider):
     # https://doc.scrapy.org/en/latest/topics/signals.html
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
-        spider = super(MetrotvnewsSpider, cls).from_crawler(crawler,
+        spider = super(VivaSpider, cls).from_crawler(crawler,
                 *args, **kwargs)
         crawler.signals.connect(spider.spider_opened,
                 signal=signals.spider_opened)
@@ -108,30 +110,27 @@ class MetrotvnewsSpider(Spider):
         is_scraped = False
 
         # Collect list of news from current page
-        for i, article in enumerate(
-                response.css('div.topic') + response.css('li:not(.last) > div.grid')):
-            if i == 0:
-                url = article.css('h1 > a::attr(href)').extract()[0]
-            else:
-                url = article.css('h2 > a::attr(href)').extract()[0]
-
-            # Example: Minggu, 09 Oct 2016 15:14
-            info = article.css('div.reg::text').extract()[1].strip()
+        for article in response.css('ul.indexlist > li'):
+            url = article.css('a::attr(href)').extract()[0]
+            # Example: 7 Oktober 2016 19:37
+            info = article.css('div.upperdeck::text').extract()[1]
+            info = info.split(',')[1].replace('\t','').strip()
 
             # Parse date information
             try:
-                # Example: 09 Oct 2016 15:14
-                info_time = info.split(',')[1].strip()
+                # Example: 7 October 2016 19:37
+                info_time = info.split(' ')
+                info_time = ' '.join([_(s) for s in info_time])
                 self.logger.info('info_time: {}'.format(info_time))
-                published_at = wib_to_utc(
-                    datetime.strptime(info_time, '%d %b %Y %H:%M'))
+                published_at_wib = datetime.strptime(info_time, '%d %B %Y %H:%M')
+                published_at = wib_to_utc(published_at_wib)
             except Exception as e:
                 raise CloseSpider('cannot_parse_date: {}'.format(e))
 
             if self.media['last_scraped_at'] >= published_at:
                 is_scraped = True
                 break
-            # For each url we create new scrapy request
+            # For each url we create new scrapy Request
             yield Request(url, callback=self.parse_news)
 
         if is_scraped:
@@ -139,44 +138,39 @@ class MetrotvnewsSpider(Spider):
             return
 
         # Collect news on next page
-        if response.css('div.bu.fr > a'):
-            next_page = response.css('div.bu.fr > a[rel="next"]::attr(href)').extract()[0]
-            next_page_url = response.urljoin(next_page)
-            yield Request(next_page_url, callback=self.parse)
+        for tag in response.css('div.pagination > a'):
+            more = tag.css('a::text').extract()[0]
+            if more == 'NEXT':
+                next_page = tag.css('a::attr(href)').extract()[0]
+                next_page_url = response.urljoin(next_page)
+                yield Request(next_page_url, callback=self.parse)
 
     # Collect news item
     def parse_news(self, response):
         self.logger.info('parse_news: {}'.format(response))
-        is_video = response.css('ul.breadcrumb > li > a::text').extract()[0] == 'VIDEO'
 
         # Init item loader
         # extract news title, published_at, author, content, url
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
 
-        if is_video:
-            title = response.css('div.part.detail > h1::text').extract()[0]
-            author_name = None
-            # Example: 10 Oktober 2016 21:10 wib
-            date_str = response.css('span.r.mright::text').extract()[0]
-
-        else:
-            title = response.css('div.part.lead.pr > h1::text').extract()[0]
-            info = response.css('div.part.lead.pr > span::text').extract()[0]
-            author_name = info.split('-')[0].strip()
-            # Example: 10 Oktober 2016 21:10 wib
-            date_str = info.split('-')[1].strip()
-
+        title = response.css('h1.title-big-detail::text').extract()[0].strip()
+        info = response.css('span.meta-author span::text').extract()
+        author_name = info[0].strip()
+        # Example: Sabtu, 1 Oktober 2016, 15:47 WIB
+        date_str = info[-1].strip()
         # Extract raw html, not the text
-        raw_content = response.css('div.part.article').extract()
-        raw_content = ' '.join(raw_content)
+        raw_content = response.css('div.detail-content').extract()[0]
+
         # Parse date information
         try:
-            # Example: 10 October 2016 21:10
-            date_str = ' '.join([_(w) for w in date_str[:-4].split(' ')])
+            # Example: 1 October 2016 15:47
+            date_str = date_str.replace(',', '').split(' ')[1:-1]
+            date_str = ' '.join([_(s) for s in date_str])
             self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
-            published_at = wib_to_utc(
-                datetime.strptime(date_str, '%d %B %Y %H:%M'))
+
+            published_at_wib = datetime.strptime(date_str, '%d %B %Y %H:%M')
+            published_at = wib_to_utc(published_at_wib)
             loader.add_value('published_at', published_at)
         except Exception as e:
             raise CloseSpider('cannot_parse_date: {}'.format(e))
