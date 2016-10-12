@@ -172,9 +172,13 @@ class OkezoneSpider(scrapy.Spider):
 
     # Collect news item
     def parse_news(self, response):
-        self.logger.info('parse_news: %s' % response)
         parsed_news = json.loads(str(response.body))
         parsed_news = parsed_news[0]
+
+        if not (response.url and parsed_news['title'] and parsed_news['author'] and parsed_news['content'] and parsed_news['published']):
+            return
+
+        self.logger.info('parse_news: %s' % response)
 
         # Initialize item loader
         # extract news title, published_at, author, content, url
