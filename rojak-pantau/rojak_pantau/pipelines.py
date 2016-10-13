@@ -5,7 +5,27 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import MySQLdb as mysql
-from scrapy.exceptions import CloseSpider
+from scrapy.exceptions import CloseSpider, DropItem
+
+class NewsValidation(object):
+    def process_item(self, item, spider):
+        title = item.get('title', 'title_not_set')
+        if title == 'title_not_set':
+            err_msg = 'Missing title in: %s' % item.get('url')
+            raise DropItem(err_msg)
+
+        raw_content = item.get('raw_content', 'raw_content_not_set')
+        if raw_content == 'raw_content_not_set':
+            err_msg = 'Missing raw_content in: %s' % item.get('url')
+            raise DropItem(err_msg)
+
+        published_at = item.get('published_at', 'published_at_not_set')
+        if published_at == 'published_at_not_set':
+            err_msg = 'Missing published_at in: %s' % item.get('url')
+            raise DropItem(err_msg)
+
+        # Pass item to the next pipeline, if any
+        return item
 
 class SaveToMySQL(object):
     sql_insert_news = '''
