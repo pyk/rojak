@@ -7,6 +7,7 @@ from scrapy.loader import ItemLoader
 from rojak_pantau.items import News
 from rojak_pantau.i18n import _
 from rojak_pantau.util.wib_to_utc import wib_to_utc
+from rojak_pantau.spiders.base import BaseSpider
 
 class CnnindonesiaSpider(BaseSpider):
     name = "cnnindonesia"

@@ -2,16 +2,15 @@
 import json
 import re
 from datetime import datetime
-from base import BaseSpider
 from scrapy import Request
 from scrapy.exceptions import CloseSpider
 from scrapy.loader import ItemLoader
 from scrapy.http import HtmlResponse
-from slacker import Slacker
 
 from rojak_pantau.items import News
 from rojak_pantau.i18n import _
 from rojak_pantau.util.wib_to_utc import wib_to_utc
+from rojak_pantau.spiders.base import BaseSpider
 
 NEWS_LIMIT = 600
 PARAMS = 'taglistdetail.php?catName=pilgub-dki-2017&p=1&limit={}'.format(NEWS_LIMIT)

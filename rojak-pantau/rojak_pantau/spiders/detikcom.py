@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from base import BaseSpider
 from datetime import datetime
 from scrapy.loader import ItemLoader
 from scrapy.exceptions import CloseSpider
 
 from rojak_pantau.items import News
 from rojak_pantau.util.wib_to_utc import wib_to_utc
+from rojak_pantau.spiders.base import BaseSpider
 
 class DetikcomSpider(BaseSpider):
     name = "detikcom"
