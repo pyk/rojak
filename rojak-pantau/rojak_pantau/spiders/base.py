@@ -76,7 +76,7 @@ class BaseSpider(scrapy.Spider):
         if reason == 'finished':
             try:
                 self.logger.info('Updating media last_scraped_at information')
-                self.cursor.execute(sql_update_media, [self.name])
+                self.cursor.execute(sql_update_media, [spider.name])
                 self.db.commit()
                 self.db.close()
             except mysql.Error as err:
@@ -92,6 +92,16 @@ class BaseSpider(scrapy.Spider):
             if self.is_slack:
                 # Send error to slack
                 error_msg = '{}: Spider fail because: {}'.format(
-                    self.name, reason)
+                    spider.name, reason)
                 self.slack.chat.post_message('#rojak-pantau-errors',
                         error_msg, as_user=True)
+
+    # subscibe to item_droped event
+    def item_dropped(item, response, exception, spider):
+        if self.is_slack:
+            # Send error to slack
+            error_msg = '{}: Spider fail because: {}'.format(
+                spider.name, exception)
+            spider.slack.chat.post_message('#rojak-pantau-errors',
+                    error_msg, as_user=True)
+
