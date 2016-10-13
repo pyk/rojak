@@ -1,4 +1,5 @@
 from unittest.case import TestCase
+from datetime import datetime
 
 from rojak_pantau.spiders.metrotvnews import MetrotvnewsSpider
 from rojak_pantau.tests.util.mock_response import mock_response
@@ -9,7 +10,7 @@ class MetrotvnewsTest(TestCase):
         self.spider = MetrotvnewsSpider()
 
     def test_parse(self):
-        SCRAPED_URLS = 20
+        scraped_urls = 20
         valid_urls = [
             'http://news.metrotvnews.com/metro/GKd3veek-sandi-ajak-cagub-cawagub-lain-transparan',
             'http://video.metrotvnews.com/headline-news/zNPAyqXb-warga-dukung-kpud-dki-bertindak-profesional',
@@ -35,12 +36,30 @@ class MetrotvnewsTest(TestCase):
         start_page = 'http://www.metrotvnews.com/more/topic/8602/0'
         next_page = 'http://www.metrotvnews.com/more/topic/8602/20'
 
-        response = mock_response('tests/data/metrotvnews_sample.html', start_page)
+        response = mock_response(
+            'tests/data/metrotvnews_sample_page.html', start_page)
         items = self.spider.parse(response)
 
         # Iterate the response generator
         for i, item in enumerate(items):
-            if i == SCRAPED_URLS:
+            if i == scraped_urls:
                 self.assertEqual(item.url, next_page)
             else:
                 self.assertEqual(item.url, valid_urls[i])
+
+    def test_parse_news(self):
+        start_page = 'http://news.metrotvnews.com/metro/GKd3veek-sandi-ajak-cagub-cawagub-lain-transparan'
+        response = mock_response(
+            'tests/data/metrotvnews_sample_article.html', start_page)
+        item = self.spider.parse_news(response)
+
+        self.assertEqual(
+            item['title'][0], 'Sandi Ajak Cagub-Cawagub Lain Transparan')
+        self.assertEqual(
+            item['author_name'][0], 'Meilikhah')
+        # Original 13 October 2016 23:11 WIB => 13 October 2016 16:11 UTC
+        self.assertEqual(
+            item['published_at'][0], datetime(2016, 10, 13, 16, 11))
+        # Validate if raw html content, not text
+        self.assertIsNotNone(item['raw_content'][0])
+        self.assertTrue('</div>' in item['raw_content'][0])
