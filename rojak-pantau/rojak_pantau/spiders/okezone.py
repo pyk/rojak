@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 import json
 import scrapy
 import MySQLdb as mysql
@@ -177,6 +178,9 @@ class OkezoneSpider(scrapy.Spider):
 
         if not (response.url and parsed_news['title'] and parsed_news['author'] and parsed_news['content'] and parsed_news['published']):
             return
+
+        parsed_news['content'] = re.search(r'<body>(.*)</body>', parsed_news['content'], re.S|re.I).group(1)
+        parsed_news['content'] = re.sub(r'<img[^>]+\>', '', parsed_news['content'])
 
         self.logger.info('parse_news: %s' % response)
 
