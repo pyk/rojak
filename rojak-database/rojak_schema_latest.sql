@@ -53,7 +53,7 @@ CREATE TABLE `media` (
     `fbpage_username` varchar(255) collate utf8_unicode_ci UNIQUE,
     `twitter_username` varchar(255) collate utf8_unicode_ci UNIQUE,
     `instagram_username` varchar(255) collate utf8_unicode_ci UNIQUE,
-    `last_scraped_at` timestamp NOT NULL DEFAULT '1970-01-01 00:00:01',
+    `last_scraped_at` timestamp NOT NULL DEFAULT '1970-01-02 00:00:01',
     `inserted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,

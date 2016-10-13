@@ -1,0 +1,12 @@
+.cardWrapper {
+  composes: bg-white from "../../assets/css/colors.css";
+  padding: 20px;
+  margin: 20px 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  composes: bg-white from "../../assets/css/colors.css";
+  padding: 20px;
+}

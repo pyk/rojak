@@ -3,11 +3,14 @@ import scrapy
 import MySQLdb as mysql
 import os
 from datetime import datetime
+from slacker import Slacker
+
 from scrapy.exceptions import CloseSpider, NotConfigured
 from scrapy import signals
-from rojak_pantau.items import News
 from scrapy.loader import ItemLoader
-from slacker import Slacker
+
+from rojak_pantau.items import News
+from rojak_pantau.util.wib_to_utc import wib_to_utc
 
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
 ROJAK_DB_PORT = int(os.getenv('ROJAK_DB_PORT', 3306))
@@ -21,11 +24,9 @@ SELECT id,last_scraped_at FROM media WHERE name=%s;
 '''
 
 sql_update_media = '''
-UPDATE `media` SET last_scraped_at=%s WHERE name=%s;
+UPDATE `media` SET last_scraped_at=UTC_TIMESTAMP() WHERE name=%s;
 '''
 
-# TODO: understanding di scheduler works not only once
-# TODO: save state last_scraped_at
 class DetikcomSpider(scrapy.Spider):
     name = "detikcom"
     allowed_domains = ["detik.com"]
@@ -85,8 +86,7 @@ class DetikcomSpider(scrapy.Spider):
         if reason == 'finished':
             try:
                 self.logger.info('Updating media last_scraped_at information')
-                self.cursor.execute(sql_update_media, [datetime.now(),
-                    self.name])
+                self.cursor.execute(sql_update_media, [self.name])
                 self.db.commit()
                 self.db.close()
             except mysql.Error as err:
@@ -123,8 +123,9 @@ class DetikcomSpider(scrapy.Spider):
                 # Example '08 Oct 2016, 14:54'
                 info_time = ' '.join(info_time.split(' ')[1:5])
                 self.logger.info('info_time: %s', info_time)
-                published_at = datetime.strptime(info_time,
+                published_at_wib = datetime.strptime(info_time,
                     '%d %b %Y, %H:%M')
+                published_at = wib_to_utc(published_at_wib)
             except Exception as e:
                 raise CloseSpider('cannot_parse_date: %s' % e)
 
@@ -159,8 +160,7 @@ class DetikcomSpider(scrapy.Spider):
         loader.add_value('title', title)
         author_name = response.css('div.author > strong::text').extract()[0]
         loader.add_value('author_name', author_name)
-        raw_content = response.css('article > div.text_detail::text').extract()
-        raw_content = ' '.join(raw_content)
+        raw_content = response.css('article > div.text_detail').extract()[0]
         loader.add_value('raw_content', raw_content)
 
         # Parse date information
