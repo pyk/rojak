@@ -1,0 +1,143 @@
+#%RAML 0.8
+---
+title: Rojak
+version: v0
+baseUri: https://api.rojak.com/v0
+mediaType: application/json
+
+resourceTypes:
+  - resource-collection:
+      get:
+        description: Get a list of <<resourcePathName>>.
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleCollection>>
+  - resource-collection-item:
+      get:
+        description: |
+          Get the <<resourcePathName|!singularize>>
+          with <<resourcePathName|!singularize>>Id =
+          {<<resourcePathName|!singularize>>Id}.
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleItem>>
+          404:
+            body:
+              application/json:
+                example: |
+                  { "message" : "<<resourcePathName|!singularize>> not found" }
+  - generic-collection:
+      get:
+        description: <<description>>
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleCollection>>
+  - generic-item:
+      get:
+        description: <<description>>
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleItem>>
+          404:
+            body:
+              application/json:
+                example: |
+                  { "message" : "item not found" }
+
+/pairings:
+  type:
+    resource-collection:
+      exampleCollection: !include examples/pairing-list.sample
+  /{pairingId}:
+    type:
+      resource-collection-item:
+        exampleItem: !include examples/pairing.sample
+    /news:
+      type:
+        generic-collection:
+          description: Get list of news mentioning both or either of the candidates.
+          exampleCollection: !include examples/news-list.sample
+    /sentiments:
+      get:
+        description: Get the overall sentiments for these pairing.
+      /media:
+        get:
+          description: Get a breakdown of media with their sentiment for these candidates.
+        /{mediaId}:
+          get:
+            description: Get the sentiment by this media for these candidates.
+          /news:
+            get:
+              description: Get a breakdown of sentiments from the news of this media.
+
+/candidates:
+  type:
+    resource-collection:
+      exampleCollection: !include examples/candidate-list.sample
+  /{candidateId}:
+    type:
+      resource-collection-item:
+        exampleItem: !include examples/candidate.sample
+    /news:
+      type:
+        generic-collection:
+          description: Get list of news mentioning this candidate.
+          exampleCollection: !include examples/news-list.sample
+    /sentiments:
+      get:
+        description: Get the overall sentiments for this candidate.
+      /media:
+        get:
+          description: Get a breakdown of media with their sentiment for this candidate.
+        /{mediaId}:
+          get:
+            description: Get the sentiment by this media for this candidate.
+          /news:
+            get:
+              description: Get a breakdown of sentiments from the news of this media.
+
+/news:
+  type:
+    resource-collection:
+      exampleCollection: !include examples/news-list.sample
+  /{newsId}:
+    type:
+      resource-collection-item:
+        exampleItem: !include examples/news.sample
+    /candidates:
+      type:
+        generic-collection:
+          description: Get list of candidates mentioned in this article.
+          exampleCollection: !include examples/candidate-list.sample
+    /sentiments:
+      get:
+        description: Get the sentiments score of this article for each candidate.
+
+/media:
+  type:
+    resource-collection:
+      exampleCollection: !include examples/media-list.sample
+  /{mediaId}:
+    type:
+      resource-collection-item:
+        exampleItem: !include examples/media.sample
+    /news:
+      type:
+        generic-collection:
+          description: Get list of news articles of this media.
+          exampleCollection: !include examples/news-list.sample
+    /sentiments:
+      get:
+        description: Get the sentiments score of this media for each candidate.

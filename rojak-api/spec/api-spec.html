@@ -1,0 +1,409 @@
+<!DOCTYPE HTML><html><head><title>Rojak API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 3.0.1"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Rojak API documentation <small>version v0</small></h1><p>https://api.rojak.com/v0</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="pairings" class="panel-title">/pairings</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_pairings"><span class="parent"></span>/pairings</a> <span class="methods"><a href="#pairings_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_pairings" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#pairings_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a list of pairings.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="pairings_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/pairings</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of pairings.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#pairings_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pairings_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "name": "Ahok Djarot",
+    "cagub_id": 1,
+    "cawagub_id": 2,
+    "website_url": "http://ahokdjarot.id",
+    "logo_url": "http://ahokdjarot.id/themes/custom/jakartabaru/logo.png",
+    "fbpage_username": "AhokDjarot",
+    "twitter_username": "AhokDjarot",
+    "instagram_username": "ahokdjarot",
+    "slogan": "TETAP AHOK-DJAROT!",
+    "description": "Jangan biarkan Jakarta Baru berhenti sampai disini! Mari Bersama-sama Dukung Ahok &amp; Djarot sebagai Cagub &amp; Cawagub DKI Jakarta 2017.",
+    "inserted_at": 1341533193,
+    "updated_at": 1341533193
+  },
+  {
+    "id": 2,
+    "name": "Anies Sandi",
+    "cagub_id": 3,
+    "cawagub_id": 4,
+    "website_url": "",
+    "logo_url": "",
+    "fbpage_username": "",
+    "twitter_username": "",
+    "instagram_username": "",
+    "slogan": "",
+    "description": "",
+    "inserted_at": 1341533193,
+    "updated_at": 1341533193
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_pairings__pairingId_"><span class="parent">/pairings</span>/{pairingId}</a> <span class="methods"><a href="#pairings__pairingId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_pairings__pairingId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#pairings__pairingId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the pairing with pairingId = {pairingId}.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="pairings__pairingId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/pairings</span>/{pairingId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the pairing with pairingId = {pairingId}.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#pairings__pairingId__get_request" data-toggle="tab">Request</a></li><li><a href="#pairings__pairingId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pairings__pairingId__get_request"><h3>URI Parameters</h3><ul><li><strong>pairingId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="pairings__pairingId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "id": 3,
+  "name": "Agus Sylvi",
+  "cagub_id": 5,
+  "cawagub_id": 6,
+  "website_url": "http://relawanagussylvi.com",
+  "logo_url": "https://pbs.twimg.com/profile_images/783564904460460032/VgVxZX-l.jpg",
+  "fbpage_username": "RelawanAgusSylvi",
+  "twitter_username": "RelAgusSylvi",
+  "instagram_username": "",
+  "slogan": "Jakarta Untuk Rakyat",
+  "description": "",
+  "inserted_at": 1341533193,
+  "updated_at": 1341533193
+}
+
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "message" : "pairing not found" }
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_pairings__pairingId__news"><span class="parent">/pairings/{pairingId}</span>/news</a> <span class="methods"><a href="#pairings__pairingId__news_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_pairings__pairingId__news" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#pairings__pairingId__news_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get list of news mentioning both or either of the candidates.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="pairings__pairingId__news_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/pairings/{pairingId}</span>/news</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get list of news mentioning both or either of the candidates.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#pairings__pairingId__news_get_request" data-toggle="tab">Request</a></li><li><a href="#pairings__pairingId__news_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pairings__pairingId__news_get_request"><h3>URI Parameters</h3><ul><li><strong>pairingId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="pairings__pairingId__news_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "mediaId": 3,
+    "title": "Kunjungan Presiden Jokowi ke Depok",
+    "url": "https://rojaktv.com/jokowi-jalan-jalan-ke-depok",
+    "author_name": "Anto",
+    "insertedAt": 1341533193,
+    "updatedAt": 1341533193
+  },
+  {
+    "id": 2,
+    "mediaId": 3,
+    "title": "Budi Berpasangan dengan Ani",
+    "url": "https://rojaktv.com/budi-berpasangan-ani",
+    "author_name": "Anto",
+    "insertedAt": 1341533201,
+    "updatedAt": 1341533201
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_pairings__pairingId__sentiments"><span class="parent">/pairings/{pairingId}</span>/sentiments</a> <span class="methods"><a href="#pairings__pairingId__sentiments_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_pairings__pairingId__sentiments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#pairings__pairingId__sentiments_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the overall sentiments for these pairing.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="pairings__pairingId__sentiments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/pairings/{pairingId}</span>/sentiments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the overall sentiments for these pairing.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#pairings__pairingId__sentiments_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pairings__pairingId__sentiments_get_request"><h3>URI Parameters</h3><ul><li><strong>pairingId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_pairings__pairingId__sentiments_media"><span class="parent">/pairings/{pairingId}/sentiments</span>/media</a> <span class="methods"><a href="#pairings__pairingId__sentiments_media_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_pairings__pairingId__sentiments_media" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#pairings__pairingId__sentiments_media_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a breakdown of media with their sentiment for these candidates.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="pairings__pairingId__sentiments_media_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/pairings/{pairingId}/sentiments</span>/media</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a breakdown of media with their sentiment for these candidates.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#pairings__pairingId__sentiments_media_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pairings__pairingId__sentiments_media_get_request"><h3>URI Parameters</h3><ul><li><strong>pairingId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_pairings__pairingId__sentiments_media__mediaId_"><span class="parent">/pairings/{pairingId}/sentiments/media</span>/{mediaId}</a> <span class="methods"><a href="#pairings__pairingId__sentiments_media__mediaId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_pairings__pairingId__sentiments_media__mediaId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#pairings__pairingId__sentiments_media__mediaId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the sentiment by this media for these candidates.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="pairings__pairingId__sentiments_media__mediaId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/pairings/{pairingId}/sentiments/media</span>/{mediaId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the sentiment by this media for these candidates.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#pairings__pairingId__sentiments_media__mediaId__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pairings__pairingId__sentiments_media__mediaId__get_request"><h3>URI Parameters</h3><ul><li><strong>pairingId</strong>: <em>required (string)</em></li><li><strong>mediaId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_pairings__pairingId__sentiments_media__mediaId__news"><span class="parent">/pairings/{pairingId}/sentiments/media/{mediaId}</span>/news</a> <span class="methods"><a href="#pairings__pairingId__sentiments_media__mediaId__news_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_pairings__pairingId__sentiments_media__mediaId__news" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#pairings__pairingId__sentiments_media__mediaId__news_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a breakdown of sentiments from the news of this media.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="pairings__pairingId__sentiments_media__mediaId__news_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/pairings/{pairingId}/sentiments/media/{mediaId}</span>/news</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a breakdown of sentiments from the news of this media.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#pairings__pairingId__sentiments_media__mediaId__news_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="pairings__pairingId__sentiments_media__mediaId__news_get_request"><h3>URI Parameters</h3><ul><li><strong>pairingId</strong>: <em>required (string)</em></li><li><strong>mediaId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="candidates" class="panel-title">/candidates</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates"><span class="parent"></span>/candidates</a> <span class="methods"><a href="#candidates_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_candidates" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a list of candidates.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/candidates</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of candidates.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "full_name": "Basuki Tjahaja Purnama",
+    "alias_name": "Ahok",
+    "place_of_birth": "Manggar, Belitung Timur",
+    "date_of_birth": "1966-06-29",
+    "religion": "Kristen Protestan",
+    "website_url": "http://ahok.org",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
+    "fbpage_username": "AhokBTP",
+    "twitter_username": "basuki_btp",
+    "instagram_username": "basukibtp",
+    "inserted_at": 1341533193,
+    "updated_at": 1341533193
+  },
+  {
+    "id": 2,
+    "full_name": "Anies Baswedan",
+    "alias_name": "Anies",
+    "place_of_birth": "Kuningan",
+    "date_of_birth": "1969-05-07",
+    "religion": "Islam",
+    "website_url": "http://aniesbaswedan.com"
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Anies-baswedan-Dec-2010.jpg",
+    "fbpage_username": "aniesbaswedan",
+    "twitter_username": "aniesbaswedan",
+    "instagram_username": "aniesbaswedan",
+    "inserted_at": 1341533193,
+    "updated_at": 1341533193
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates__candidateId_"><span class="parent">/candidates</span>/{candidateId}</a> <span class="methods"><a href="#candidates__candidateId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_candidates__candidateId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates__candidateId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the candidate with candidateId = {candidateId}.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates__candidateId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates</span>/{candidateId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the candidate with candidateId = {candidateId}.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates__candidateId__get_request" data-toggle="tab">Request</a></li><li><a href="#candidates__candidateId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates__candidateId__get_request"><h3>URI Parameters</h3><ul><li><strong>candidateId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="candidates__candidateId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "id": 3,
+  "full_name": "Agus Harimurti Yudhoyono",
+  "alias_name": "Agus Yudhoyono",
+  "place_of_birth": "Bandung, Jawa Barat",
+  "date_of_birth": "1978-08-10",
+  "religion": "Islam",
+  "website_url": ""
+  "photo_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Mayor_Infanteri_Agus_Harimurti_Yudhoyono%2C_M.Sc.%2C_MPA.png",
+  "fbpage_username": "",
+  "twitter_username": "agusyudhoyono",
+  "instagram_username": "agusyudhoyono",
+  "inserted_at": 1341533193,
+  "updated_at": 1341533193
+}
+
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "message" : "candidate not found" }
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates__candidateId__news"><span class="parent">/candidates/{candidateId}</span>/news</a> <span class="methods"><a href="#candidates__candidateId__news_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_candidates__candidateId__news" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates__candidateId__news_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get list of news mentioning this candidate.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates__candidateId__news_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates/{candidateId}</span>/news</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get list of news mentioning this candidate.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates__candidateId__news_get_request" data-toggle="tab">Request</a></li><li><a href="#candidates__candidateId__news_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates__candidateId__news_get_request"><h3>URI Parameters</h3><ul><li><strong>candidateId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="candidates__candidateId__news_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "mediaId": 3,
+    "title": "Kunjungan Presiden Jokowi ke Depok",
+    "url": "https://rojaktv.com/jokowi-jalan-jalan-ke-depok",
+    "author_name": "Anto",
+    "insertedAt": 1341533193,
+    "updatedAt": 1341533193
+  },
+  {
+    "id": 2,
+    "mediaId": 3,
+    "title": "Budi Berpasangan dengan Ani",
+    "url": "https://rojaktv.com/budi-berpasangan-ani",
+    "author_name": "Anto",
+    "insertedAt": 1341533201,
+    "updatedAt": 1341533201
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates__candidateId__sentiments"><span class="parent">/candidates/{candidateId}</span>/sentiments</a> <span class="methods"><a href="#candidates__candidateId__sentiments_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_candidates__candidateId__sentiments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates__candidateId__sentiments_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the overall sentiments for this candidate.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates__candidateId__sentiments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates/{candidateId}</span>/sentiments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the overall sentiments for this candidate.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates__candidateId__sentiments_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates__candidateId__sentiments_get_request"><h3>URI Parameters</h3><ul><li><strong>candidateId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates__candidateId__sentiments_media"><span class="parent">/candidates/{candidateId}/sentiments</span>/media</a> <span class="methods"><a href="#candidates__candidateId__sentiments_media_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_candidates__candidateId__sentiments_media" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates__candidateId__sentiments_media_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a breakdown of media with their sentiment for this candidate.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates__candidateId__sentiments_media_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates/{candidateId}/sentiments</span>/media</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a breakdown of media with their sentiment for this candidate.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates__candidateId__sentiments_media_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates__candidateId__sentiments_media_get_request"><h3>URI Parameters</h3><ul><li><strong>candidateId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates__candidateId__sentiments_media__mediaId_"><span class="parent">/candidates/{candidateId}/sentiments/media</span>/{mediaId}</a> <span class="methods"><a href="#candidates__candidateId__sentiments_media__mediaId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_candidates__candidateId__sentiments_media__mediaId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates__candidateId__sentiments_media__mediaId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the sentiment by this media for this candidate.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates__candidateId__sentiments_media__mediaId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates/{candidateId}/sentiments/media</span>/{mediaId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the sentiment by this media for this candidate.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates__candidateId__sentiments_media__mediaId__get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates__candidateId__sentiments_media__mediaId__get_request"><h3>URI Parameters</h3><ul><li><strong>candidateId</strong>: <em>required (string)</em></li><li><strong>mediaId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_candidates__candidateId__sentiments_media__mediaId__news"><span class="parent">/candidates/{candidateId}/sentiments/media/{mediaId}</span>/news</a> <span class="methods"><a href="#candidates__candidateId__sentiments_media__mediaId__news_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_candidates__candidateId__sentiments_media__mediaId__news" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#candidates__candidateId__sentiments_media__mediaId__news_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a breakdown of sentiments from the news of this media.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="candidates__candidateId__sentiments_media__mediaId__news_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/candidates/{candidateId}/sentiments/media/{mediaId}</span>/news</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a breakdown of sentiments from the news of this media.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#candidates__candidateId__sentiments_media__mediaId__news_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="candidates__candidateId__sentiments_media__mediaId__news_get_request"><h3>URI Parameters</h3><ul><li><strong>candidateId</strong>: <em>required (string)</em></li><li><strong>mediaId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="news" class="panel-title">/news</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_news"><span class="parent"></span>/news</a> <span class="methods"><a href="#news_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_news" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#news_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a list of news.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="news_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/news</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of news.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#news_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="news_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "mediaId": 3,
+    "title": "Kunjungan Presiden Jokowi ke Depok",
+    "url": "https://rojaktv.com/jokowi-jalan-jalan-ke-depok",
+    "author_name": "Anto",
+    "insertedAt": 1341533193,
+    "updatedAt": 1341533193
+  },
+  {
+    "id": 2,
+    "mediaId": 3,
+    "title": "Budi Berpasangan dengan Ani",
+    "url": "https://rojaktv.com/budi-berpasangan-ani",
+    "author_name": "Anto",
+    "insertedAt": 1341533201,
+    "updatedAt": 1341533201
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_news__newsId_"><span class="parent">/news</span>/{newsId}</a> <span class="methods"><a href="#news__newsId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_news__newsId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#news__newsId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the news with newsId = {newsId}.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="news__newsId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/news</span>/{newsId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the news with newsId = {newsId}.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#news__newsId__get_request" data-toggle="tab">Request</a></li><li><a href="#news__newsId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="news__newsId__get_request"><h3>URI Parameters</h3><ul><li><strong>newsId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="news__newsId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "id": 1,
+  "mediaId": 3,
+  "title": "Kunjungan Presiden Jokowi ke Depok",
+  "url": "https://rojaktv.com/jokowi-jalan-jalan-ke-depok",
+  "author_name": "Anto",
+  "insertedAt": 1341533193,
+  "updatedAt": 1341533193
+}
+
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "message" : "news not found" }
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_news__newsId__candidates"><span class="parent">/news/{newsId}</span>/candidates</a> <span class="methods"><a href="#news__newsId__candidates_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_news__newsId__candidates" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#news__newsId__candidates_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get list of candidates mentioned in this article.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="news__newsId__candidates_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/news/{newsId}</span>/candidates</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get list of candidates mentioned in this article.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#news__newsId__candidates_get_request" data-toggle="tab">Request</a></li><li><a href="#news__newsId__candidates_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="news__newsId__candidates_get_request"><h3>URI Parameters</h3><ul><li><strong>newsId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="news__newsId__candidates_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "full_name": "Basuki Tjahaja Purnama",
+    "alias_name": "Ahok",
+    "place_of_birth": "Manggar, Belitung Timur",
+    "date_of_birth": "1966-06-29",
+    "religion": "Kristen Protestan",
+    "website_url": "http://ahok.org",
+    "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
+    "fbpage_username": "AhokBTP",
+    "twitter_username": "basuki_btp",
+    "instagram_username": "basukibtp",
+    "inserted_at": 1341533193,
+    "updated_at": 1341533193
+  },
+  {
+    "id": 2,
+    "full_name": "Anies Baswedan",
+    "alias_name": "Anies",
+    "place_of_birth": "Kuningan",
+    "date_of_birth": "1969-05-07",
+    "religion": "Islam",
+    "website_url": "http://aniesbaswedan.com"
+    "photo_url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Anies-baswedan-Dec-2010.jpg",
+    "fbpage_username": "aniesbaswedan",
+    "twitter_username": "aniesbaswedan",
+    "instagram_username": "aniesbaswedan",
+    "inserted_at": 1341533193,
+    "updated_at": 1341533193
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_news__newsId__sentiments"><span class="parent">/news/{newsId}</span>/sentiments</a> <span class="methods"><a href="#news__newsId__sentiments_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_news__newsId__sentiments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#news__newsId__sentiments_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the sentiments score of this article for each candidate.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="news__newsId__sentiments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/news/{newsId}</span>/sentiments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the sentiments score of this article for each candidate.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#news__newsId__sentiments_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="news__newsId__sentiments_get_request"><h3>URI Parameters</h3><ul><li><strong>newsId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="media" class="panel-title">/media</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_media"><span class="parent"></span>/media</a> <span class="methods"><a href="#media_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_media" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#media_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get a list of media.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="media_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/media</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of media.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#media_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="media_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "name": "detikcom",
+    "website_url": "http://detik.com",
+    "logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
+    "fbpage_username": "detikcom",
+    "twitter_username": "detikcom",
+    "instagram_username": "detikcom",
+    "insertedAt": 1341533193,
+    "updatedAt": 1341533193
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_media__mediaId_"><span class="parent">/media</span>/{mediaId}</a> <span class="methods"><a href="#media__mediaId__get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_media__mediaId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#media__mediaId__get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the media with mediaId = {mediaId}.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="media__mediaId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/media</span>/{mediaId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the media with mediaId = {mediaId}.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#media__mediaId__get_request" data-toggle="tab">Request</a></li><li><a href="#media__mediaId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="media__mediaId__get_request"><h3>URI Parameters</h3><ul><li><strong>mediaId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="media__mediaId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "id": 1,
+  "name": "detikcom",
+  "website_url": "http://detik.com",
+  "logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
+  "fbpage_username": "detikcom",
+  "twitter_username": "detikcom",
+  "instagram_username": "detikcom",
+  "insertedAt": 1341533193,
+  "updatedAt": 1341533193
+}
+
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{ "message" : "media not found" }
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_media__mediaId__news"><span class="parent">/media/{mediaId}</span>/news</a> <span class="methods"><a href="#media__mediaId__news_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_media__mediaId__news" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#media__mediaId__news_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get list of news articles of this media.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="media__mediaId__news_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/media/{mediaId}</span>/news</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get list of news articles of this media.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#media__mediaId__news_get_request" data-toggle="tab">Request</a></li><li><a href="#media__mediaId__news_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="media__mediaId__news_get_request"><h3>URI Parameters</h3><ul><li><strong>mediaId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="media__mediaId__news_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+  {
+    "id": 1,
+    "mediaId": 3,
+    "title": "Kunjungan Presiden Jokowi ke Depok",
+    "url": "https://rojaktv.com/jokowi-jalan-jalan-ke-depok",
+    "author_name": "Anto",
+    "insertedAt": 1341533193,
+    "updatedAt": 1341533193
+  },
+  {
+    "id": 2,
+    "mediaId": 3,
+    "title": "Budi Berpasangan dengan Ani",
+    "url": "https://rojaktv.com/budi-berpasangan-ani",
+    "author_name": "Anto",
+    "insertedAt": 1341533201,
+    "updatedAt": 1341533201
+  }
+]
+
+</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_media__mediaId__sentiments"><span class="parent">/media/{mediaId}</span>/sentiments</a> <span class="methods"><a href="#media__mediaId__sentiments_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_media__mediaId__sentiments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#media__mediaId__sentiments_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Get the sentiments score of this media for each candidate.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="media__mediaId__sentiments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/media/{mediaId}</span>/sentiments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get the sentiments score of this media for each candidate.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#media__mediaId__sentiments_get_request" data-toggle="tab">Request</a></li></ul><div class="tab-content"><div class="tab-pane active" id="media__mediaId__sentiments_get_request"><h3>URI Parameters</h3><ul><li><strong>mediaId</strong>: <em>required (string)</em></li></ul></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#pairings">/pairings</a></li><li><a href="#candidates">/candidates</a></li><li><a href="#news">/news</a></li><li><a href="#media">/media</a></li></ul></div></div></div></div></body></html>
