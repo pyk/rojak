@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from scrapy import Request 
+from scrapy import Request
 from scrapy.exceptions import CloseSpider
 from scrapy.loader import ItemLoader
 
@@ -62,23 +62,20 @@ class MetrotvnewsSpider(BaseSpider):
         self.logger.info('parse_news: {}'.format(response))
         is_video = response.css('ul.breadcrumb > li > a::text').extract()[0] == 'VIDEO'
 
+        # Skip if video page, since no author here
+        if is_video:
+            return
+
         # Init item loader
         # extract news title, published_at, author, content, url
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
 
-        if is_video:
-            title = response.css('div.part.detail > h1::text').extract()[0]
-            author_name = None
-            # Example: 10 Oktober 2016 21:10 wib
-            date_str = response.css('span.r.mright::text').extract()[0]
-
-        else:
-            title = response.css('div.part.lead.pr > h1::text').extract()[0]
-            info = response.css('div.part.lead.pr > span::text').extract()[0]
-            author_name = info.split('-')[0].strip()
-            # Example: 10 Oktober 2016 21:10 wib
-            date_str = info.split('-')[1].strip()
+        title = response.css('div.part.lead.pr > h1::text').extract()[0]
+        info = response.css('div.part.lead.pr > span::text').extract()[0]
+        author_name = info.split('-')[0].strip()
+        # Example: 10 Oktober 2016 21:10 wib
+        date_str = info.split('-')[1].strip()
 
         # Extract raw html, not the text
         raw_content = response.css('div.part.article').extract()
