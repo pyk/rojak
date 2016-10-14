@@ -48,7 +48,6 @@ class BeritasatuSpider(BaseSpider):
             url = 'http://www.beritasatu.com{}'.format(url_raw)
 
             # Example: Kamis, 06 Oktober 2016 | 10:11 -
-            # TODO: continue here
             info_selectors = article.css('div.ptime > span.datep::text')
             if not info_selectors:
                 raise CloseSpider('info_selectors not found')
