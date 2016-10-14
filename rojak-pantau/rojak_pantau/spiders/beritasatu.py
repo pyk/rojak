@@ -25,38 +25,52 @@ class BeritasatuSpider(BaseSpider):
 
     def parse(self, response):
         self.logger.info('parse: {}'.format(response))
-        is_scraped = False
+        is_no_update = False
 
         # beritasatu response is HTML snippet wrapped in a JSON response
-        data = json.loads(response.body_as_unicode())
-        response = HtmlResponse(url=response.url, body=data['content'].encode('utf-8'))
+        json_response = json.loads(response.body_as_unicode())
+        if not 'content' in json_response:
+            raise CloseSpider('json_response invalid')
+        data = json_response['content']
+        response = HtmlResponse(url=response.url, body=data.encode('utf-8',
+            'ignore'))
 
         # Note: no next page button on beritasatu, all is loaded here
         # adjust how many links to extract from NEWS_LIMIT const
-        for article in response.css('div.headfi'):
-            url = 'http://www.beritasatu.com{}'.format(
-                article.css('h4 > a::attr(href)').extract()[0])
+        article_selectors = response.css('div.headfi')
+        if not article_selectors:
+            raise CloseSpider('article_selectors not found')
+        for article in article_selectors:
+            url_selectors = article.css('h4 > a::attr(href)')
+            if not url_selectors:
+                raise CloseSpider('url_selectors not found')
+            url_raw = url_selectors.extract()[0]
+            url = 'http://www.beritasatu.com{}'.format(url_raw)
+
             # Example: Kamis, 06 Oktober 2016 | 10:11 -
-            info = article.css('div.ptime > span.datep::text').extract()[0]
+            info_selectors = article.css('div.ptime > span.datep::text')
+            if not info_selectors:
+                raise CloseSpider('info_selectors not found')
+            info = info_selectors.extract()[0]
+            info_time = re.split('[\s,|-]', info)
+            info_time = ' '.join([_(s) for s in info_time[1:] if s])
 
             # Parse date information
             try:
                 # Example: 06 October 2016 10:11
-                info_time = re.split('[\s,|-]', info)
-                info_time = ' '.join([_(s) for s in info_time[1:] if s])
-                self.logger.info('info_time: {}'.format(info_time))
-                published_at = wib_to_utc(
-                    datetime.strptime(info_time, '%d %B %Y %H:%M'))
-            except Exception as e:
-                raise CloseSpider('cannot_parse_date: {}'.format(e))
+                published_at_wib = datetime.strptime(info_time, '%d %B %Y %H:%M')
+            except ValueError as err:
+                raise CloseSpider('cannot_parse_date: {}'.format(err))
+
+            published_at = wib_to_utc(published_at_wib)
 
             if self.media['last_scraped_at'] >= published_at:
-                is_scraped = True
+                is_no_update = True
                 break
             # For each url we create new scrapy Request
             yield Request(url, callback=self.parse_news)
 
-        if is_scraped:
+        if is_no_update:
             self.logger.info('Media have no update')
             return
 
@@ -68,29 +82,48 @@ class BeritasatuSpider(BaseSpider):
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
 
-        title = response.css('div.content-detail > h4::text').extract()[0]
-        author_name = response.css('div.content-detail > p::text').extract()[0]
-        author_name = author_name.split('/')[0]
-        # Example: Selasa, 11 Oktober 2016 | 10:48
-        date_str = response.css('div.date::text').extract()[0]
+        title_selectors = response.css('div.content-detail > h4::text')
+        if not title_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        title = title_selectors.extract()[0]
+        loader.add_value('title', title)
+
         # Extract raw html, not the text
-        raw_content = response.css('div.content-body').extract()[0]
+        raw_content_selectors = response.css('div.content-body')
+        if not raw_content_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        raw_content = raw_content_selectors.extract()[0]
+        loader.add_value('raw_content', raw_content)
+
+        # Example: Selasa, 11 Oktober 2016 | 10:48
+        date_selectors = response.css('div.date::text')
+        if not date_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        date_str = date_selectors.extract()[0]
+        # Example: 11 October 2016 10:48
+        date_str = re.split('[\s,|-]', date_str)
+        date_str = ' '.join([_(s) for s in date_str[1:] if s])
 
         # Parse date information
         try:
-            # Example: 11 October 2016 10:48
-            date_str = re.split('[\s,|-]', date_str)
-            date_str = ' '.join([_(s) for s in date_str[1:] if s])
-            self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
-            published_at = wib_to_utc(
-                datetime.strptime(date_str, '%d %B %Y %H:%M'))
-            loader.add_value('published_at', published_at)
-        except Exception as e:
-            raise CloseSpider('cannot_parse_date: {}'.format(e))
+            published_at_wib = datetime.strptime(date_str, '%d %B %Y %H:%M')
+        except ValueError:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        published_at = wib_to_utc(published_at_wib)
+        loader.add_value('published_at', published_at)
 
-        loader.add_value('title', title)
-        loader.add_value('author_name', author_name)
-        loader.add_value('raw_content', raw_content)
+        author_selectors = response.css('div.content-detail > p::text')
+        if not author_selectors:
+            loader.add_value('author_name', '')
+        else:
+            author_name = author_selectors.extract()[0]
+            author_name = author_name.split('/')[0]
+            loader.add_value('author_name', author_name)
 
         # Move scraped news to pipeline
         return loader.load_item()
+
