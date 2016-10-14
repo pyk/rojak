@@ -124,14 +124,24 @@ class OkezoneSpider(scrapy.Spider):
         articles = response.css('li.col-md-12')
         for article in articles:
             # Example: http://news.okezone.com/read/2016/10/12/338/1512347/marak-isu-sara-jelang-pilgub-begini-cara-mencegahnya
-            url = article.css('h3 > a::attr(href)').extract()[0]
+            url_selectors = article.css('h3 > a::attr(href)')
+
+            if not url_selectors:
+                raise CloseSpider('url_selectors not found')
+
+            url_selectors = url_selectors.extract()[0]
             # Use Okezone Mobile App API
             # Example: http://services.okezone.com/android/mobile_topic/2016/10/12/338/1512347/marak-isu-sara-jelang-pilgub-begini-cara-mencegahnya
-            url = 'http://services.okezone.com/android/apps_detail/' + '/'.join(url.split('/')[-6:])
+            url = 'http://services.okezone.com/android/apps_detail/' + '/'.join(url_selectors.split('/')[-6:])
 
 
             # Example: Rabu, 12 Oktober 2016 06:44 WIB
-            date_time_str = article.css('time::text').extract()[1].strip()
+            date_time_str_selectors = article.css('time::text')
+
+            if not date_time_str_selectors or len(date_time_str_selectors) < 2:
+                raise CloseSpider('date_time_str_selectors not found')
+
+            date_time_str = date_time_str_selectors.extract()[1].strip()
 
             # Parse date information
             try:
@@ -173,24 +183,36 @@ class OkezoneSpider(scrapy.Spider):
 
     # Collect news item
     def parse_news(self, response):
+        self.logger.info('parse_news: %s' % response)
         parsed_news = json.loads(str(response.body))
         parsed_news = parsed_news[0]
-
-        if not (response.url and parsed_news['title'] and parsed_news['author'] and parsed_news['content'] and parsed_news['published']):
-            return
-
-        parsed_news['content'] = re.search(r'<body>(.*)</body>', parsed_news['content'], re.S|re.I).group(1)
-        parsed_news['content'] = re.sub(r'<img[^>]+\>', '', parsed_news['content'])
-
-        self.logger.info('parse_news: %s' % response)
 
         # Initialize item loader
         # extract news title, published_at, author, content, url
         loader = ItemLoader(item=News(), response=response)
+
         loader.add_value('url', response.url)
+
+        if not parsed_news['title']:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
         loader.add_value('title', parsed_news['title'])
+
+        if not parsed_news['author']:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
         loader.add_value('author_name', parsed_news['author'])
+
+        if not parsed_news['content']:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        parsed_news['content'] = re.search(r'<body>(.*)</body>', parsed_news['content'], re.S|re.I).group(1)
+        parsed_news['content'] = re.sub(r'<img[^>]+\>', '', parsed_news['content'])
         loader.add_value('raw_content', parsed_news['content'])
+
+        if not parsed_news['published']:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
 
         # Parse date information
         try:
