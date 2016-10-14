@@ -5,7 +5,6 @@ from scrapy.exceptions import CloseSpider, NotConfigured
 from scrapy.loader import ItemLoader
 
 from rojak_pantau.items import News
-from rojak_pantau.i18n import _
 from rojak_pantau.util.wib_to_utc import wib_to_utc
 from rojak_pantau.spiders.base import BaseSpider
 
@@ -20,32 +19,42 @@ class CnnindonesiaSpider(BaseSpider):
 
     def parse(self, response):
         self.logger.info('parse: {}'.format(response))
-        is_scraped = False
+        is_no_update = False
 
         # Collect list of news from current page
         # Note: no next page button on cnnindonesia, all is loaded here
-        for article in response.css('a.list_kontribusi'):
-            url = article.css('a::attr(href)').extract()[0]
+        article_selectors = response.css('a.list_kontribusi');
+        if not article_selectors:
+            raise CloseSpider('article_selectors not found')
+
+        for article in article_selectors:
+            url_selectors = article.css('a::attr(href)')
+            if not url_selectors:
+                raise CloseSpider('url_selectors not found')
+            url = url_selectors.extract()[0]
+
             # Example: Jumat, 23/09/2016 21:17
-            info = article.css('div.text > div > span.tanggal::text').extract()[0]
+            info_selectors = article.css('div.text > div > span.tanggal::text')
+            if not info_selectors:
+                raise CloseSpider('info_selectors not found')
+            info = info_selectors.extract()[0]
+            info_time = info.split(',')[1].strip()
 
             # Parse date information
             try:
                 # Example: 23/09/2016 21:17
-                info_time = info.split(',')[1].strip()
-                self.logger.info('info_time: {}'.format(info_time))
-                published_at = wib_to_utc(
-                    datetime.strptime(info_time, '%d/%m/%Y %H:%M'))
-            except Exception as e:
-                raise CloseSpider('cannot_parse_date: {}'.format(e))
+                published_at_wib = datetime.strptime(info_time, '%d/%m/%Y %H:%M')
+            except ValueError as err:
+                raise CloseSpider('cannot_parse_date: {}'.format(err))
+            published_at = wib_to_utc(published_at_wib)
 
             if self.media['last_scraped_at'] >= published_at:
-                is_scraped = True
+                is_no_update = True
                 break
             # For each url we create new scrapy Request
             yield Request(url, callback=self.parse_news)
 
-        if is_scraped:
+        if is_no_update:
             self.logger.info('Media have no update')
             return
 
@@ -57,27 +66,45 @@ class CnnindonesiaSpider(BaseSpider):
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
 
-        title = response.css('div.detail_text > h1::text').extract()[0]
-        author_name = response.css('div.author > strong::text').extract()[0]
-        # Example: Senin, 10/10/2016 05:12
-        date_str = response.css('div.date::text').extract()[0]
-        # Extract raw html, not the text
-        raw_content = response.css('div.detail_text').extract()[0]
+        title_selectors = response.css('div.detail_text > h1::text')
+        if not title_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        title = title_selectors.extract()[0]
+        loader.add_value('title', title)
 
+        # Extract raw html, not the text
+        raw_content_selectors = response.css('div.detail_text')
+        if not raw_content_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        raw_content = raw_content_selectors.extract()[0]
+        loader.add_value('raw_content', raw_content)
+
+        # Example: Senin, 10/10/2016 05:12
+        date_selectors = response.css('div.date::text')
+        if not date_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        date_str = date_selectors.extract()[0]
+        # Example: 10/10/2016 05:12
+        date_str = date_str.split(',')[1].strip()
         # Parse date information
         try:
-            # Example: 10/10/2016 05:12
-            date_str = date_str.split(',')[1].strip()
-            self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
-            published_at = wib_to_utc(
-                datetime.strptime(date_str, '%d/%m/%Y %H:%M'))
-            loader.add_value('published_at', published_at)
-        except Exception as e:
-            raise CloseSpider('cannot_parse_date: {}'.format(e))
+            published_at_wib = datetime.strptime(date_str, '%d/%m/%Y %H:%M')
+        except ValueError:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        published_at = wib_to_utc(published_at_wib)
+        loader.add_value('published_at', published_at)
 
-        loader.add_value('title', title)
-        loader.add_value('author_name', author_name)
-        loader.add_value('raw_content', raw_content)
+        author_name_selectors = response.css('div.author > strong::text')
+        if not author_name_selectors:
+            loader.add_value('author_name', '')
+        else:
+            author_name = author_name_selectors.extract()[0]
+            loader.add_value('author_name', author_name)
 
         # Move scraped news to pipeline
         return loader.load_item()
+
