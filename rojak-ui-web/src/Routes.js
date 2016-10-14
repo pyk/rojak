@@ -1,11 +1,11 @@
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import React from 'react';
 
 import Container from './app/utils/Container';
 import HomePage from './app/home/HomePage';
 
 const Routes = () => (
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path="/" component={Container}>
             <IndexRoute component={HomePage} />
         </Route>

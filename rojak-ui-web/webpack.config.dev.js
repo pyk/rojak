@@ -33,27 +33,33 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
     ],
     module: {
-        loaders: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: combineLoaders([
-                { loader: 'react-hot' },
-                {
-                    loader: 'babel',
-                    query: {
-                        presets: ['react', 'es2015', 'stage-2'],
-                        cacheDirectory: true,
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: combineLoaders([
+                    { loader: 'react-hot' },
+                    {
+                        loader: 'babel',
+                        query: {
+                            presets: ['react', 'es2015', 'stage-2'],
+                            cacheDirectory: true,
+                        },
                     },
-                },
-            ]),
-        },
-        {
-            test: /\.(svg|png|jpg|jpeg)$/i,
-            loader: 'file',
-        },
-        {
-            test: /\.json$/i,
-            loader: 'json',
-        }],
+                ]),
+            },
+            {
+                test: /\.(svg|png|jpg|jpeg)$/i,
+                loader: 'file',
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader?modules",
+            },
+            {
+                test: /\.json$/i,
+                loader: 'json',
+            }
+        ],
     },
 };

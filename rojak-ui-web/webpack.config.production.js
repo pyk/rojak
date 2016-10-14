@@ -54,23 +54,29 @@ module.exports = {
         }),
     ],
     module: {
-        loaders: [{
-            test: /\.js$/,
-            loader: 'babel',
-            include: path.join(__dirname, 'src'),
-            query: {
-                sourceMap: true,
-                cacheDirectory: true,
+        loaders: [
+            {
+                test: /\.js$/,
+                loader: 'babel',
+                include: path.join(__dirname, 'src'),
+                query: {
+                    sourceMap: true,
+                    cacheDirectory: true,
+                },
             },
-        },
-        {
-            test: /\.(svg|png|jpg|jpeg)$/i,
-            loader: 'file',
-        },
-        {
-            test: /\.json$/i,
-            loader: 'json',
-        }],
+            {
+                test: /\.(svg|png|jpg|jpeg)$/i,
+                loader: 'file',
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader?modules",
+            },
+            {
+                test: /\.json$/i,
+                loader: 'json',
+            }
+        ],
     },
     resolve: {
         alias: {
