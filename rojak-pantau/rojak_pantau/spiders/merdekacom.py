@@ -88,7 +88,7 @@ class MerdekacomSpider(BaseSpider):
             # Example: 2016-10-12 15:16:04
             published_at_wib = datetime.strptime(date_time_str, '%Y-%m-%d %H:%M:%S')
         except Exception as e:
-            raise CloseSpider('cannot_parse_date: %s' % e)
+            return loader.load_item()
 
         published_at = wib_to_utc(published_at_wib)
         loader.add_value('published_at', published_at)
