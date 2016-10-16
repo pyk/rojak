@@ -9,6 +9,9 @@ from rojak_pantau.i18n import _
 from rojak_pantau.util.wib_to_utc import wib_to_utc
 from rojak_pantau.spiders.base import BaseSpider
 
+NEWS_HEADLINE = 'headline'
+NEWS_GRID = 'grid'
+
 class MetrotvnewsSpider(BaseSpider):
     name = "metrotvnews"
     allowed_domains = ["metrotvnews.com"]
@@ -18,28 +21,42 @@ class MetrotvnewsSpider(BaseSpider):
 
     def parse(self, response):
         self.logger.info('parse: {}'.format(response))
-        is_scraped = False
+        is_no_update = False
 
         # Collect list of news from current page
-        for i, article in enumerate(
-                response.css('div.topic') + response.css('li:not(.last) > div.grid')):
-            if i == 0:
-                url = article.css('h1 > a::attr(href)').extract()[0]
-            else:
-                url = article.css('h2 > a::attr(href)').extract()[0]
+        articles_grid = response.css('li:not(.last) > div.grid')
+        articles = zip(articles_grid, [NEWS_GRID] * len(articles_grid))
+        articles += zip(response.css('div.topic'), [NEWS_HEADLINE])
+
+        if not articles:
+            raise CloseSpider('article not found')
+        for article in articles:
+            # Close the spider if we don't find the list of urls
+            url_selectors = None
+            if article[1] == NEWS_GRID:
+                url_selectors = article.css('h2 > a::attr(href)')
+            elif article[1] == NEWS_HEADLINE:
+                url_selectors = article.css('h1 > a::attr(href)')
+
+            if not url_selectors:
+                raise CloseSpider('url_selectors not found')
+            url = url_selectors.extract()[0]
 
             # Example: Minggu, 09 Oct 2016 15:14
-            info = article.css('div.reg::text').extract()[1].strip()
+            info_selectors = article.css('div.reg::text')
+            if not info_selectors:
+                raise CloseSpider('info_selectors not found')
+            info = info_selectors.extract()[1]
+            # Example: 09 Oct 2016 15:14
+            info_time = info.split(',')[1].strip()
 
             # Parse date information
             try:
-                # Example: 09 Oct 2016 15:14
-                info_time = info.split(',')[1].strip()
-                self.logger.info('info_time: {}'.format(info_time))
-                published_at = wib_to_utc(
-                    datetime.strptime(info_time, '%d %b %Y %H:%M'))
-            except Exception as e:
+                published_at_wib = datetime.strptime(info_time, '%d %b %Y %H:%M')
+            except ValueError as e:
                 raise CloseSpider('cannot_parse_date: {}'.format(e))
+
+            published_at = wib_to_utc(published_at_wib)
 
             if self.media['last_scraped_at'] >= published_at:
                 is_scraped = True
@@ -47,7 +64,7 @@ class MetrotvnewsSpider(BaseSpider):
             # For each url we create new scrapy request
             yield Request(url, callback=self.parse_news)
 
-        if is_scraped:
+        if is_no_update:
             self.logger.info('Media have no update')
             return
 
