@@ -59,7 +59,7 @@ class SindonewsSpider(BaseSpider):
         if is_no_update:
             self.logger.info('Media have no update')
             return
-        
+
         for next_button in response.css('.mpaging > ul > li'):
             if len(next_button.css('a:not(.active) > .fa-angle-right')) > 0:
               next_page = next_button.css('a::attr(href)').extract()[0]
@@ -86,7 +86,6 @@ class SindonewsSpider(BaseSpider):
 
         author_name_selectors = response.css('a[rel="author"] > span::text')
         if not author_name_selectors:
-            # Will be dropped on the item pipeline
             loader.add_value('author_name', '')
         else:
             author_name = author_name_selectors.extract()[0]
@@ -111,8 +110,9 @@ class SindonewsSpider(BaseSpider):
         date_time_str = ' '.join([_(w) for w in date_time_str.split(' ')])
         try:
             published_at_wib = datetime.strptime(date_time_str, '%d %B %Y - %H:%M')
-        except Exception as e:
-            raise CloseSpider('cannot_parse_date: %s' % e)
+        except ValueError:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
         published_at = wib_to_utc(published_at_wib)
         loader.add_value('published_at', published_at)
 
