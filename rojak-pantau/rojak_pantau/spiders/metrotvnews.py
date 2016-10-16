@@ -79,38 +79,59 @@ class MetrotvnewsSpider(BaseSpider):
         self.logger.info('parse_news: {}'.format(response))
         is_video = response.css('ul.breadcrumb > li > a::text').extract()[0] == 'VIDEO'
 
-        # Skip if video page, since no author here
+        # Will be dropped if video page
         if is_video:
-            return
+            return loader.load_item()
 
         # Init item loader
         # extract news title, published_at, author, content, url
+        # Required: title, raw_content, published_at
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
+        title_selectors = response.css('div.part.lead.pr > h1::text')
+        if not title_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        title = title_selectors.extract()[0]
+        loader.add_value('title', title)
 
-        title = response.css('div.part.lead.pr > h1::text').extract()[0]
-        info = response.css('div.part.lead.pr > span::text').extract()[0]
-        author_name = info.split('-')[0].strip()
+        raw_content_selectors = response.css('div.part.article')
+        if not raw_content_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        raw_content = raw_content_selectors.extract()[0]
+        loader.add_value('raw_content', raw_content)
+
+        # Example: Bambang - 10 Oktober 2016 21:10 wib
+        info_selectors = response.css('div.part.lead.pr > span::text')
+        if not info_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        info = info_selectors.extract()[0]
+
+        # Parse date information
         # Example: 10 Oktober 2016 21:10 wib
         date_str = info.split('-')[1].strip()
+        if not date_str:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
 
-        # Extract raw html, not the text
-        raw_content = response.css('div.part.article').extract()
-        raw_content = ' '.join(raw_content)
-        # Parse date information
+        # Example: 10 October 2016 21:10
+        date_str = ' '.join([_(w) for w in date_str[:-4].split(' ')])
         try:
-            # Example: 10 October 2016 21:10
-            date_str = ' '.join([_(w) for w in date_str[:-4].split(' ')])
-            self.logger.info('parse_date: parse_news: date_str: {}'.format(date_str))
-            published_at = wib_to_utc(
-                datetime.strptime(date_str, '%d %B %Y %H:%M'))
-            loader.add_value('published_at', published_at)
-        except Exception as e:
-            raise CloseSpider('cannot_parse_date: {}'.format(e))
+            published_at_wib = datetime.strptime(date_str, '%d %B %Y %H:%M')
+        except ValueError:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
 
-        loader.add_value('title', title)
-        loader.add_value('author_name', author_name)
-        loader.add_value('raw_content', raw_content)
+        published_at = wib_to_utc(published_at_wib)
+        loader.add_value('published_at', published_at)
+
+        author_name = info.split('-')[0].strip()
+        if not author_name:
+            loader.add_value('author_name', '')
+        else:
+            loader.add_value('author_name', author_name)
 
         # Move scraped news to pipeline
         return loader.load_item()
