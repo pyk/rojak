@@ -85,11 +85,19 @@ class DetikcomSpider(BaseSpider):
         title = title_selectors.extract()[0]
         loader.add_value('title', title)
 
-        raw_content_selectors = response.css('article > div.text_detail')
+        # Extract the content using XPath instead of CSS selector
+        # We get the XPath from chrome developer tools (copy XPath)
+        # or equivalent tools from other browser
+        xpath_query = """
+            //div[@class="text_detail detail_area"]/node()
+                [not(self::comment()|self::script|self::div)]
+        """
+        raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        raw_content = raw_content_selectors.extract()[0]
+        raw_content = ' '.join(raw_content_selectors.extract())
+        raw_content = raw_content.strip()
         loader.add_value('raw_content', raw_content)
 
         # Parse date information
