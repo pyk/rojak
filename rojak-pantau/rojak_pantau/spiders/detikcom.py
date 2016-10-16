@@ -67,7 +67,7 @@ class DetikcomSpider(BaseSpider):
         elif response.css('div.pag-nextprev > a'):
             next_page = response.css('div.pag-nextprev > a::attr(href)')[1].extract()
             next_page_url = response.urljoin(next_page)
-            yield scrapy.Request(next_page_url, callback=self.parse)
+            yield Request(next_page_url, callback=self.parse)
 
     # Collect news item
     def parse_news(self, response):
