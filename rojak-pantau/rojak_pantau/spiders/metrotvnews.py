@@ -30,20 +30,23 @@ class MetrotvnewsSpider(BaseSpider):
 
         if not articles:
             raise CloseSpider('article not found')
+
         for article in articles:
             # Close the spider if we don't find the list of urls
             url_selectors = None
             if article[1] == NEWS_GRID:
-                url_selectors = article.css('h2 > a::attr(href)')
+                url_selectors = article[0].css('h2 > a::attr(href)')
             elif article[1] == NEWS_HEADLINE:
-                url_selectors = article.css('h1 > a::attr(href)')
+                url_selectors = article[0].css('h1 > a::attr(href)')
 
             if not url_selectors:
                 raise CloseSpider('url_selectors not found')
             url = url_selectors.extract()[0]
 
+            self.logger.info('Url: {}'.format(url))
+
             # Example: Minggu, 09 Oct 2016 15:14
-            info_selectors = article.css('div.reg::text')
+            info_selectors = article[0].css('div.reg::text')
             if not info_selectors:
                 raise CloseSpider('info_selectors not found')
             info = info_selectors.extract()[1]
@@ -59,7 +62,7 @@ class MetrotvnewsSpider(BaseSpider):
             published_at = wib_to_utc(published_at_wib)
 
             if self.media['last_scraped_at'] >= published_at:
-                is_scraped = True
+                is_no_update = True
                 break
             # For each url we create new scrapy request
             yield Request(url, callback=self.parse_news)
@@ -79,15 +82,16 @@ class MetrotvnewsSpider(BaseSpider):
         self.logger.info('parse_news: {}'.format(response))
         is_video = response.css('ul.breadcrumb > li > a::text').extract()[0] == 'VIDEO'
 
-        # Will be dropped if video page
-        if is_video:
-            return loader.load_item()
-
         # Init item loader
         # extract news title, published_at, author, content, url
         # Required: title, raw_content, published_at
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
+
+        # Will be dropped if video page
+        if is_video:
+            return loader.load_item()
+
         title_selectors = response.css('div.part.lead.pr > h1::text')
         if not title_selectors:
             # Will be dropped on the item pipeline
