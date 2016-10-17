@@ -74,11 +74,23 @@ class CnnindonesiaSpider(BaseSpider):
         loader.add_value('title', title)
 
         # Extract raw html, not the text
-        raw_content_selectors = response.css('div.detail_text')
+        # Using Xpath instead of CSS selector to eliminate useless children
+        xpath_query = """
+            //div[@class="detail_text"]/node()
+                [not(self::h1|self::h3|self::div[@class="date"]|\
+                    self::div[@class="author"]|self::div[@class="bacajuga"]|\
+                    self::div[@class="picdetail"]|self::div[@id="dtk-comment"]|\
+                    self::div[@class="clearfix pt10"]|self::div[@class="topik1"]|\
+                    self::div[@class="share top_line mt20"]|\
+                    self::div[@class="banner pt10"]|self::div[@class="clearfix"]|\
+                    self::table|self::hr|self::div[@class="newstag"])]
+        """
+        raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        raw_content = raw_content_selectors.extract()[0]
+        raw_content = ' '.join(raw_content_selectors.extract())
+        raw_content = raw_content.strip()
         loader.add_value('raw_content', raw_content)
 
         # Example: Senin, 10/10/2016 05:12
@@ -107,4 +119,3 @@ class CnnindonesiaSpider(BaseSpider):
 
         # Move scraped news to pipeline
         return loader.load_item()
-
