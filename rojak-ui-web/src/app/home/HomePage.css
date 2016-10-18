@@ -14,9 +14,37 @@
   height: 200px;
 }
 
+.rojakDescription {
+  composes: bg-white from "../../assets/css/colors.css";
+}
+
 .learnMoreButton {
   composes: bg-transparent from "../../assets/css/colors.css";
   color: rgb(51, 51, 51);
   border: 2px solid rgb(51, 51, 51);
   border-radius: 0;
+}
+
+.categoryContainer {
+  margin-top: 15px;
+}
+
+.category {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-bottom: solid 1px #ccc;
+}
+
+.category:hover {
+  text-decoration: none;
+}
+
+.description {
+  margin: 25px 0;
+  padding: 25px 0;
+  border-top: solid 1px #ccc;
+}
+
+.subDescription {
+  margin-top: 10px;
 }
