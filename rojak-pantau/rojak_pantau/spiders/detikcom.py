@@ -54,7 +54,7 @@ class DetikcomSpider(BaseSpider):
                 break
 
             # For each url we create new scrapy request
-            yield Request(url, callback=self.parse_news)
+            yield Request(url + '?single=1', callback=self.parse_news)
 
         if is_no_update:
             self.logger.info('Media have no update')
