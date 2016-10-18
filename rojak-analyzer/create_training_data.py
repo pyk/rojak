@@ -1,4 +1,3 @@
-# TODO: create training data
 import csv
 from bs4 import BeautifulSoup
 from collections import Counter
@@ -17,6 +16,7 @@ for row in csv_reader:
     raw_content = row['raw_content']
     clean_content = BeautifulSoup(raw_content, 'lxml').text
     content = []
+    labels = []
 
     # Compile regex to remove non-alphanum char
     nonalpha = re.compile('[^a-z\-]+')
@@ -31,11 +31,25 @@ for row in csv_reader:
         word = nonalpha.sub('', word)
         if word != '':
             content.append(word)
+    content_str = ' '.join(content).strip()
 
-    content = ' '.join(content)
-    train_line = '{}'
-counter = Counter(words)
-for word in counter.most_common(len(counter)):
-    print '{},{}'.format(word[0], word[1])
+    if row['sentiment_1'] != '':
+        label = row['sentiment_1']
+        label_name = '{}{}'.format(LABEL_PREFIX, label)
+        labels.append(label_name)
+    if row['sentiment_2'] != '':
+        label = row['sentiment_2']
+        label_name = '{}{}'.format(LABEL_PREFIX, label)
+        labels.append(label_name)
+    if row['sentiment_3'] != '':
+        label = row['sentiment_3']
+        label_name = '{}{}'.format(LABEL_PREFIX, label)
+        labels.append(label_name)
+
+    # Skip content if label not exists
+    if not labels: continue
+    label_str = ' '.join(labels)
+    train_line = '{} {}\n'.format(label_str, content_str)
+    train_file.write(train_line)
 
 csv_file.close()
