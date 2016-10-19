@@ -79,12 +79,14 @@ class KompasComSpider(BaseSpider):
 
     def parse_news(self, response):
         self.logger.info('parse_news: %s' % response)
-        loader = ItemLoader(item=News(), response=response)
-        loader.add_value('url', response.url)
+        loader = ItemLoader(item=News(), response=response)        
         json_response = json.loads(response.body)
 
-        # Reference for future usage, article url:
-        # url = json_response['NewsML']['NewsItem']['NewsComponent']['NewsComponent']['NewsComponent']['NewsLines']['MoreLink']
+        try:
+            url = json_response['NewsML']['NewsItem']['NewsComponent']['NewsComponent']['NewsComponent']['NewsLines']['MoreLink']
+        except KeyError:
+            return loader.load_item()
+        loader.add_value('url', url)
 
         try:
             title = json_response['NewsML']['NewsItem']['NewsComponent']['NewsComponent']['NewsComponent']['NewsLines']['HeadLine']
