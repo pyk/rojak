@@ -5,6 +5,8 @@ from scrapy import Request
 from scrapy.exceptions import CloseSpider
 from scrapy.loader import ItemLoader
 
+import json
+
 from rojak_pantau.items import News
 from rojak_pantau.i18n.i18n import i18n
 from rojak_pantau.util.wib_to_utc import wib_to_utc
@@ -30,7 +32,10 @@ class KompasComSpider(BaseSpider):
             url_selectors = news.css("div.tleft > h3 > a::attr(href)")
             if not url_selectors:
                 raise CloseSpider('url_selectors not found')
+            # http://megapolitan.kompas.com/read/xml/2016/10/18/17244781/ini.alat.peraga.kampanye.yang.boleh.dibuat.cagub-cawagub.dki
+            # http://api.kompas.com/external/?type=readdua&kanal=home&command=.xml.2016.10.15.07300081&format=json&APPSF0UNDRYBYPASS=%20HTTP/1.1
             url = url_selectors.extract()[0]
+            url = 'http://api.kompas.com/external/?type=readdua&kanal=home&command=.xml.' + '.'.join(url.split('/')[-5:-1]) + '&format=json&APPSF0UNDRYBYPASS=%20HTTP/1.1'
 
             date_selectors = news.css("div.grey.small::text")
             if not date_selectors:
@@ -74,42 +79,54 @@ class KompasComSpider(BaseSpider):
 
     def parse_news(self, response):
         self.logger.info('parse_news: %s' % response)
-        loader = ItemLoader(item=News(), response=response)
-        loader.add_value('url', response.url)
+        loader = ItemLoader(item=News(), response=response)        
+        json_response = json.loads(response.body)
 
-        title_selectors = response.css("div.kcm-read-top > h2::text")
-        if not title_selectors:
-            # Will be dropped on the item pipeline
+        try:
+            url = json_response['NewsML']['NewsItem']['NewsComponent']['NewsComponent']['NewsComponent']['NewsLines']['MoreLink']
+        except KeyError:
             return loader.load_item()
-        title = title_selectors.extract()[0]
+        loader.add_value('url', url)
+
+        try:
+            title = json_response['NewsML']['NewsItem']['NewsComponent']['NewsComponent']['NewsComponent']['NewsLines']['HeadLine']
+        except KeyError:
+            return loader.load_item()
+        if not title:
+            return loader.load_item()
         loader.add_value('title', title)
 
-        raw_content_selectors = response.css("div.kcm-read-text > p")
-        if not raw_content_selectors:
-            # Will be dropped on the item pipeline
+        try: 
+            raw_content = json_response['NewsML']['NewsItem']['NewsComponent']['NewsComponent']['NewsComponent']['ContentItem']['DataContent']['nitf']['body']['body.content']['p']
+        except KeyError:
             return loader.load_item()
-        raw_content = raw_content_selectors.extract()[0]
+        if not raw_content:
+            return loader.load_item()
         loader.add_value('raw_content', raw_content)
 
-        date_selectors = response.css("div.kcm-date::text")
-        if not date_selectors:
-            # Will be dropped on the item pipeline
-            return loader.load_item()
-        date = date_selectors.extract()[0];
         try:
-            published_at = self.convert_date(date)
-        except Exception:
-            # Will be dropped on the item pipeline
+            author_name = json_response['NewsML']['NewsItem']['NewsComponent']['NewsComponent']['Author']
+        except KeyError:
             return loader.load_item()
+        if not author_name:
+            loader.add_value('author_name', '')
+        else:
+            loader.add_value('author_name', author_name)
+
+        try:
+            date_time_str = json_response['NewsML']['NewsItem']['NewsManagement']['FirstCreated']
+        except KeyError:
+            return loader.load_item()
+        if not date_time_str:
+            return loader.load_item()
+
+        date_time_str = date_time_str.split('T')
+        date_time_str[1] = '0' * (6 - len(date_time_str[1])) + date_time_str[1]
+        try:
+            published_at_wib = datetime.strptime(' '.join(date_time_str), '%Y%m%d %H%M%S');
+        except Exception:
+            return loader.load_item()
+        published_at = wib_to_utc(published_at_wib)
         loader.add_value('published_at', published_at)
 
-        author_name_selectors = response.css("span.pb_10::text")
-        if not author_name_selectors:
-            author_name = ''
-            loader.add_value('author_name', author_name)
-        else:
-            author_name = ', '.join(author_name_selectors.extract())
-            loader.add_value('author_name', author_name)
-
         return loader.load_item()
-
