@@ -76,20 +76,20 @@ class CnnindonesiaSpider(BaseSpider):
         # Extract raw html, not the text
         # Using Xpath instead of CSS selector to eliminate useless children
         xpath_query = """
-            //div[@class="detail_text"]/node()
-                [not(self::h1|self::h3|self::div[@class="date"]|\
-                    self::div[@class="author"]|self::div[@class="bacajuga"]|\
-                    self::div[@class="picdetail"]|self::div[@id="dtk-comment"]|\
-                    self::div[@class="clearfix pt10"]|self::div[@class="topik1"]|\
-                    self::div[@class="share top_line mt20"]|\
-                    self::div[@class="banner pt10"]|self::div[@class="clearfix"]|\
-                    self::table|self::hr|self::div[@class="newstag"])]
-        """
+             //div[@class="detail_text"]/node()
+                 [not(
+                     descendant-or-self::comment()|
+                     descendant-or-self::script|
+                     descendant-or-self::div|
+                     descendant-or-self::table|
+                     descendant-or-self::iframe)]
+         """
         raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        raw_content = ' '.join(raw_content_selectors.extract())
+        raw_content = raw_content_selectors.extract()
+        raw_content = ' '.join([w.strip() for w in raw_content])
         raw_content = raw_content.strip()
         loader.add_value('raw_content', raw_content)
 
