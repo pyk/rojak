@@ -5,6 +5,7 @@ from scrapy.loader import ItemLoader
 from scrapy.exceptions import CloseSpider
 
 from rojak_pantau.items import News
+from rojak_pantau.i18n import _
 from rojak_pantau.util.wib_to_utc import wib_to_utc
 from rojak_pantau.spiders.base import BaseSpider
 
@@ -16,12 +17,13 @@ class Liputan6Spider(BaseSpider):
         'http://m.liputan6.com/tag/pilkada-dki-2017',
     )
 
+    # Only the last 60 pages can be crawled, liputan6 API is not understandable
     def parse(self, response):
         self.logger.info('parse: %s' % response)
         is_no_update = False
 
         # Get list of news from the current page
-        articles = response.css('article')
+        articles = response.css('div.article-snippet__info')
         if not articles:
             raise CloseSpider('article not found')
         for article in articles:
@@ -31,22 +33,21 @@ class Liputan6Spider(BaseSpider):
                 raise CloseSpider('url_selectors not found')
             url = url_selectors.extract()[0]
 
-            # Example 'detikNews | Sabtu 08 Oct 2016, 14:54 WIB'
-            info_selectors = article.css('a > .text > span.info::text')
+            info_selectors = article.css('div.article-snippet__date')
+            info_selectors = info_selectors.css('.timeago::text')
             if not info_selectors:
                 raise CloseSpider('info_selectors not found')
-            info = info_selectors.extract()[0]
-            # Example 'Sabtu 08 Oct 2016, 14:54 WIB'
-            info_time = info.split('|')[1].strip()
-            # Example '08 Oct 2016, 14:54'
-            info_time = ' '.join(info_time.split(' ')[1:5])
+            # Example '13 Okt 2016 16:10'
+            info_time = info_selectors.extract()[0]
+            # Example '13 Oct 2016 16:10'
+            info_time = ' '.join([_(w) for w in info_time.split(' ')])
 
             # Parse date information
             try:
                 published_at_wib = datetime.strptime(info_time,
-                    '%d %b %Y, %H:%M')
+                    '%d %b %Y %H:%M')
             except ValueError as e:
-                raise CloseSpider('cannot_parse_date: %s' % e)
+                raise CloseSpider('cannot_parse_date: {}'.format(e))
 
             published_at = wib_to_utc(published_at_wib)
 
@@ -54,23 +55,14 @@ class Liputan6Spider(BaseSpider):
                 is_no_update = True
                 break
 
-            # For each url we create new scrapy request
-            yield Request(url + '?single=1', callback=self.parse_news)
+            # For each url we create new scrapy Request
+            yield Request(url, callback=self.parse_news)
 
         if is_no_update:
             self.logger.info('Media have no update')
             return
 
-        if response.css('a.btn_more'):
-            next_page = response.css('a.btn_more::attr(href)')[0].extract()
-            next_page_url = response.urljoin(next_page)
-            yield Request(next_page_url, callback=self.parse)
-        elif response.css('div.pag-nextprev > a'):
-            next_page = response.css('div.pag-nextprev > a::attr(href)')[1].extract()
-            next_page_url = response.urljoin(next_page)
-            yield Request(next_page_url, callback=self.parse)
-
-    # Collect news item
+    # TODO: Collect news item
     def parse_news(self, response):
         self.logger.info('parse_news: %s' % response)
 
