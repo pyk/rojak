@@ -25,20 +25,6 @@
   border-radius: 0;
 }
 
-.categoryContainer {
-  margin-top: 15px;
-}
-
-.category {
-  margin-left: 10px;
-  margin-right: 10px;
-  border-bottom: solid 1px #ccc;
-}
-
-.category:hover {
-  text-decoration: none;
-}
-
 .description {
   margin: 25px 0;
   padding: 25px 0;

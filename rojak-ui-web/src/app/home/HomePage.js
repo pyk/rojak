@@ -6,32 +6,12 @@ import Card from '../kit/Card';
 import Medias from './Medias';
 import Candidates from './Candidates';
 import styles from './HomePage.css';
+import SearchBox from './SearchBox';
 
 class HomePage extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            keyword: ''
-        };
-
-        this.onKeywordChanged = this.onKeywordChanged.bind(this);
-    }
-
-    onKeywordChanged(e) {
-        this.setState({
-            keyword: e.target.value
-        }, () => {
-            const { keyword } = this.state;
-
-            this.props.router.push({
-                pathname: `/browse/?keyword=${keyword}`
-            });
-        });
-    }
 
     render() {
-        const { keyword } = this.state;
+        const { router } = this.props
 
         return (
             <div id="HomePage" className={`uk-grid ${styles.homepageWrapper}`}>
@@ -45,19 +25,7 @@ class HomePage extends Component {
                             secara objektif tanpa terpengaruh media bayaran.
                         </p>
                         <br />
-                        <form className="uk-form">
-                            <input
-                                type="text"
-                                placeholder="cari dari nama kandidat, pasangan, atau media"
-                                className="uk-form-large uk-form-width-large"
-                                value={keyword}
-                                onChange={this.onKeywordChanged} />
-                        </form>
-                        <div className={styles.categoryContainer}>
-                            <Link to="/browse/?keyword=media" className={styles.category}>Media</Link>
-                            <Link to="/browse/?keyword=pasangan" className={styles.category}>Pasangan</Link>
-                            <Link to="/browse/?keyword=kandidat" className={styles.category}>Kandidat</Link>
-                        </div>
+                        <SearchBox router={router} />
                         <div className={styles.description}>
                             <div>
                                 <b>Pada kotak pencarian di atas</b>, masukkan kata kunci dari media, berita, atau kandidat yang ingin ditelusuri.
