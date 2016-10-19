@@ -99,11 +99,20 @@ class MetrotvnewsSpider(BaseSpider):
         title = title_selectors.extract()[0]
         loader.add_value('title', title)
 
-        raw_content_selectors = response.css('div.part.article')
+        xpath_query = """
+            //div[@class="part article"]/node()
+                [not(
+                    descendant-or-self::comment()|
+                    descendant-or-self::script|
+                    descendant-or-self::div|
+                    descendant-or-self::iframe)]
+        """
+        raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        raw_content = raw_content_selectors.extract()[0]
+        raw_content = raw_content_selectors.extract()
+        raw_content = ' '.join([w.strip() for w in raw_content])
         loader.add_value('raw_content', raw_content)
 
         # Example: Bambang - 10 Oktober 2016 21:10 wib
