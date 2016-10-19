@@ -71,7 +71,7 @@ class Liputan6Spider(BaseSpider):
         # Required: title, raw_content, published_at
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
-        title_selectors = response.css('div.detail_area > h1.jdl::text')
+        title_selectors = response.css('h1.article-header__title::text')
         if not title_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
@@ -79,30 +79,32 @@ class Liputan6Spider(BaseSpider):
         loader.add_value('title', title)
 
         # Extract the content using XPath instead of CSS selector
-        # We get the XPath from chrome developer tools (copy XPath)
-        # or equivalent tools from other browser
         xpath_query = """
-            //div[@class="text_detail detail_area"]/node()
-                [not(self::comment()|self::script|self::div)]
+            //div[@class="article-raw-content"]/node()
+                [not(
+                    self::comment()|
+                    self::script|
+                    self::div)]
         """
         raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        raw_content = ' '.join(raw_content_selectors.extract())
+        raw_content = raw_content_selectors.extract()
+        raw_content = ' '.join([w.strip() for w in raw_content])
         raw_content = raw_content.strip()
         loader.add_value('raw_content', raw_content)
 
         # Parse date information
-        # Example: Kamis 15 Sep 2016, 18:33 WIB
-        date_selectors = response.css('div.detail_area > div.date::text')
+        # Example: ' pada 18 Okt 2016, 08:33 WIB'
+        date_selectors = response.css('span.article-header__datetime::text')
         if not date_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
 
-        date_str = date_selectors.extract()[0]
-        # Example: '15 Sep 2016, 18:33'
-        date_str = ' '.join(date_str.split(' ')[1:5])
+        date_str = date_selectors.extract()[0].strip()
+        # Example: '18 Oct 2016, 08:33'
+        date_str = ' '.join([_(w) for w in date_str.split(' ')[1:-1]])
         try:
             published_at_wib = datetime.strptime(date_str, '%d %b %Y, %H:%M')
         except ValueError:
@@ -112,7 +114,7 @@ class Liputan6Spider(BaseSpider):
         published_at = wib_to_utc(published_at_wib)
         loader.add_value('published_at', published_at)
 
-        author_name_selectors = response.css('div.author > strong::text')
+        author_name_selectors = response.css('a.article-header__author-link::text')
         if not author_name_selectors:
             loader.add_value('author_name', '')
         else:
