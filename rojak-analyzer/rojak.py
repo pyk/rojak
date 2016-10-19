@@ -19,6 +19,7 @@ def cli():
 @click.option('--output', default='', help='Where the model written to',
         type=click.Path())
 def train(data, output):
+    """Train Rojak"""
     # TODO: access label prefix info from create_training_data.py
     #       or create new sub-command to create training data
     # TODO: access training fasttext model using class wrapper
@@ -61,11 +62,8 @@ def evaluate(model, test_data):
         # predict the label
         text = row['clean_content']
         print text
+        # TODO: prediction score is the same, seems like it's bug on fastText.py
         pred_labels = classifier.predict([text], len(classes))
-        print labels
-        print pred_labels
-        print ''
-        print ''
     # TODO: convert to multilabel binary format
     classes = sorted(classes)
     mlb = prep.MultiLabelBinarizer(classes=classes)
@@ -74,6 +72,24 @@ def evaluate(model, test_data):
     test_data_file.close()
 cli.add_command(evaluate)
 
+# Run Rojak
+@click.command('run')
+@click.option('--db-host', default='localhost', help='Database host')
+@click.option('--db-port', default='3306', help='Database port number')
+@click.option('--db-user', default='root', help='Database user name')
+@click.option('--db-pass', default='rojak', help='Database user password')
+@click.option('--db-name', default='rojak', help='Database name')
+@click.option('--max-news', default=100, help='Maximal news analyzed')
+def run(host, port, user, password, name, max_news):
+    """Run Rojak to analyze data on the database"""
+    # TODO: get news where is_analyzed=false from the database
+    # with limit max-news
+    # TODO: for each news we perform prediction then insert it to the
+    # database news_sentiment
+    # TODO: We also perform mention check here, a simple string matching
+    print host, port, user, password, name
+
+cli.add_command(run)
 
 if __name__ == '__main__':
     cli()
