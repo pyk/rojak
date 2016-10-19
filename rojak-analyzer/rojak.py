@@ -8,23 +8,25 @@ import click
 import fasttext
 import sklearn.preprocessing as prep
 
+# Change class below to use different method
+from rojak_fasttext import RojakFastTextWrapper
+rojak = RojakFastTextWrapper()
+
 @click.group()
 def cli():
     pass
 
 # Train Rojak
 @click.command('train')
-@click.option('--data', default='', help='Path to training data file',
+@click.option('--input', 'input_file',
+        default='', help='Path to training data file',
         type=click.Path(exists=True))
-@click.option('--output', default='', help='Where the model written to',
+@click.option('--output', 'output_file',
+        default='', help='Where the model written to',
         type=click.Path())
-def train(data, output):
+def train(input_file, output_file):
     """Train Rojak"""
-    # TODO: access label prefix info from create_training_data.py
-    #       or create new sub-command to create training data
-    # TODO: access training fasttext model using class wrapper
-    fasttext.supervised(data, output, label_prefix='__LABEL__',
-        dim=300, min_count=1, thread=2, silent=0)
+    rojak.train(input_file, output_file)
 
 cli.add_command(train)
 
@@ -44,8 +46,8 @@ def evaluate(model, test_data):
     * clean_content: clean content of the news
     * labels: string list of labels separated by commas
     """
-    # TODO: access load_model using class wrapper
-    classifier = fasttext.load_model(model, label_prefix='__LABEL__')
+    classifier = rojak.load_model(model)
+
     # Read the correct labels and convert it to binary format
     test_data_file = open(test_data)
     csv_reader = csv.DictReader(test_data_file)
@@ -63,7 +65,7 @@ def evaluate(model, test_data):
         text = row['clean_content']
         print text
         # TODO: prediction score is the same, seems like it's bug on fastText.py
-        pred_labels = classifier.predict([text], len(classes))
+        pred_labels = classifier.predict_proba([text], len(classes))
     # TODO: convert to multilabel binary format
     classes = sorted(classes)
     mlb = prep.MultiLabelBinarizer(classes=classes)
@@ -93,3 +95,4 @@ cli.add_command(run)
 
 if __name__ == '__main__':
     cli()
+
