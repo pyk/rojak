@@ -20,16 +20,4 @@ defmodule RojakAPI.Candidate do
     timestamps()
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
-  def changeset(struct, params \\ %{}) do
-    struct
-    |> cast(params, [:full_name, :alias_name, :place_of_birth,
-        :date_of_birth, :religion, :website_url, :photo_url,
-        :fbpage_username, :instagram_username, :twitter_username])
-    |> validate_required([:full_name, :alias_name, :place_of_birth,
-        :date_of_birth, :religion])
-    # TODO: add unique constraint for full_name, alias_name, etc
-  end
 end

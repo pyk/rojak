@@ -21,16 +21,4 @@ defmodule RojakAPI.PairOfCandidates do
     timestamps()
   end
 
-  @doc """
-  Builds a changeset based on the `struct` and `params`.
-  """
-  def changeset(struct, params \\ %{}) do
-    struct
-    |> cast(params, [:name, :website_url, :logo_url,
-          :fbpage_username, :twitter_username, :instagram_username,
-          :slogan, :description])
-    |> validate_required([:name])
-    # TODO: add :cagub and :cawagub as required ans pass the test
-    # TODO: add unique constraint for name, website_url etc
-  end
 end
