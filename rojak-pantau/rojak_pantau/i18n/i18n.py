@@ -23,6 +23,19 @@ class i18n(object):
             'Oktober': 'October',
             'November': 'November',
             'Desember': 'December',
+            # Month abbrevation
+            'Jan': 'Jan',
+            'Feb': 'Feb',
+            'Mar': 'Mar',
+            'Apr': 'Apr',
+            'Mei': 'May',
+            'Jun': 'Jun',
+            'Jul': 'Jul',
+            'Agt': 'Aug',
+            'Sep': 'Sep',
+            'Okt': 'Oct',
+            'Nov': 'Nov',
+            'Des': 'Dec',
         }
 
         return dic[domain] if domain in dic else {}
