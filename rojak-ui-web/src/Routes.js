@@ -6,8 +6,8 @@ import HomePage from './app/home/HomePage';
 
 const Routes = () => (
     <Router history={browserHistory}>
-        <Route path="/" component={Container}>
-            <IndexRoute component={HomePage} />
+        <Route component={Container}>
+            <Route path="/(search/:keyword)" component={HomePage}/>
         </Route>
     </Router>
 );
