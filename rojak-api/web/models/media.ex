@@ -6,7 +6,8 @@ defmodule RojakAPI.Media do
     field :website_url, :string
     field :logo_url, :string
     field :fbpage_username, :string
-    field :description, :string
+    field :twitter_username, :string
+    field :instagram_username, :string
 
     # Relationship
     has_many :news, RojakAPI.News
