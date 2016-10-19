@@ -1,0 +1,14 @@
+.searchCategories {
+    margin: 15px auto 0px;
+}
+
+.searchCategories div {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: solid 1px #ccc;
+}
+
+.searchCategories div:hover {
+    text-decoration: none;
+}
