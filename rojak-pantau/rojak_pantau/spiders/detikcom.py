@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from scrapy import Request, Spider
+from scrapy import Request
 from scrapy.loader import ItemLoader
 from scrapy.exceptions import CloseSpider
 
@@ -80,6 +80,8 @@ class DetikcomSpider(BaseSpider):
         raw_content_selectors = response.xpath(xpath_query)
         raw_content = ' '.join(raw_content_selectors.extract())
         raw_content = raw_content.strip()
+        # Get page number
+        # Example: http://m.detik.com/news/berita/d-3302845/balada-kencan-singkat-ahok-heru/3
         page = response.url[response.url.rindex('/')+1:]
         loader.add_value('raw_content', {'page': page, 'content': raw_content})
 
@@ -143,8 +145,6 @@ class DetikcomSpider(BaseSpider):
         xpath_query = "//div[@class='list_multi']/article/a/@href"
         multipage_selectors = response.xpath(xpath_query)
         if multipage_selectors:
-            self.logger.info("multipage")
-            self.logger.info(multipage_selectors)
             indices = ['http:' + x for x in multipage_selectors.extract()]
             return self.parse_indices(indices, loader)
 
