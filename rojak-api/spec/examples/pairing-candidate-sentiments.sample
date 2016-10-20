@@ -9,5 +9,11 @@
     "instagram_username": "detikcom",
     "inserted_at": 1341533193,
     "updated_at": 1341533193
+
+    "sentiments": {
+      "positive": 0.41256,
+      "negative": 0.12345,
+      "neutral": 0.46399
+    }
   }
 ]

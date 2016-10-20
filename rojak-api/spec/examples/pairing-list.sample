@@ -12,7 +12,13 @@
     "slogan": "TETAP AHOK-DJAROT!",
     "description": "Jangan biarkan Jakarta Baru berhenti sampai disini! Mari Bersama-sama Dukung Ahok & Djarot sebagai Cagub & Cawagub DKI Jakarta 2017.",
     "inserted_at": 1341533193,
-    "updated_at": 1341533193
+    "updated_at": 1341533193,
+
+    "sentiments": {
+      "positive": 0.41256,
+      "negative": 0.12345,
+      "neutral": 0.46399
+    }
   },
   {
     "id": 2,
@@ -27,6 +33,12 @@
     "slogan": "",
     "description": "",
     "inserted_at": 1341533193,
-    "updated_at": 1341533193
+    "updated_at": 1341533193,
+
+    "sentiments": {
+      "positive": 0.41256,
+      "negative": 0.12345,
+      "neutral": 0.46399
+    }
   }
 ]

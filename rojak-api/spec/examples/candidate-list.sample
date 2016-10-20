@@ -12,7 +12,13 @@
     "twitter_username": "basuki_btp",
     "instagram_username": "basukibtp",
     "inserted_at": 1341533193,
-    "updated_at": 1341533193
+    "updated_at": 1341533193,
+
+    "sentiments": {
+      "positive": 0.41256,
+      "negative": 0.12345,
+      "neutral": 0.46399
+    }
   },
   {
     "id": 2,
@@ -27,6 +33,12 @@
     "twitter_username": "aniesbaswedan",
     "instagram_username": "aniesbaswedan",
     "inserted_at": 1341533193,
-    "updated_at": 1341533193
+    "updated_at": 1341533193,
+
+    "sentiments": {
+      "positive": 0.41256,
+      "negative": 0.12345,
+      "neutral": 0.46399
+    }
   }
 ]
