@@ -1,17 +1,17 @@
 defmodule RojakAPI.MediaControllerTest do
   use RojakAPI.ConnCase
 
-  @media_properties [
-    "id",
-    "name",
-    "website_url",
-    "logo_url",
-    "fbpage_username",
-    "twitter_username",
-    "instagram_username",
-    "inserted_at",
-    "updated_at",
-  ]
+  @media_properties ~w(
+    id
+    name
+    website_url
+    logo_url
+    fbpage_username
+    twitter_username
+    instagram_username
+    inserted_at
+    updated_at
+  )
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}

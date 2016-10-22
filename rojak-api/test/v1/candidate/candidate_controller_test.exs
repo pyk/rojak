@@ -1,21 +1,21 @@
 defmodule RojakAPI.CandidateControllerTest do
   use RojakAPI.ConnCase
 
-  @candidate_properties [
-    "id",
-    "full_name",
-    "alias_name",
-    "place_of_birth",
-    "date_of_birth",
-    "religion",
-    "website_url",
-    "photo_url",
-    "fbpage_username",
-    "twitter_username",
-    "instagram_username",
-    "inserted_at",
-    "updated_at",
-  ]
+  @candidate_properties ~w(
+    id
+    full_name
+    alias_name
+    place_of_birth
+    date_of_birth
+    religion
+    website_url
+    photo_url
+    fbpage_username
+    twitter_username
+    instagram_username
+    inserted_at
+    updated_at
+  )
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}

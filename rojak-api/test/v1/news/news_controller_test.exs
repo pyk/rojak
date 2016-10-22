@@ -1,15 +1,15 @@
 defmodule RojakAPI.NewsControllerTest do
   use RojakAPI.ConnCase
 
-  @news_properties [
-    "id",
-    "media_id",
-    "title",
-    "url",
-    "author_name",
-    "inserted_at",
-    "updated_at",
-  ]
+  @news_properties ~w(
+    id
+    media_id
+    title
+    url
+    author_name
+    inserted_at
+    updated_at
+  )
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
