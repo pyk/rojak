@@ -1,11 +1,18 @@
 defmodule RojakAPI.V1.MediaController do
   use RojakAPI.Web, :controller
+  use Params
 
   alias RojakAPI.Media
+  alias RojakAPI.V1.ParamsValidator
+
+  defparams index_params %{
+    limit: [field: :integer, default: 10],
+    offset: [field: :integer, default: 0],
+  }
 
   def index(conn, params) do
-    limit = Dict.get(params, "limit", 10)
-    offset = Dict.get(params, "offset", 0)
+    validated_params = ParamsValidator.validate params, &index_params/1
+    %{limit: limit, offset: offset} = validated_params
     media = Repo.all(
       from Media,
         limit: ^limit,

@@ -5,6 +5,10 @@ defmodule RojakAPI.ErrorView do
     %{errors: %{detail: "Page not found"}}
   end
 
+  def render("422.json", _assigns) do
+    %{message: "invalid parameters provided"}
+  end
+
   def render("500.json", _assigns) do
     %{errors: %{detail: "Internal server error"}}
   end
