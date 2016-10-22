@@ -10,14 +10,6 @@ defmodule RojakAPI.V1.MediaView do
   end
 
   def render("media.json", %{media: media}) do
-    %{
-      "id": media.id,
-      "name": media.name,
-      "website_url": media.website_url,
-      "logo_url": media.logo_url,
-      "fbpage_username": media.fbpage_username,
-      "twitter_username": media.twitter_username,
-      "instagram_username": media.instagram_username,
-    }
+    Map.drop media, [:__meta__, :news]
   end
 end
