@@ -6,6 +6,7 @@ from datetime import datetime
 from scrapy import signals, Request
 from scrapy.exceptions import CloseSpider, NotConfigured
 from scrapy.loader import ItemLoader
+from scrapy.http import HtmlResponse
 
 from rojak_pantau.items import News
 from rojak_pantau.util.wib_to_utc import wib_to_utc
@@ -92,25 +93,39 @@ class OkezoneSpider(BaseSpider):
     # Collect news item
     def parse_news(self, response):
         self.logger.info('parse_news: %s' % response)
-        parsed_news = json.loads(str(response.body))
-        parsed_news = parsed_news[0]
+        parsed_news = json.loads(str(response.body))[0]
 
         # Initialize item loader
         # extract news title, published_at, author, content, url
         loader = ItemLoader(item=News(), response=response)
-        loader.add_value('url', response.url)
+        loader.add_value('url', parsed_news['url'])
 
         if not parsed_news['title']:
             # Will be dropped on the item pipeline
             return loader.load_item()
         loader.add_value('title', parsed_news['title'])
 
-        if not parsed_news['content']:
+        # Convert HTML text to a scrapy response
+        html_response = HtmlResponse(url=parsed_news['url'],
+                body=parsed_news['content'].encode('utf-8', 'ignore'))
+        xpath_query = '''
+            //body/node()
+                [not(descendant-or-self::comment()|
+                    descendant-or-self::style|
+                    descendant-or-self::script|
+                    descendant-or-self::div|
+                    descendant-or-self::span|
+                    descendant-or-self::image|
+                    descendant-or-self::iframe
+                )]
+        '''
+        raw_content_selectors = html_response.xpath(xpath_query)
+        if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        parsed_news['content'] = re.search(r'<body>(.*)</body>', parsed_news['content'], re.S|re.I).group(1)
-        parsed_news['content'] = re.sub(r'<img[^>]+\>', '', parsed_news['content'])
-        loader.add_value('raw_content', parsed_news['content'])
+        raw_content = raw_content_selectors.extract()
+        raw_content = ' '.join([w.strip() for w in raw_content])
+        loader.add_value('raw_content', raw_content)
 
         if not parsed_news['published']:
             # Will be dropped on the item pipeline
