@@ -3,8 +3,14 @@ defmodule RojakAPI.V1.MediaController do
 
   alias RojakAPI.Media
 
-  def index(conn, _params) do
-    media = Repo.all(Media)
+  def index(conn, params) do
+    limit = Dict.get(params, "limit", 10)
+    offset = Dict.get(params, "offset", 0)
+    media = Repo.all(
+      from Media,
+        limit: ^limit,
+        offset: ^offset
+    )
     render(conn, "index.json", media: media)
   end
 
