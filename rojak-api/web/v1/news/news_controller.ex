@@ -1,9 +1,7 @@
 defmodule RojakAPI.V1.NewsController do
   use RojakAPI.Web, :controller
-  use Params
 
   alias RojakAPI.News
-  alias RojakAPI.V1.ParamsValidator
 
   # TODO: also load mentions if `embed` parameter is set
 

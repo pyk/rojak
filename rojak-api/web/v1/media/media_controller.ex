@@ -1,9 +1,7 @@
 defmodule RojakAPI.V1.MediaController do
   use RojakAPI.Web, :controller
-  use Params
 
   alias RojakAPI.Media
-  alias RojakAPI.V1.ParamsValidator
 
   defparams media_index_params %{
     limit: [field: :integer, default: 10],
