@@ -90,11 +90,24 @@ class VivaSpider(BaseSpider):
         loader.add_value('title', title)
 
         # Extract raw html, not the text
-        raw_content_selectors = response.css('div.detail-content')
+        # We filter-out the noise: HTML comments, scripts, css styles etc
+        xpath_query ='''
+            //div[@class="detail-content"]/node()
+                [not(descendant-or-self::comment()|
+                    descendant-or-self::style|
+                    descendant-or-self::script|
+                    descendant-or-self::div|
+                    descendant-or-self::span|
+                    descendant-or-self::image|
+                    descendant-or-self::a[@class="share-btn-right shared"]
+                )]
+        '''
+        raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        raw_content = raw_content_selectors.extract()[0]
+        raw_content = raw_content_selectors.extract()
+        raw_content = ' '.join([w.strip() for w in raw_content])
         loader.add_value('raw_content', raw_content)
 
         date_selectors = response.css('span.meta-author > span:nth-child(3)::text')
