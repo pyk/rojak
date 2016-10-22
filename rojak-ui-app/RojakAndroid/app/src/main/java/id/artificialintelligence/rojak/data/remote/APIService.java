@@ -17,8 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public interface APIService {
 
-    String ENDPOINT = "{baseurl}"; // TODO baseurl
-    String KEY = "key_id";
+    String ENDPOINT = BuildConfig.BASE_URL;
+    String KEY = BuildConfig.KEY;
 
     class Factory {
 
