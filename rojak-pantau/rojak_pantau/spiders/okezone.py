@@ -116,6 +116,7 @@ class OkezoneSpider(BaseSpider):
                     descendant-or-self::div|
                     descendant-or-self::span|
                     descendant-or-self::image|
+                    descendant-or-self::img|
                     descendant-or-self::iframe
                 )]
         '''
