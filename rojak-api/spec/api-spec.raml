@@ -1,38 +1,12 @@
 #%RAML 0.8
 ---
 title: Rojak
-version: v0
-baseUri: https://api.rojak.com/v0
+version: v1
+baseUri: https://api.rojak.com/v1
 mediaType: application/json
 
 resourceTypes:
-  - resource-collection:
-      get:
-        description: Get a list of <<resourcePathName>>.
-        responses:
-          200:
-            body:
-              application/json:
-                example: |
-                  <<exampleCollection>>
-  - resource-collection-item:
-      get:
-        description: |
-          Get the <<resourcePathName|!singularize>>
-          with <<resourcePathName|!singularize>>Id =
-          {<<resourcePathName|!singularize>>Id}.
-        responses:
-          200:
-            body:
-              application/json:
-                example: |
-                  <<exampleItem>>
-          404:
-            body:
-              application/json:
-                example: |
-                  { "message" : "<<resourcePathName|!singularize>> not found" }
-  - generic-collection:
+  - collection:
       get:
         description: <<description>>
         responses:
@@ -41,7 +15,7 @@ resourceTypes:
               application/json:
                 example: |
                   <<exampleCollection>>
-  - generic-item:
+  - item:
       get:
         description: <<description>>
         responses:
@@ -56,88 +30,118 @@ resourceTypes:
                 example: |
                   { "message" : "item not found" }
 
+traits:
+  - pageable:
+      queryParameters:
+        offset:
+          description: Skip over a number of elements by specifying an offset value for the query.
+          type: integer
+          required: false
+          example: "?offset=20"
+          default: 0
+        limit:
+          description: Limit the number of elements on the response.
+          type: integer
+          required: false
+          example: "?limit=20"
+          default: 10
+  - embeddable:
+      queryParameters:
+        embed:
+          description: |
+            Fields to embed on the response. Available fields: <<availableFields>>
+          type: string
+          required: false
+          example: "?embed=field1[,field2,...]"
+
 /pairings:
   type:
-    resource-collection:
+    collection:
+      description: Get a list of pairs of candidates running in the election, optionally with sentiments.
       exampleCollection: !include examples/pairing-list.sample
+  get:
+    is: [ embeddable: { availableFields: "`sentiments`" } ]
   /{pairingId}:
     type:
-      resource-collection-item:
+      item:
+        description: Get a pair of candidates based on {pairingId}, optionally with sentiments and candidates.
         exampleItem: !include examples/pairing.sample
-    /news:
+    get:
+      is: [ embeddable: { availableFields: "`sentiments`, `candidates`" } ]
+    /media-sentiments:
       type:
-        generic-collection:
-          description: Get list of news mentioning both or either of the candidates.
-          exampleCollection: !include examples/news-list.sample
-    /sentiments:
+        collection:
+          description: Get a breakdown of media sentiments for this pairing.
+          exampleCollection: !include examples/pairing-candidate-sentiments.sample
       get:
-        description: Get the overall sentiments for these pairing.
-      /media:
-        get:
-          description: Get a breakdown of media with their sentiment for these candidates.
-        /{mediaId}:
-          get:
-            description: Get the sentiment by this media for these candidates.
-          /news:
-            get:
-              description: Get a breakdown of sentiments from the news of this media.
+        is: [ pageable ]
 
 /candidates:
   type:
-    resource-collection:
+    collection:
+      description: Get a list of candidates running in the election, optionally with sentiments.
       exampleCollection: !include examples/candidate-list.sample
+  get:
+    is: [ embeddable: { availableFields: "`sentiments`" } ]
   /{candidateId}:
     type:
-      resource-collection-item:
+      item:
+        description: Get a candidates based on {candidateId}, optionally with sentiments and pairing.
         exampleItem: !include examples/candidate.sample
-    /news:
+    get:
+      is: [ embeddable: { availableFields: "`sentiments`, `pairing`" } ]
+    /media-sentiments:
       type:
-        generic-collection:
-          description: Get list of news mentioning this candidate.
-          exampleCollection: !include examples/news-list.sample
-    /sentiments:
+        collection:
+          description: Get a breakdown of media sentiments for this candidate.
+          exampleCollection: !include examples/pairing-candidate-sentiments.sample
       get:
-        description: Get the overall sentiments for this candidate.
-      /media:
-        get:
-          description: Get a breakdown of media with their sentiment for this candidate.
-        /{mediaId}:
-          get:
-            description: Get the sentiment by this media for this candidate.
-          /news:
-            get:
-              description: Get a breakdown of sentiments from the news of this media.
+        is: [ pageable ]
 
 /news:
   type:
-    resource-collection:
+    collection:
+      description: Get a list of news, optionally with mentioned candidates. Filterable by media and mentioned candidates.
       exampleCollection: !include examples/news-list.sample
+  get:
+    is: [ pageable, embeddable: { availableFields: "`mentions`" } ]
+    queryParameters:
+      media_id:
+        description: Filter articles based on `id` of media.
+        type: integer
+        required: false
+        repeat: true
+        example: "?media_id=1&media_id=2"
+      candidate_id:
+        description: Filter articles based on `id` of mentioned candidates.
+        type: integer
+        required: false
+        repeat: true
+        example: "?candidate_id=1&candidate_id=2"
+
   /{newsId}:
     type:
-      resource-collection-item:
+      item:
+        description: Get a news article based on {newsId}, optionally with mentioned candidates.
         exampleItem: !include examples/news.sample
-    /candidates:
-      type:
-        generic-collection:
-          description: Get list of candidates mentioned in this article.
-          exampleCollection: !include examples/candidate-list.sample
-    /sentiments:
-      get:
-        description: Get the sentiments score of this article for each candidate.
+    get:
+      is: [ embeddable: { availableFields: "`mentions`" } ]
 
 /media:
   type:
-    resource-collection:
+    collection:
+      description: Get a list of media.
       exampleCollection: !include examples/media-list.sample
+  get:
+    is: [ pageable ]
   /{mediaId}:
     type:
-      resource-collection-item:
+      item:
+        description: Get a media based on {mediaId}.
         exampleItem: !include examples/media.sample
-    /news:
-      type:
-        generic-collection:
-          description: Get list of news articles of this media.
-          exampleCollection: !include examples/news-list.sample
     /sentiments:
-      get:
-        description: Get the sentiments score of this media for each candidate.
+      type:
+        collection:
+          description: Get a breakdown of sentiments for each pairing and candidate by this media.
+          exampleCollection: !include examples/media-sentiments.sample
+
