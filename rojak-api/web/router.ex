@@ -15,6 +15,8 @@ defmodule RojakAPI.Router do
       get "/pairings/:id", PairingController, :show
       get "/candidates", CandidateController, :index
       get "/candidates/:id", CandidateController, :show
+      get "/news", NewsController, :index
+      get "/news/:id", NewsController, :show
       get "/media", MediaController, :index
       get "/media/:id", MediaController, :show
     end

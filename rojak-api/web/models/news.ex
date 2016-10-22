@@ -3,8 +3,8 @@ defmodule RojakAPI.News do
 
   schema "news" do
     field :title, :string
-    field :content, :string
     field :url, :string
+    field :author_name, :string
 
     # Relationship
     belongs_to :media, RojakAPI.Media
