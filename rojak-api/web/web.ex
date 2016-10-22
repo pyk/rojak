@@ -34,6 +34,7 @@ defmodule RojakAPI.Web do
       alias RojakAPI.Repo
       import Ecto
       import Ecto.Query
+      import Ecto.Changeset
 
       import RojakAPI.Router.Helpers
       import RojakAPI.Gettext
