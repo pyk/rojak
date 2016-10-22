@@ -7,6 +7,8 @@ defmodule RojakAPI.NewsControllerTest do
     "title",
     "url",
     "author_name",
+    "inserted_at",
+    "updated_at",
   ]
 
   setup %{conn: conn} do

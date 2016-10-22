@@ -13,6 +13,8 @@ defmodule RojakAPI.CandidateControllerTest do
     "fbpage_username",
     "twitter_username",
     "instagram_username",
+    "inserted_at",
+    "updated_at",
   ]
 
   setup %{conn: conn} do

@@ -3,6 +3,7 @@ defmodule RojakAPI.PairingControllerTest do
 
   @pairing_properties [
     "id",
+    "name",
     "website_url",
     "logo_url",
     "fbpage_username",
@@ -12,6 +13,8 @@ defmodule RojakAPI.PairingControllerTest do
     "description",
     "cagub_id",
     "cawagub_id",
+    "inserted_at",
+    "updated_at",
   ]
 
   setup %{conn: conn} do
