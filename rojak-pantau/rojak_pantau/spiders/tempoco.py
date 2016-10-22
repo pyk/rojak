@@ -73,7 +73,7 @@ class TempocoSpider(BaseSpider):
           break
       if author_name:
         break
-
+    author_name = ','.join(author_name.split(' | '))
     loader.add_value('author_name', author_name)
     loader.add_value('url', response.url)
 
@@ -99,6 +99,7 @@ class TempocoSpider(BaseSpider):
           break
       if author_name:
         break
+    author_name = ','.join(author_name.split(' | '))
     loader.add_value('author_name', author_name)
     return loader.load_item()
 
@@ -155,5 +156,6 @@ class TempocoSpider(BaseSpider):
           break
       if author_name:
         break
+    author_name = ','.join(author_name.split(' | '))
     loader.add_value('author_name', author_name)
     return loader.load_item()
