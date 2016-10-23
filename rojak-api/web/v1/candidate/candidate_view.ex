@@ -19,7 +19,9 @@ defmodule RojakAPI.V1.CandidateView do
       nil ->
         candidate
       pairing ->
-        Map.update!(candidate, :pairing, fn _ -> Map.drop(pairing, [:__meta__, :cagub, :cawagub]) end)
+        Map.update! candidate, :pairing, fn _ ->
+          Map.drop(pairing, [:__meta__, :cagub, :cawagub])
+        end
     end
 
     candidate
