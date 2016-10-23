@@ -47,12 +47,12 @@ traits:
           default: 10
   - embeddable:
       queryParameters:
-        embed:
+        embed[]:
           description: |
             Fields to embed on the response. Available fields: <<availableFields>>
           type: string
           required: false
-          example: "?embed=field1[,field2,...]"
+          example: "?embed[]=field1&embed[]=field2"
 
 /pairings:
   type:
@@ -106,18 +106,16 @@ traits:
   get:
     is: [ pageable, embeddable: { availableFields: "`mentions`" } ]
     queryParameters:
-      media_id:
+      media_id[]:
         description: Filter articles based on `id` of media.
         type: integer
         required: false
-        repeat: true
-        example: "?media_id=1&media_id=2"
-      candidate_id:
+        example: "?media_id[]=1&media_id[]=2"
+      candidate_id[]:
         description: Filter articles based on `id` of mentioned candidates.
         type: integer
         required: false
-        repeat: true
-        example: "?candidate_id=1&candidate_id=2"
+        example: "?candidate_id[]=1&candidate_id[]=2"
 
   /{newsId}:
     type:
