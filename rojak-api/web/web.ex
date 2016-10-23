@@ -23,6 +23,8 @@ defmodule RojakAPI.Web do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+
+      alias RojakAPI.Repo
     end
   end
 

@@ -3,8 +3,6 @@ defmodule RojakAPI.V1.CandidateController do
 
   alias RojakAPI.Candidate
 
-  # TODO: also load sentiments and pairing if `embed` parameter is set
-
   defparams candidate_index_params(%{
     embed: [:string],
   }) do
@@ -16,8 +14,7 @@ defmodule RojakAPI.V1.CandidateController do
 
   def index(conn, params) do
     validated_params = ParamsValidator.validate params, &candidate_index_params/1
-    %{embed: embed} = validated_params
-    candidates = Repo.all(Candidate)
+    candidates = Candidate.fetch(validated_params)
     render(conn, "index.json", candidates: candidates)
   end
 
@@ -31,10 +28,9 @@ defmodule RojakAPI.V1.CandidateController do
     end
   end
 
-  def show(conn, %{"id" => id} = params) do
+  def show(conn, params) do
     validated_params = ParamsValidator.validate params, &candidate_show_params/1
-    %{embed: embed} = validated_params
-    candidate = Repo.get!(Candidate, id)
+    candidate = Candidate.fetch_one(validated_params)
     render(conn, "show.json", candidate: candidate)
   end
 
