@@ -1,8 +1,6 @@
 defmodule RojakAPI.V1.PairingView do
   use RojakAPI.Web, :view
 
-  # TODO: enable embedding sentiments and candidate
-
   def render("index.json", %{pairings: pairings}) do
     render_many(pairings, RojakAPI.V1.PairingView, "pairing.json")
   end
@@ -19,7 +17,7 @@ defmodule RojakAPI.V1.PairingView do
     # Embed candidates
     pairing = case Map.get(pairing, :candidates) do
       nil ->
-        pairing
+        pairing |> Map.drop([:candidates])
       %{cagub: cagub, cawagub: cawagub} ->
         Map.update! pairing, :candidates, fn _ ->
           %{

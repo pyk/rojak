@@ -17,7 +17,7 @@ defmodule RojakAPI.V1.CandidateView do
     # Embed pairing
     candidate = case Map.get(candidate, :pairing) do
       nil ->
-        candidate
+        candidate |> Map.drop([:pairing])
       pairing ->
         Map.update! candidate, :pairing, fn _ ->
           Map.drop(pairing, [:__meta__, :cagub, :cawagub])
