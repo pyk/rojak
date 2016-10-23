@@ -12,6 +12,22 @@ defmodule RojakAPI.V1.PairingView do
   end
 
   def render("pairing.json", %{pairing: pairing}) do
-    Map.drop pairing, [:__meta__, :cagub, :cawagub]
+    pairing =
+      pairing
+      |> Map.drop([:__meta__])
+
+    # Embed candidates
+    pairing = cond do
+      Ecto.assoc_loaded?(pairing.cagub) and Ecto.assoc_loaded?(pairing.cawagub) ->
+        pairing
+        |> Map.put(:candidates, %{
+            cagub: Map.drop(pairing.cagub, [:__meta__, :mentioned_in, :sentiments]),
+            cawagub: Map.drop(pairing.cawagub, [:__meta__, :mentioned_in, :sentiments]),
+          })
+      true ->
+        pairing
+    end |> Map.drop([:cagub, :cawagub])
+
+    pairing
   end
 end

@@ -34,7 +34,10 @@ defmodule RojakAPI.V1.PairingController do
   def show(conn, %{"id" => id} = params) do
     validated_params = ParamsValidator.validate params, &pairing_show_params/1
     %{embed: embed} = validated_params
-    pairing = Repo.get!(PairOfCandidates, id)
+    pairing =
+      PairOfCandidates
+      |> PairOfCandidates.fetch_embed(embed)
+      |> Repo.get!(id)
     render(conn, "show.json", pairing: pairing)
   end
 
