@@ -1,0 +1,22 @@
+.resultWrapper {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 400px;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  -webkit-animation: fadeIn 1s ;
+  -o-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

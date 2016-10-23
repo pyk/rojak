@@ -32,7 +32,8 @@ class SearchBox extends React.Component {
       bottom: 0,
       margin: 0,
       padding: 0,
-      maxWidth: '400px'
+      maxWidth: '400px',
+      zIndex: '1'
     }
   }
 
