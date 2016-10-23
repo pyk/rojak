@@ -10,17 +10,17 @@ defmodule RojakAPI.V1.MediaController do
 
   def index(conn, params) do
     validated_params = ParamsValidator.validate params, &media_index_params/1
-    %{limit: limit, offset: offset} = validated_params
-    media = Repo.all(
-      from Media,
-        limit: ^limit,
-        offset: ^offset
-    )
+    media = Media.fetch(validated_params)
     render(conn, "index.json", media: media)
   end
 
-  def show(conn, %{"id" => id}) do
-    media = Repo.get!(Media, id)
+  defparams media_show_params %{
+    id!: :integer,
+  }
+
+  def show(conn, params) do
+    validated_params = ParamsValidator.validate params, &media_show_params/1
+    media = Media.fetch_one(validated_params)
     render(conn, "show.json", media: media)
   end
 
