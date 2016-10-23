@@ -1,0 +1,7 @@
+# Python related files
+*.pyc
+
+# Misc
+*.log
+*.bin
+*.png
