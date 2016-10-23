@@ -1,4 +1,4 @@
-defmodule RojakAPI.V1.ParamsValidator do
+defmodule RojakAPI.ParamsValidator do
   @moduledoc """
   Utility module for validating request params.
   """
@@ -20,12 +20,12 @@ defmodule RojakAPI.V1.ParamsValidator do
     #    message: "invalid parameters provided"
     #  }
     #end
-  end
 
-  # Handle InvalidParamsError as 422.
-  # REVIEW: should this be put here?
-  defimpl Plug.Exception, for: InvalidParamsError do
-    def status(_exception), do: 422
+    # Handle InvalidParamsError as 422.
+    defimpl Plug.Exception, for: InvalidParamsError do
+      def status(_exception), do: 422
+    end
+
   end
 
   @doc """

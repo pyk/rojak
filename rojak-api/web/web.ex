@@ -41,7 +41,7 @@ defmodule RojakAPI.Web do
       import RojakAPI.Router.Helpers
       import RojakAPI.Gettext
 
-      alias RojakAPI.V1.ParamsValidator
+      alias RojakAPI.ParamsValidator
     end
   end
 
