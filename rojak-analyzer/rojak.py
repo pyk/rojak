@@ -9,8 +9,9 @@ import fasttext
 import sklearn.preprocessing as prep
 
 # Change class below to use different method
-from rojak_fasttext import RojakFastTextWrapper
-rojak = RojakFastTextWrapper()
+#from rojak_fasttext import RojakFastTextWrapper
+from rojak_svm import RojakSVM
+rojak = RojakSVM()
 
 @click.group()
 def cli():
@@ -27,51 +28,16 @@ def cli():
 def train(input_file, output_file):
     """Train Rojak"""
     rojak.train(input_file, output_file)
-
 cli.add_command(train)
 
 # Eval Rojak
 @click.command('eval')
-@click.option('--model', default='', help='Path to model file',
+@click.option('--model', default='', help='Path to the model file',
         type=click.Path(exists=True))
 @click.option('--test-data', default='', help='Path to test data',
         type=click.Path(exists=True))
 def evaluate(model, test_data):
-    """
-    Test data should be in CSV format with the following headers:
-
-        clean_content,labels
-
-    \b
-    * clean_content: clean content of the news
-    * labels: string list of labels separated by commas
-    """
-    classifier = rojak.load_model(model)
-
-    # Read the correct labels and convert it to binary format
-    test_data_file = open(test_data)
-    csv_reader = csv.DictReader(test_data_file)
-    classes = []
-    text_labels = []
-    for row in csv_reader:
-        # get correct labels
-        labels = row['labels'].split(',')
-        for label in labels:
-            if not label in classes:
-                classes.append(label)
-        text_labels.append(labels)
-
-        # predict the label
-        text = row['clean_content']
-        print text
-        # TODO: prediction score is the same, seems like it's bug on fastText.py
-        pred_labels = classifier.predict_proba([text], len(classes))
-    # TODO: convert to multilabel binary format
-    classes = sorted(classes)
-    mlb = prep.MultiLabelBinarizer(classes=classes)
-    correct_labels = mlb.fit_transform(text_labels)
-
-    test_data_file.close()
+    rojak.eval(model, test_data)
 cli.add_command(evaluate)
 
 # Run Rojak
