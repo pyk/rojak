@@ -23,12 +23,19 @@ defmodule RojakAPI.News do
       offset: ^offset,
       order_by: [desc: n.id]
     query
+    |> filter_by_media(media_id)
     |> Repo.all
   end
 
   def fetch_one(%{id: id, embed: embed}) do
     News
     |> Repo.get!(id)
+  end
+
+  defp filter_by_media(query, media_ids) when is_nil(media_ids), do: query
+  defp filter_by_media(query, media_ids) do
+    from q in query,
+      where: q.media_id in ^media_ids
   end
 
 end
