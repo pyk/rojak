@@ -5,8 +5,10 @@ import android.content.Context;
 import id.artificialintelligence.rojak.BuildConfig;
 import id.artificialintelligence.rojak.data.local.PreferencesHelper;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import id.artificialintelligence.rojak.models.Media;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,11 +16,20 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import rx.Observable;
 
 public interface APIService {
 
     String ENDPOINT = BuildConfig.BASE_URL;
     String KEY = BuildConfig.KEY;
+
+    @GET("media")
+    Observable<List<Media>> getMediaList();
+
+    @GET("media/{id}")
+    Observable<Media> getMedia(@Path("id") int mediaId);
 
     class Factory {
 
