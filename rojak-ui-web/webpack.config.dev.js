@@ -2,6 +2,7 @@ require('dotenv').config({ path: './.env.dev' });
 const webpack = require('webpack');
 const combineLoaders = require('webpack-combine-loaders');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PORT = process.env.PORT || 3000
 
 const envars = Object.keys(process.env)
     .map(key => ({ key, value: process.env[key] }))
@@ -13,7 +14,7 @@ module.exports = {
     devtool: 'source-maps',
     entry: {
         main: [
-            'webpack-dev-server/client?http://localhost:3000',
+            'webpack-dev-server/client?http://localhost:'+PORT,
             'webpack/hot/only-dev-server',
             './src/index',
         ],

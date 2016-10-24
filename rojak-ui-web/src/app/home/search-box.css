@@ -1,0 +1,57 @@
+.searchBox h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2;
+}
+
+.searchBoxCard {
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -ms-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+}
+
+.rojakLogo {
+    composes: bg-white from "../../assets/css/colors.css";
+    width: 200px;
+    height: 200px;
+}
+
+.rojakDescription {
+    composes: bg-white from "../../assets/css/colors.css";
+}
+
+.learnMoreButton {
+    composes: bg-transparent from "../../assets/css/colors.css";
+    color: rgb(51, 51, 51);
+    border: 2px solid rgb(51, 51, 51);
+    border-radius: 0;
+}
+
+.description {
+    margin: 25px 0;
+    padding: 25px 0;
+    border-top: solid 1px #ccc;
+}
+
+.description > p ~ p {
+    margin-top: 20px;
+}
+
+.searchCategories {
+    margin: 15px auto 0px;
+}
+
+.searchCategories div {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: dotted 1px #ccc;
+    cursor: pointer;
+}
+
+.searchCategories div:hover {
+    text-decoration: none;
+    border-bottom: solid 1px black;
+}
