@@ -17,5 +17,5 @@ const reducers = combineReducers({
 
 export default compose(
   reduxReactRouter({ createHistory }),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)(reducers)
