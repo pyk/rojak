@@ -6,16 +6,22 @@ defmodule RojakAPI.ErrorViewTest do
 
   test "renders 404.json" do
     assert render(RojakAPI.ErrorView, "404.json", []) ==
-           %{errors: %{detail: "Page not found"}}
+           %{message: "item not found"}
+  end
+
+  test "renders 422.json" do
+    assert render(RojakAPI.ErrorView, "422.json", []) ==
+           %{message: "invalid parameters provided"}
   end
 
   test "render 500.json" do
     assert render(RojakAPI.ErrorView, "500.json", []) ==
-           %{errors: %{detail: "Internal server error"}}
+           %{message: "internal server error"}
   end
 
   test "render any other" do
     assert render(RojakAPI.ErrorView, "505.json", []) ==
-           %{errors: %{detail: "Internal server error"}}
+           %{message: "internal server error"}
   end
+
 end

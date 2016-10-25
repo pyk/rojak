@@ -19,7 +19,7 @@ defmodule RojakAPI.Mixfile do
   def application do
     [mod: {RojakAPI, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :mariaex]]
+                    :phoenix_ecto, :mariaex, :params]]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,6 +36,7 @@ defmodule RojakAPI.Mixfile do
      {:mariaex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
+     {:params, "~> 2.0.1"},
      {:distillery, "~> 0.9.0"}]
   end
 

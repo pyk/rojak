@@ -2,11 +2,15 @@ defmodule RojakAPI.ErrorView do
   use RojakAPI.Web, :view
 
   def render("404.json", _assigns) do
-    %{errors: %{detail: "Page not found"}}
+    %{message: "item not found"}
+  end
+
+  def render("422.json", _assigns) do
+    %{message: "invalid parameters provided"}
   end
 
   def render("500.json", _assigns) do
-    %{errors: %{detail: "Internal server error"}}
+    %{message: "internal server error"}
   end
 
   # In case no render clause matches or no

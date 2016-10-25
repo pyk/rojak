@@ -23,19 +23,25 @@ defmodule RojakAPI.Web do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+
+      alias RojakAPI.Repo
     end
   end
 
   def controller do
     quote do
       use Phoenix.Controller, namespace: RojakAPI
+      use Params
 
       alias RojakAPI.Repo
       import Ecto
       import Ecto.Query
+      import Ecto.Changeset
 
       import RojakAPI.Router.Helpers
       import RojakAPI.Gettext
+
+      alias RojakAPI.ParamsValidator
     end
   end
 
