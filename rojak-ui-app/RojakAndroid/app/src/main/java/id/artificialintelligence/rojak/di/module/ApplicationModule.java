@@ -1,8 +1,6 @@
 package id.artificialintelligence.rojak.di.module;
 
-import id.artificialintelligence.rojak.RojakBaseApplication;
-import id.artificialintelligence.rojak.data.local.PreferencesHelper;
-import id.artificialintelligence.rojak.data.remote.APIService;
+import android.content.Context;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -10,6 +8,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import id.artificialintelligence.rojak.RojakBaseApplication;
+import id.artificialintelligence.rojak.data.local.PreferencesHelper;
 
 @Module
 public class ApplicationModule {
@@ -21,15 +21,14 @@ public class ApplicationModule {
     }
 
     @Provides
-    @Singleton
-    public RojakBaseApplication provideApplication() {
+    Context provideContext(){
         return mBaseApplication;
     }
 
     @Provides
     @Singleton
-    public APIService provideApiService() {
-        return APIService.Factory.create(mBaseApplication);
+    public RojakBaseApplication provideApplication() {
+        return mBaseApplication;
     }
 
     @Provides
