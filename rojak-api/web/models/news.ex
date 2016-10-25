@@ -24,6 +24,7 @@ defmodule RojakAPI.News do
       order_by: [desc: n.id]
     query
     |> filter_by_media(media_id)
+    |> filter_by_candidates(candidate_id)
     |> Repo.all
   end
 
@@ -36,6 +37,13 @@ defmodule RojakAPI.News do
   defp filter_by_media(query, media_ids) do
     from q in query,
       where: q.media_id in ^media_ids
+  end
+
+  defp filter_by_candidates(query, candidate_ids) when is_nil(candidate_ids), do: query
+  defp filter_by_candidates(query, candidate_ids) do
+    from q in query,
+      join: c in assoc(q, :mentions),
+      where: c.id in ^candidate_ids
   end
 
 end
