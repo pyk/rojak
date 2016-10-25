@@ -25,11 +25,13 @@ defmodule RojakAPI.News do
     query
     |> filter_by_media(media_id)
     |> filter_by_candidates(candidate_id)
+    |> fetch_embed(embed)
     |> Repo.all
   end
 
   def fetch_one(%{id: id, embed: embed}) do
     News
+    |> fetch_embed(embed)
     |> Repo.get!(id)
   end
 
@@ -44,6 +46,19 @@ defmodule RojakAPI.News do
     from q in query,
       join: c in assoc(q, :mentions),
       where: c.id in ^candidate_ids
+  end
+
+  defp fetch_embed(query, embed) when is_nil(embed), do: query
+  defp fetch_embed(query, embed) do
+    query
+    |> fetch_mentions(Enum.member?(embed, "mentions"))
+  end
+
+  defp fetch_mentions(query, embed?) when not embed?, do: query
+  defp fetch_mentions(query, _) do
+    from q in query,
+      join: m in assoc(q, :mentions),
+      preload: [mentions: m]
   end
 
 end
