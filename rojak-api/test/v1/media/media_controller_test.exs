@@ -26,6 +26,40 @@ defmodule RojakAPI.MediaControllerTest do
     assert item_has_valid_properties?(media_item), "Item is missing valid properties."
   end
 
+  test "allows limit on index", %{conn: conn} do
+    conn = get conn, v1_media_path(conn, :index), %{limit: 1}
+    media_list = json_response(conn, 200)
+    assert Enum.count(media_list) == 1
+  end
+
+  test "limit defaults to 10", %{conn: conn} do
+    conn = get conn, v1_media_path(conn, :index)
+    media_list = json_response(conn, 200)
+    assert Enum.count(media_list) == 10
+  end
+
+  test "renders invalid parameters when limit is not an integer", %{conn: conn} do
+    assert_error_sent 422, fn ->
+      get conn, v1_media_path(conn, :index), %{limit: "foo"}
+    end
+  end
+
+  test "allows offset on index", %{conn: conn} do
+    conn = get conn, v1_media_path(conn, :index), %{offset: 0}
+    media_list = json_response(conn, 200)
+
+    conn = get conn, v1_media_path(conn, :index), %{offset: 1}
+    media_list_offset = json_response(conn, 200)
+
+    assert Enum.at(media_list, 1) == Enum.at(media_list_offset, 0)
+  end
+
+  test "renders invalid parameters when offset is not an integer", %{conn: conn} do
+    assert_error_sent 422, fn ->
+      get conn, v1_media_path(conn, :index), %{offset: "foo"}
+    end
+  end
+
   test "shows chosen resource", %{conn: conn} do
     conn = get conn, v1_media_path(conn, :show, 1)
     media_item = json_response(conn, 200)

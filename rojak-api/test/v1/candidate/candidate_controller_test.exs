@@ -30,10 +30,42 @@ defmodule RojakAPI.CandidateControllerTest do
     assert item_has_valid_properties?(candidate_item), "Item is missing valid properties."
   end
 
+  test "allows embedding sentiments on index", %{conn: conn} do
+    conn = get conn, v1_candidate_path(conn, :index), %{embed: ["sentiments"]}
+    candidate_list = json_response(conn, 200)
+    assert Enum.count(candidate_list) >= 0
+
+    candidate_item = List.first(candidate_list)
+    assert item_has_valid_properties?(candidate_item), "Item is missing valid properties."
+
+    # TODO: check if sentiments are embedded
+  end
+
+  test "renders invalid parameters when trying to embed invalid field on index", %{conn: conn} do
+    assert_error_sent 422, fn ->
+      get conn, v1_candidate_path(conn, :index), %{embed: ["foo"]}
+    end
+  end
+
   test "shows chosen resource", %{conn: conn} do
     conn = get conn, v1_candidate_path(conn, :show, 1)
     candidate_item = json_response(conn, 200)
     assert item_has_valid_properties?(candidate_item), "Item is missing valid properties."
+  end
+
+  test "allows embedding sentiments and pairing on show", %{conn: conn} do
+    conn = get conn, v1_candidate_path(conn, :show, 1), %{embed: ["sentiments", "pairing"]}
+    candidate_item = json_response(conn, 200)
+    assert item_has_valid_properties?(candidate_item), "Item is missing valid properties."
+
+    # TODO: check if sentiments are embedded
+    assert Map.has_key?(candidate_item, "pairing")
+  end
+
+  test "renders invalid parameters when trying to embed invalid field on show", %{conn: conn} do
+    assert_error_sent 422, fn ->
+      get conn, v1_candidate_path(conn, :show, 1), %{embed: ["foo"]}
+    end
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
