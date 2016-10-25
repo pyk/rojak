@@ -1,8 +1,5 @@
 package id.artificialintelligence.rojak.models;
 
-/**
- * Created by mychaelgo on 10/13/16.
- */
 
 public class Candidate {
     private int id;

@@ -5,26 +5,18 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.support.annotation.VisibleForTesting;
 
-import id.artificialintelligence.rojak.di.component.ApplicationComponent;
-import id.artificialintelligence.rojak.di.component.DaggerApplicationComponent;
-import id.artificialintelligence.rojak.di.module.ApplicationModule;
-import id.artificialintelligence.rojak.events.AuthenticationErrorEvent;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
+import id.artificialintelligence.rojak.di.component.ApplicationComponent;
+import id.artificialintelligence.rojak.di.component.DaggerApplicationComponent;
+import id.artificialintelligence.rojak.di.module.ApplicationModule;
+import id.artificialintelligence.rojak.events.AuthenticationErrorEvent;
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
-
-/**
- * Created on : October/09/2016
- * Author     : mnafian
- * Company    : PixilApps
- * Project    : RojakAndroid
- */
 
 public class RojakBaseApplication extends Application {
     @Inject
