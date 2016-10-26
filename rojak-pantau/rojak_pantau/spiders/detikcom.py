@@ -54,7 +54,7 @@ class DetikcomSpider(BaseSpider):
                 break
 
             # For each url we create new scrapy request
-            yield Request(url + '?single=1', callback=self.parse_news)
+            yield Request(url + '/index?single=1', callback=self.parse_news)
 
         if is_no_update:
             self.logger.info('Media have no update')
@@ -68,6 +68,36 @@ class DetikcomSpider(BaseSpider):
             next_page = response.css('div.pag-nextprev > a::attr(href)')[1].extract()
             next_page_url = response.urljoin(next_page)
             yield Request(next_page_url, callback=self.parse)
+
+    def parse_multipage_content(self, response):
+        loader = response.meta['loader']
+        n = response.meta['n']
+
+        xpath_query = """
+            //div[@class="text_detail"]/node()
+                [not(self::comment()|self::script|self::div)]
+        """
+        raw_content_selectors = response.xpath(xpath_query)
+        raw_content = ' '.join(raw_content_selectors.extract())
+        raw_content = raw_content.strip()
+        # Get page number
+        # Example: http://m.detik.com/news/berita/d-3302845/balada-kencan-singkat-ahok-heru/3
+        page = response.url[response.url.rindex('/')+1:]
+        loader.add_value('raw_content', {'page': page, 'content': raw_content})
+
+        rc = loader.get_collected_values('raw_content')
+
+        # when we get all the pages, concatenate the parts into raw_content
+        if len(rc) == n:
+            rc.sort(key=lambda x: x['page'])
+            raw_content = ''.join(map(lambda x: x['content'], rc))
+            loader.replace_value('raw_content', raw_content)
+            return loader.load_item()
+
+    def parse_indices(self, indices, loader):
+        for index in indices:
+            yield Request(index, meta={'loader': loader, 'n': len(indices)},
+                    callback=self.parse_multipage_content)
 
     # Collect news item
     def parse_news(self, response):
@@ -84,21 +114,6 @@ class DetikcomSpider(BaseSpider):
             return loader.load_item()
         title = title_selectors.extract()[0]
         loader.add_value('title', title)
-
-        # Extract the content using XPath instead of CSS selector
-        # We get the XPath from chrome developer tools (copy XPath)
-        # or equivalent tools from other browser
-        xpath_query = """
-            //div[@class="text_detail detail_area"]/node()
-                [not(self::comment()|self::script|self::div)]
-        """
-        raw_content_selectors = response.xpath(xpath_query)
-        if not raw_content_selectors:
-            # Will be dropped on the item pipeline
-            return loader.load_item()
-        raw_content = ' '.join(raw_content_selectors.extract())
-        raw_content = raw_content.strip()
-        loader.add_value('raw_content', raw_content)
 
         # Parse date information
         # Example: Kamis 15 Sep 2016, 18:33 WIB
@@ -126,6 +141,27 @@ class DetikcomSpider(BaseSpider):
             author_name = author_name_selectors.extract()[0]
             loader.add_value('author_name', author_name)
 
+        # Check for multipage
+        xpath_query = "//div[@class='list_multi']/article/a/@href"
+        multipage_selectors = response.xpath(xpath_query)
+        if multipage_selectors:
+            indices = ['http:' + x for x in multipage_selectors.extract()]
+            return self.parse_indices(indices, loader)
+
+        # Extract the content using XPath instead of CSS selector
+        # We get the XPath from chrome developer tools (copy XPath)
+        # or equivalent tools from other browser
+        xpath_query = """
+            //div[@class="text_detail detail_area"]/node()
+                [not(self::comment()|self::script|self::div)]
+        """
+        raw_content_selectors = response.xpath(xpath_query)
+        if not raw_content_selectors:
+            # Will be dropped on the item pipeline
+            return loader.load_item()
+        raw_content = ' '.join(raw_content_selectors.extract())
+        raw_content = raw_content.strip()
+        loader.add_value('raw_content', raw_content)
+
         # Move scraped news to pipeline
         return loader.load_item()
-
