@@ -100,6 +100,7 @@ melihat hasil analisa dari Rojak.
 
 Anggota, In alphabetical order:
 
+* [Chi Putera](https://www.facebook.com/chiputera)
 * [Donny Stark](https://www.facebook.com/DonnyStaark)
 * [Rio Ramadhan Dharmawan](https://www.facebook.com/riordhn)
 * [Rohmat Sasmito](https://www.facebook.com/rohmad.sasmito)
@@ -115,6 +116,8 @@ Anggota, In alphabetical order:
 
 * [Adi Nugroho](https://www.facebook.com/hidrodixtion)
 * [Andre Tampubolon](https://www.facebook.com/anta40)
+* [Anton Nurdin Tuhadiansyah](https://www.facebook.com/an.tuhadiansyah)
+* [Haydar Ali Ismail](https://www.facebook.com/haydarai)
 * [Nafian Wildana](https://www.facebook.com/nafianwildan)
 * [Vicky Vernando Dasta](https://www.facebook.com/vickyvernandodasta)
 
@@ -144,9 +147,11 @@ Anggota, In alphabetical order:
 * [Giri Kuncoro](https://www.facebook.com/girikuncoro)
 * [Hayyu Luthfi Hanifah](https://www.facebook.com/plloopy)
 * [Imre Nagi](https://www.facebook.com/imrenagi)
+* [Kevin Luvian](https://www.facebook.com/hikari.no.kevin)
 * [Rachmat Fajrin](https://www.facebook.com/rachmatfajrin)
 * [Syafiq Al Atiiq](https://www.facebook.com/syafiq.atiiq)
 * [Teofebano Kristo](https://www.facebook.com/teofebano.kristo)
+* [War Wirjawan](https://www.facebook.com/war.wirjawan)
 
 Semua berkontribusi secara sama.
 
