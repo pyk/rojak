@@ -1,17 +1,19 @@
 package id.artificialintelligence.rojak.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PairOfCandidates {
-    private int id;
-    private String name;
-    private String websiteUrl;
-    private String logoUrl;
-    private String fbpageUsername;
-    private String twitterUsername;
-    private String instagramUsername;
-    private String slogan;
-    private String description;
-    private int cagubId;
-    private int cawagubId;
+    @SerializedName("id") private int id;
+    @SerializedName("name") private String name;
+    @SerializedName("website_url") private String websiteUrl;
+    @SerializedName("logo_url") private String logoUrl;
+    @SerializedName("fbpage_username") private String fbpageUsername;
+    @SerializedName("twitter_username") private String twitterUsername;
+    @SerializedName("instagram_username") private String instagramUsername;
+    @SerializedName("slogan") private String slogan;
+    @SerializedName("description") private String description;
+    @SerializedName("cagub_id") private int cagubId;
+    @SerializedName("cawagub_id") private int cawagubId;
 
     public int getId() {
         return id;
