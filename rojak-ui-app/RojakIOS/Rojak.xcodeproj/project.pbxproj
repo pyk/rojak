@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		038AB667ABCBA40A3E3439EA /* Pods_RojakUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D21124650F3FEDFEADA423 /* Pods_RojakUITests.framework */; };
 		56B419A685389D89BE26FBE4 /* Pods_Rojak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A67CAEF41F13134E4D10C0 /* Pods_Rojak.framework */; };
+		792DFE891DC1EDFB00F1D72B /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DFE881DC1EDFB00F1D72B /* Endpoint.swift */; };
+		792DFE8B1DC234F700F1D72B /* ServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792DFE8A1DC234F700F1D72B /* ServiceHelper.swift */; };
 		79B1307C1DACF13500A2B8B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1307B1DACF13500A2B8B0 /* AppDelegate.swift */; };
 		79B1307E1DACF13500A2B8B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B1307D1DACF13500A2B8B0 /* ViewController.swift */; };
 		79B130811DACF13500A2B8B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B1307F1DACF13500A2B8B0 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		34A9FBF709239190CFC879EB /* Pods-RojakTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RojakTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RojakTests/Pods-RojakTests.debug.xcconfig"; sourceTree = "<group>"; };
 		55D21124650F3FEDFEADA423 /* Pods_RojakUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RojakUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		579543158E4AF17ADC57563E /* Pods_RojakTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RojakTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		792DFE881DC1EDFB00F1D72B /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		792DFE8A1DC234F700F1D72B /* ServiceHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceHelper.swift; sourceTree = "<group>"; };
 		79B130781DACF13500A2B8B0 /* Rojak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rojak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79B1307B1DACF13500A2B8B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79B1307D1DACF13500A2B8B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +103,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		792DFE841DC1DCB800F1D72B /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		792DFE851DC1DCC400F1D72B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				79B1307F1DACF13500A2B8B0 /* Main.storyboard */,
+				79B130841DACF13500A2B8B0 /* LaunchScreen.storyboard */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		792DFE861DC1DCCC00F1D72B /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				79B1307D1DACF13500A2B8B0 /* ViewController.swift */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		792DFE871DC1DD0E00F1D72B /* service */ = {
+			isa = PBXGroup;
+			children = (
+				792DFE881DC1EDFB00F1D72B /* Endpoint.swift */,
+				792DFE8A1DC234F700F1D72B /* ServiceHelper.swift */,
+			);
+			name = service;
+			sourceTree = "<group>";
+		};
 		79B1306F1DACF13500A2B8B0 = {
 			isa = PBXGroup;
 			children = (
@@ -124,12 +161,13 @@
 		79B1307A1DACF13500A2B8B0 /* Rojak */ = {
 			isa = PBXGroup;
 			children = (
-				79B1307B1DACF13500A2B8B0 /* AppDelegate.swift */,
-				79B1307D1DACF13500A2B8B0 /* ViewController.swift */,
-				79B1307F1DACF13500A2B8B0 /* Main.storyboard */,
-				79B130821DACF13500A2B8B0 /* Assets.xcassets */,
-				79B130841DACF13500A2B8B0 /* LaunchScreen.storyboard */,
 				79B130871DACF13500A2B8B0 /* Info.plist */,
+				79B1307B1DACF13500A2B8B0 /* AppDelegate.swift */,
+				79B130821DACF13500A2B8B0 /* Assets.xcassets */,
+				792DFE861DC1DCCC00F1D72B /* controller */,
+				792DFE841DC1DCB800F1D72B /* model */,
+				792DFE871DC1DD0E00F1D72B /* service */,
+				792DFE851DC1DCC400F1D72B /* view */,
 			);
 			path = Rojak;
 			sourceTree = "<group>";
@@ -450,7 +488,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				79B1307E1DACF13500A2B8B0 /* ViewController.swift in Sources */,
+				792DFE891DC1EDFB00F1D72B /* Endpoint.swift in Sources */,
 				79B1307C1DACF13500A2B8B0 /* AppDelegate.swift in Sources */,
+				792DFE8B1DC234F700F1D72B /* ServiceHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
