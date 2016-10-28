@@ -39,3 +39,9 @@ Make sure tables are created succesfully:
 ```shell
 mysqlshow -u root -p -t -v rojak_database $TABLE_NAME
 ```
+
+## Labelled & Unlabelled data
+
+Labelled & Unlabelled data is available at:
+
+* [Labeling Data detikcom](https://docs.google.com/spreadsheets/d/1F3CI4Kw417-WtwHYxAz0qo9ABgU8c96SHyJuHy7VahA/edit?usp=sharing)
