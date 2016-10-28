@@ -4,8 +4,8 @@ package id.artificialintelligence.rojak.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Media {
-    private int id;
-    private String name;
+    @SerializedName("id") private int id;
+    @SerializedName("name") private String name;
     @SerializedName("website_url") private String websiteUrl;
     @SerializedName("logo_url") private String logoUrl;
     @SerializedName("fbpage_username") private String fbPageUsername;

@@ -4,12 +4,12 @@ package id.artificialintelligence.rojak.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Candidate {
-    private int id;
+    @SerializedName("id") private int id;
     @SerializedName("full_name") private String fullName;
     @SerializedName("alias_name") private String aliasName;
     @SerializedName("place_of_birth") private String placeOfBirth;
     @SerializedName("date_of_birth") private String dateOfBirth;
-    private String religion;
+    @SerializedName("religion") private String religion;
     @SerializedName("website_url") private String websiteUrl;
     @SerializedName("photo_url") private String photoUrl;
     @SerializedName("fbpage_username") private String fbpageUsername;

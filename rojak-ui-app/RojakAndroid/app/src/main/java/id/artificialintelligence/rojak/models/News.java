@@ -4,10 +4,10 @@ package id.artificialintelligence.rojak.models;
 import com.google.gson.annotations.SerializedName;
 
 public class News {
-    private int id;
+    @SerializedName("id") private int id;
     @SerializedName("media_id") private int mediaId;
-    private String title;
-    private String url;
+    @SerializedName("title") private String title;
+    @SerializedName("url") private String url;
     @SerializedName("author_name") private String authorName;
 
     public String getAuthorName() {
