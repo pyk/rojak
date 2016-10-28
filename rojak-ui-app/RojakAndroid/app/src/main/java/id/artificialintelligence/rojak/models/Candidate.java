@@ -1,18 +1,20 @@
 package id.artificialintelligence.rojak.models;
 
 
+import com.google.gson.annotations.SerializedName;
+
 public class Candidate {
-    private int id;
-    private String fullName;
-    private String aliasName;
-    private String placeOfBirth;
-    private String dateOfBirth;
-    private String religion;
-    private String websiteUrl;
-    private String photoUrl;
-    private String fbpageUsername;
-    private String twitterUsername;
-    private String instagramUsername;
+    @SerializedName("id") private int id;
+    @SerializedName("full_name") private String fullName;
+    @SerializedName("alias_name") private String aliasName;
+    @SerializedName("place_of_birth") private String placeOfBirth;
+    @SerializedName("date_of_birth") private String dateOfBirth;
+    @SerializedName("religion") private String religion;
+    @SerializedName("website_url") private String websiteUrl;
+    @SerializedName("photo_url") private String photoUrl;
+    @SerializedName("fbpage_username") private String fbpageUsername;
+    @SerializedName("twitter_username") private String twitterUsername;
+    @SerializedName("instagram_username") private String instagramUsername;
 
     public String getAliasName() {
         return aliasName;
