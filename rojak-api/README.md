@@ -58,7 +58,7 @@ Berikut adalah step untuk melakukan build image production:
     ```
     $ ./build-release.sh 1.0.0
     ```
-3. Perintah tersebut akan menghasilkan sebuah docker image bernama `rojak/rojak-api` dengan tag sesuai version yang siap untuk dijalankan.
+3. Perintah tersebut akan menghasilkan sebuah docker image bernama `rojakid/rojak-api` dengan tag sesuai version yang siap untuk dijalankan.
 
 ### Usage
 
@@ -69,5 +69,5 @@ $ docker run -p [port]:4000 \
     -e DB_PASSWORD=[db_password] \
     -e DB_NAME=[db_name] \
     -e DB_HOST=[db_host] \
-    rojak/rojak-api:[tag]
+    rojakid/rojak-api:[tag]
 ```
