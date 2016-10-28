@@ -100,7 +100,7 @@ class BaseSpider(scrapy.Spider):
     def item_dropped(item, response, exception, spider):
         if self.is_slack:
             # Send error to slack
-            error_msg = '{}: Spider fail because: {}'.format(
+            error_msg = '{}: Item dropped because: {}'.format(
                 spider.name, exception)
             spider.slack.chat.post_message('#rojak-pantau-errors',
                     error_msg, as_user=True)
