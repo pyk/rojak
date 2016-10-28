@@ -57,8 +57,10 @@ defmodule RojakAPI.News do
   defp fetch_mentions(query, embed?) when not embed?, do: query
   defp fetch_mentions(query, _) do
     from q in query,
-      join: m in assoc(q, :mentions),
-      preload: [mentions: m]
+      join: ns in assoc(q, :sentiments),
+      join: s in assoc(ns, :sentiment),
+      join: c in assoc(s, :candidate),
+      preload: [sentiments: {ns, sentiment: {s, candidate: c}}]
   end
 
 end
