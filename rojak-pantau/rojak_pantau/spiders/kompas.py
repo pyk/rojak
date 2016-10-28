@@ -11,7 +11,7 @@ from rojak_pantau.items import News
 from rojak_pantau.i18n.i18n import i18n
 from rojak_pantau.util.wib_to_utc import wib_to_utc
 
-class KompasComSpider(BaseSpider):
+class KompasSpider(BaseSpider):
     name = "kompas"
     start_urls = [
         'http://lipsus.kompas.com/topikpilihanlist/3754/1/Pilkada.DKI.2017'
@@ -21,6 +21,7 @@ class KompasComSpider(BaseSpider):
         'USER_AGENT': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:39.0) Gecko/20100101 Firefox/39.0'
     }
     translator = i18n()
+    first_time = True
 
     def parse(self, response):
         is_no_update = False
@@ -59,12 +60,15 @@ class KompasComSpider(BaseSpider):
             self.logger.info('Media have no update')
             return
 
-        np_selectors = response.css("ul.paginasi.mt2 > li > a::attr(href)")
-        if not np_selectors:
-            raise CloseSpider('np_selectors not found')
-        next_pages = np_selectors.extract()
-        for next_url in next_pages:
-            yield Request(next_url, callback=self.parse)
+        # For kompas case, we don't rely on the pagination
+        # Their pagination is max 17 pages, the truth is they have 25 pages
+        if self.first_time:
+            template_url = 'http://lipsus.kompas.com/topikpilihanlist/3754/{}/Pilkada.DKI.2017'
+            for i in xrange(25):
+                page = i + 1
+                url = template_url.format(page)
+                yield Request(next_url, callback=self.parse)
+            self.first_time = False
 
     def convert_date(self, idn_date):
         # Example Rabu, 12 Oktober 2016 | 10:23 WIB

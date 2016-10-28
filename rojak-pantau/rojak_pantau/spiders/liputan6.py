@@ -82,9 +82,15 @@ class Liputan6Spider(BaseSpider):
         xpath_query = """
             //div[@class="article-raw-content"]/node()
                 [not(
-                    self::comment()|
-                    self::script|
-                    self::div)]
+                    descendant-or-self::comment()|
+                    descendant-or-self::style|
+                    descendant-or-self::script|
+                    descendant-or-self::div|
+                    descendant-or-self::span|
+                    descendant-or-self::img|
+                    descendant-or-self::table|
+                    descendant-or-self::iframe
+                )]
         """
         raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:

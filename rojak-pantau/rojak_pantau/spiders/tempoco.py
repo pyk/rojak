@@ -59,8 +59,8 @@ class TempocoSpider(BaseSpider):
         raw_content_selector = response.css('.block-artikel .p-artikel')
         raw_content_selector = raw_content_selector.xpath('//p[not(iframe)]')
         raw_content = ''
-        for raw_content_selector_one in raw_content_selector:
-            raw_content = raw_content + raw_content_selector_one.extract()
+        for rsl in raw_content_selector:
+            raw_content = raw_content + rsl.extract().strip()
         loader.add_value('raw_content', raw_content)
 
         author_name = ''
@@ -80,8 +80,8 @@ class TempocoSpider(BaseSpider):
     def parse_next_page_metro(self, response, loader, raw_content):
         raw_content_selector = response.xpath('//div[@class="artikel"]//p[not(iframe)]')
 
-        for raw_content_selector_one in raw_content_selector:
-            raw_content = raw_content + raw_content_selector_one.extract()
+        for rsl in raw_content_selector:
+            raw_content = raw_content + rsl.extract().strip()
 
         next_page_selector = response.css('.pagination-nb').xpath('//a[text()="next"]/@href')
         if next_page_selector:
@@ -134,8 +134,8 @@ class TempocoSpider(BaseSpider):
         if not raw_content_selector:
             return loader.load_item()
         raw_content = ''
-        for raw_content_selector_one in raw_content_selector:
-            raw_content = raw_content + raw_content_selector_one.extract()
+        for rsl in raw_content_selector:
+            raw_content = raw_content + rsl.extract().strip()
 
         # Go to next page while there is next page button
         next_page_selector = response.css('.pagination-nb').xpath('//a[text()="next"]/@href')
