@@ -17,7 +17,7 @@ define({ "api": [
         ]
       }
     },
-    "description": "<p>Get a list of pairs of candidates running in the election, optionally with <code>sentiments</code>.</p>",
+    "description": "<p>Get a list of candidates running in the election, optionally with <code>sentiments</code>.</p>",
     "success": {
       "examples": [
         {
@@ -57,7 +57,7 @@ define({ "api": [
         ]
       }
     },
-    "description": "<p>Get a pair of candidates based on {candidateId}, optionally with <code>sentiments</code> and <code>candidates</code>.</p>",
+    "description": "<p>Get a candidates based on {candidateId}, optionally with <code>sentiments</code> and <code>pairing</code>.</p>",
     "success": {
       "examples": [
         {
@@ -115,7 +115,7 @@ define({ "api": [
         ]
       }
     },
-    "description": "<p>Get a breakdown of media sentiments for this pairing.</p>",
+    "description": "<p>Get a breakdown of media sentiments for this candidate.</p>",
     "success": {
       "examples": [
         {
@@ -362,7 +362,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/pairings",
-    "title": "Get Pairings",
+    "title": "Get Pairs",
     "group": "Pairings",
     "parameter": {
       "fields": {

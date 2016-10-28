@@ -3,7 +3,7 @@
  * @apiGroup Candidates
  * @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code> </br></br> Example:
  *      <pre>?embed[]=field1&embed[]=field2</pre>
- * @apiDescription Get a list of pairs of candidates running in the election, optionally with <code>sentiments</code>.
+ * @apiDescription Get a list of candidates running in the election, optionally with <code>sentiments</code>.
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    [
@@ -56,7 +56,7 @@
  * @apiParam {String} candidateId
  * @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code>, <code>candidates</code> </br></br> Example:
  *      <pre>?embed[]=field1&embed[]=field2</pre>
- * @apiDescription Get a pair of candidates based on {candidateId}, optionally with <code>sentiments</code> and <code>candidates</code>.
+ * @apiDescription Get a candidates based on {candidateId}, optionally with <code>sentiments</code> and <code>pairing</code>.
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    [
@@ -113,7 +113,7 @@
  *      <pre>?offset=20</pre>
  * @apiParam {Integer} [limit=10] Limit the number of elements on the response. </br></br> Example:
  *      <pre>?limit=20</pre>
- * @apiDescription Get a breakdown of media sentiments for this pairing.
+ * @apiDescription Get a breakdown of media sentiments for this candidate.
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    [

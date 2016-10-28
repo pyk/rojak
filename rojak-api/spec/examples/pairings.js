@@ -1,5 +1,5 @@
 /**
- * @api {get} /pairings Get Pairings 
+ * @api {get} /pairings Get Pairs
  * @apiGroup Pairings
  * @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code> </br></br> Example:
  *      <pre>?embed[]=field1&embed[]=field2</pre>
