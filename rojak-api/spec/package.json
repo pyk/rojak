@@ -1,0 +1,28 @@
+{
+  "name": "rojak-api",
+  "version": "1.0.0",
+  "description": "Rojak API Documentation",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reinarduswindy/rojak.git"
+  },
+  "keywords": [
+    "rojak"
+  ],
+  "author": "Rojak Team",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/reinarduswindy/rojak/issues"
+  },
+  "homepage": "https://github.com/reinarduswindy/rojak#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}

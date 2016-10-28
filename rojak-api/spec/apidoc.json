@@ -1,0 +1,8 @@
+{
+  "name": "Rojak API Documentation",
+  "version": "1.0.0",
+  "description": "Rojak API",
+  "template": {
+    "forceLanguage": "en"
+  }
+}
