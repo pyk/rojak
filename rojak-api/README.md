@@ -6,7 +6,7 @@ API untuk komunikasi antara rojak-ui-* dengan rojak-database.
 |-------------------|--------|
 | Schema Data       | v0.4   |
 | API Specification | v0.2   |
-| App               | v0.0.1 |
+| App               | v0.1.0 |
 
 ## Development
 
@@ -71,3 +71,13 @@ $ docker run -p [port]:4000 \
     -e DB_HOST=[db_host] \
     rojakid/rojak-api:[tag]
 ```
+
+## Changelog
+
+### 0.1.0
+
+- Implementasi API spec v0.2 tanpa sentiment
+
+### 0.0.1
+
+- Inisialisasi Phoenix project
