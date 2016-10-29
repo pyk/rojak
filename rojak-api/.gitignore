@@ -20,3 +20,4 @@ erl_crash.dump
 
 # Folder
 /node_modules/*
+/spec/*

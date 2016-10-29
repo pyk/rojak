@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Rojak API Documentation",
   "apidoc": "0.2.0",
+  "template": {
+    "forceLanguage": "en"
+  },
   "order": [
     "Candidates",
     "GetCandidates",
@@ -22,7 +25,7 @@
   "sampleUrl": false,
   "generator": {
     "name": "apidoc",
-    "time": "2016-10-29T10:56:31.573Z",
+    "time": "2016-10-29T11:55:35.694Z",
     "url": "http://apidocjs.com",
     "version": "0.16.1"
   }

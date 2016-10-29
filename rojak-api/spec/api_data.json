@@ -449,7 +449,7 @@
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK\n[\n  {\n      \"id\": 1,\n      \"name\": \"detikcom\",\n      \"website_url\": \"http://detik.com\",\n      \"logo_url\": \"https://cdn.detik.net.id/detik2/images/logodetikcom.png?1\",\n      \"fbpage_username\": \"detikcom\",\n      \"twitter_username\": \"detikcom\",\n      \"instagram_username\": \"detikcom\",\n      \"inserted_at\": 1341533193,\n      \"updated_at\": 1341533193,\n      \"sentiments\": {\n          \"positive\": 0.41256,\n          \"negative\": 0.12345,\n          \"neutral\": 0.46399\n      }\n  }\n]",
+          "content": "HTTP/1.1 200 OK\n[\n  {\n    \"id\": 1,\n    \"name\": \"detikcom\",\n    \"website_url\": \"http://detik.com\",\n    \"logo_url\": \"https://cdn.detik.net.id/detik2/images/logodetikcom.png?1\",\n    \"fbpage_username\": \"detikcom\",\n    \"twitter_username\": \"detikcom\",\n    \"instagram_username\": \"detikcom\",\n    \"inserted_at\": 1341533193,\n    \"updated_at\": 1341533193,\n    \"sentiments\": {\n      \"positive\": 0.41256,\n      \"negative\": 0.12345,\n      \"neutral\": 0.46399\n    }\n  }\n]",
           "type": "json"
         }
       ]

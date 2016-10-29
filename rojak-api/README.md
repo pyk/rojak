@@ -41,7 +41,7 @@ Dengan perintah ini, API dapat diakses pada [docker host]:5000 dan MySQL pada [d
 
 ## Spesifikasi API
 
-Spesifikasi API dapat dilihat [di sini](https://rawgit.com/pyk/rojak/master/rojak-api/spec/index.html) (WIP).
+Spesifikasi API dapat dilihat [di sini](https://rawgit.com/pyk/rojak/master/rojak-api/spec/api-spec.html) (WIP).
 
 ## Docker Production Build Instruction
 
@@ -85,7 +85,7 @@ Berikut adalah langkah untuk generate dokumentasi API:
         comment parameter apidoc
       """
     ```
-    
+
 4. Parameter yang digunakan dapat dilihat di [sini](http://apidocjs.com/#params).
 5. Jalankan perintah ```apidoc -i web/v1/ -o spec/``` di terminal dari path `/rojak-api/`
    
