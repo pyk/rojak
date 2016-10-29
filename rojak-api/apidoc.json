@@ -7,14 +7,18 @@
     "url" : "https://api.rojak.id/v1"
   },
   "order": [
+      "Candidates",
       "GetCandidates",
       "GetCandidate",
       "GetCandidateMediaSentiments",
+      "Pairings",
       "GetPairs",
       "GetPair",
       "GetPairMediaSentiments",
+      "News",
       "GetNews",
       "GetANews",
+      "Media",
       "GetMedia",
       "GetAMedia"
     ]
