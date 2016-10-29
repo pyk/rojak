@@ -18,6 +18,6 @@ erl_crash.dump
 # variables.
 #/config/prod.secret.exs
 
-# Folder
-/node_modules/*
-/spec/*
+# ApiDoc
+/node_modules
+/spec
