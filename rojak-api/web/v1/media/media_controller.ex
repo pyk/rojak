@@ -3,11 +3,6 @@ defmodule RojakAPI.V1.MediaController do
 
   alias RojakAPI.Media
 
-  defparams media_index_params %{
-    limit: [field: :integer, default: 10],
-    offset: [field: :integer, default: 0],
-  }
-
   @apidoc """
     @api {get} /media Get Media 
     @apiGroup Media
@@ -34,15 +29,16 @@ defmodule RojakAPI.V1.MediaController do
         }
       ]
   """
+  defparams media_index_params %{
+    limit: [field: :integer, default: 10],
+    offset: [field: :integer, default: 0],
+  }
+
   def index(conn, params) do
     validated_params = ParamsValidator.validate params, &media_index_params/1
     media = Media.fetch(validated_params)
     render(conn, "index.json", media: media)
   end
-
-  defparams media_show_params %{
-    id!: :integer,
-  }
 
   @apidoc """
     @api {get} /media/:mediaId Get a Media
@@ -70,6 +66,10 @@ defmodule RojakAPI.V1.MediaController do
         "message" : "item not found" 
       }
   """
+  defparams media_show_params %{
+    id!: :integer,
+  }
+
   def show(conn, params) do
     validated_params = ParamsValidator.validate params, &media_show_params/1
     media = Media.fetch_one(validated_params)
