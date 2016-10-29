@@ -126,6 +126,7 @@ class OkezoneSpider(BaseSpider):
             return loader.load_item()
         raw_content = raw_content_selectors.extract()
         raw_content = ' '.join([w.strip() for w in raw_content])
+        raw_content = raw_content.strip()
         loader.add_value('raw_content', raw_content)
 
         if not parsed_news['published']:

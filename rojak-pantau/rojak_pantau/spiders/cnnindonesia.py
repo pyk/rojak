@@ -76,13 +76,17 @@ class CnnindonesiaSpider(BaseSpider):
         # Extract raw html, not the text
         # Using Xpath instead of CSS selector to eliminate useless children
         xpath_query = """
-             //div[@class="detail_text"]/node()
-                 [not(
-                     descendant-or-self::comment()|
-                     descendant-or-self::script|
-                     descendant-or-self::div|
-                     descendant-or-self::table|
-                     descendant-or-self::iframe)]
+            //div[@class="detail_text"]/node()
+                [not(
+                    descendant-or-self::comment()|
+                    descendant-or-self::style|
+                    descendant-or-self::script|
+                    descendant-or-self::div|
+                    descendant-or-self::span|
+                    descendant-or-self::img|
+                    descendant-or-self::table|
+                    descendant-or-self::iframe
+                )]
          """
         raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
