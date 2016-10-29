@@ -92,50 +92,46 @@ defmodule RojakAPI.V1.CandidateController do
     @apiDescription Get a candidates based on {candidateId}, optionally with <code>sentiments</code> and <code>pairing</code>.
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
-      [
-        {
-          "id": 1,
-          "full_name": "Basuki Tjahaja Purnama",
-          "alias_name": "Ahok",
-          "place_of_birth": "Manggar, Belitung Timur",
-          "date_of_birth": "1966-06-29",
-          "religion": "Kristen Protestan",
-          "website_url": "http://ahok.org",
-          "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
-          "fbpage_username": "AhokBTP",
-          "twitter_username": "basuki_btp",
-          "instagram_username": "basukibtp",
+      {
+        "id": 1,
+        "full_name": "Basuki Tjahaja Purnama",
+        "alias_name": "Ahok",
+        "place_of_birth": "Manggar, Belitung Timur",
+        "date_of_birth": "1966-06-29",
+        "religion": "Kristen Protestan",
+        "website_url": "http://ahok.org",
+        "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
+        "fbpage_username": "AhokBTP",
+        "twitter_username": "basuki_btp",
+        "instagram_username": "basukibtp",
+        "inserted_at": 1341533193,
+        "updated_at": 1341533193,
+        "sentiments": {
+          "positive": 0.41256,
+          "negative": 0.12345,
+          "neutral": 0.46399
+        },
+        "pairing": {
+          "id": 3,
+          "name": "Agus Sylvi",
+          "cagub_id": 5,
+          "cawagub_id": 6,
+          "website_url": "http://relawanagussylvi.com",
+          "logo_url": "https://pbs.twimg.com/profile_images/783564904460460032/VgVxZX-l.jpg",
+          "fbpage_username": "RelawanAgusSylvi",
+          "twitter_username": "RelAgusSylvi",
+          "instagram_username": "",
+          "slogan": "Jakarta Untuk Rakyat",
+          "description": "",
           "inserted_at": 1341533193,
-          "updated_at": 1341533193,
-          "sentiments": {
-            "positive": 0.41256,
-            "negative": 0.12345,
-            "neutral": 0.46399
-          },
-          "pairing": {
-            "id": 3,
-            "name": "Agus Sylvi",
-            "cagub_id": 5,
-            "cawagub_id": 6,
-            "website_url": "http://relawanagussylvi.com",
-            "logo_url": "https://pbs.twimg.com/profile_images/783564904460460032/VgVxZX-l.jpg",
-            "fbpage_username": "RelawanAgusSylvi",
-            "twitter_username": "RelAgusSylvi",
-            "instagram_username": "",
-            "slogan": "Jakarta Untuk Rakyat",
-            "description": "",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193
-          }
+          "updated_at": 1341533193
         }
-      ]
+      }
     @apiErrorExample {json} Item Not Found
       HTTP/1.1 404 Not Found
-      [
-        { 
-          "message" : "item not found" 
-        }
-      ]
+      { 
+        "message" : "item not found" 
+      }
   """
   def show(conn, params) do
     validated_params = ParamsValidator.validate params, &candidate_show_params/1

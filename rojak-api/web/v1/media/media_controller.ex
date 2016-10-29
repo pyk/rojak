@@ -53,26 +53,22 @@ defmodule RojakAPI.V1.MediaController do
     @apiDescription Get a media based on {mediaId}.
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
-      [
-        {
-          "id": 1,
-          "name": "detikcom",
-          "website_url": "http://detik.com",
-          "logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
-          "fbpage_username": "detikcom",
-          "twitter_username": "detikcom",
-          "instagram_username": "detikcom",
-          "inserted_at": 1341533193,
-          "updated_at": 1341533193
-        }
-      ]
+      {
+        "id": 1,
+        "name": "detikcom",
+        "website_url": "http://detik.com",
+        "logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
+        "fbpage_username": "detikcom",
+        "twitter_username": "detikcom",
+        "instagram_username": "detikcom",
+        "inserted_at": 1341533193,
+        "updated_at": 1341533193
+      }
     @apiErrorExample {json} Item Not Found
       HTTP/1.1 404 Not Found
-      [
-        { 
-          "message" : "item not found" 
-        }
-      ]
+      { 
+        "message" : "item not found" 
+      }
   """
   def show(conn, params) do
     validated_params = ParamsValidator.validate params, &media_show_params/1
