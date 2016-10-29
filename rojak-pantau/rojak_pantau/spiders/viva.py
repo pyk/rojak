@@ -93,12 +93,15 @@ class VivaSpider(BaseSpider):
         # We filter-out the noise: HTML comments, scripts, css styles etc
         xpath_query ='''
             //div[@class="detail-content"]/node()
-                [not(descendant-or-self::comment()|
+                [not(
+                    descendant-or-self::comment()|
                     descendant-or-self::style|
                     descendant-or-self::script|
                     descendant-or-self::div|
                     descendant-or-self::span|
-                    descendant-or-self::image|
+                    descendant-or-self::img|
+                    descendant-or-self::table|
+                    descendant-or-self::iframe|
                     descendant-or-self::a[@class="share-btn-right shared"]
                 )]
         '''

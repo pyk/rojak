@@ -103,9 +103,14 @@ class MetrotvnewsSpider(BaseSpider):
             //div[@class="part article"]/node()
                 [not(
                     descendant-or-self::comment()|
+                    descendant-or-self::style|
                     descendant-or-self::script|
                     descendant-or-self::div|
-                    descendant-or-self::iframe)]
+                    descendant-or-self::span|
+                    descendant-or-self::img|
+                    descendant-or-self::table|
+                    descendant-or-self::iframe
+                )]
         """
         raw_content_selectors = response.xpath(xpath_query)
         if not raw_content_selectors:
@@ -113,6 +118,7 @@ class MetrotvnewsSpider(BaseSpider):
             return loader.load_item()
         raw_content = raw_content_selectors.extract()
         raw_content = ' '.join([w.strip() for w in raw_content])
+        raw_content = raw_content.strip()
         loader.add_value('raw_content', raw_content)
 
         # Example: Bambang - 10 Oktober 2016 21:10 wib

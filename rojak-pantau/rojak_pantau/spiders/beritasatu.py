@@ -94,7 +94,9 @@ class BeritasatuSpider(BaseSpider):
         if not raw_content_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        raw_content = raw_content_selectors.extract()[0]
+        raw_content = raw_content_selectors.extract()
+        raw_content = ' '.join([w.strip() for w in raw_content])
+        raw_content = raw_content.strip()
         loader.add_value('raw_content', raw_content)
 
         # Example: Selasa, 11 Oktober 2016 | 10:48
