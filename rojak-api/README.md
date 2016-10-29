@@ -74,7 +74,8 @@ $ docker run -p [port]:4000 \
 
 ## ApiDoc
 
-Berikut adalah langkah untuk generate dokumentasi API.
+Berikut adalah langkah untuk generate dokumentasi API:
+
 1. Pastikan [apiDoc](http://apidocjs.com/#getting-started) sudah terinstall.
 2. Untuk mengubah/menghapus/menambahkan dokumentasi API, dapat dilakukan di atas code handler masing-masing controller.
 3. ApiDoc akan men-generate semua comment paramater apidoc yang berada di dalam scope
