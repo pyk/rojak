@@ -4,7 +4,7 @@ defmodule RojakAPI.V1.MediaController do
   alias RojakAPI.Media
 
   @apidoc """
-    @api {get} /media Get Media 
+    @api {get} /media Get Media
     @apiGroup Media
     @apiName GetMedia
     @apiVersion 1.0.0
@@ -62,8 +62,8 @@ defmodule RojakAPI.V1.MediaController do
       }
     @apiErrorExample {json} Item Not Found
       HTTP/1.1 404 Not Found
-      { 
-        "message" : "item not found" 
+      {
+        "message" : "item not found"
       }
   """
   defparams media_show_params %{
@@ -152,5 +152,14 @@ defmodule RojakAPI.V1.MediaController do
         }
       ]
   """
+  defparams media_sentiments_params %{
+    id!: :integer,
+  }
+
+  def sentiments(conn, params) do
+    validated_params = ParamsValidator.validate params, &media_sentiments_params/1
+    sentiments = Media.fetch_sentiments(validated_params)
+    render(conn, "sentiments.json", sentiments: sentiments)
+  end
 
 end

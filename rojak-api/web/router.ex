@@ -19,6 +19,7 @@ defmodule RojakAPI.Router do
       get "/news/:id", NewsController, :show
       get "/media", MediaController, :index
       get "/media/:id", MediaController, :show
+      get "/media/:id/sentiments", MediaController, :sentiments
     end
   end
 end
