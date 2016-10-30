@@ -12,6 +12,9 @@ defmodule RojakAPI.Media do
     field :twitter_username, :string
     field :instagram_username, :string
 
+    # Virtual fields for embedding joins
+    field :sentiments, :map, virtual: true
+
     # Relationship
     has_many :news, RojakAPI.News
 

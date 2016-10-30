@@ -39,6 +39,34 @@ defmodule RojakAPI.Candidate do
     |> Repo.get!(id)
   end
 
+  def fetch_media_sentiments(%{id: id, limit: limit, offset: offset}) do
+    query = from m in RojakAPI.Media,
+      join: s in fragment("""
+        SELECT
+          s.candidate_id,
+          n.media_id,
+          COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,
+          COUNT(CASE WHEN s.name like 'net%' THEN 1 END) neutral,
+          COUNT(CASE WHEN s.name like 'con%' THEN 1 END) negative
+        FROM news_sentiment ns
+        JOIN news n ON ns.news_id = n.id
+        JOIN sentiment s ON ns.sentiment_id = s.id
+        GROUP BY s.candidate_id, n.media_id
+        """), on: s.media_id == m.id and s.candidate_id == ^id,
+      limit: ^limit,
+      offset: ^offset,
+      select: %{m |
+        sentiments: %{
+          positive: s.positive,
+          neutral: s.neutral,
+          negative: s.negative,
+        }
+      }
+
+    query
+    |> Repo.all
+  end
+
   defp fetch_embed(query, embed) when is_nil(embed), do: query
   defp fetch_embed(query, embed) do
     query

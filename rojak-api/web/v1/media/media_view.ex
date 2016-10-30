@@ -14,7 +14,7 @@ defmodule RojakAPI.V1.MediaView do
   end
 
   def render("media.json", %{media: media}) do
-    Map.drop media, [:__meta__, :news]
+    Map.drop media, [:__meta__, :news, :sentiments]
   end
 
   def render("sentiment.json", %{sentiment: sentiment}) do
