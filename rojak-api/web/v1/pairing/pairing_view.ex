@@ -27,6 +27,14 @@ defmodule RojakAPI.V1.PairingView do
         end
     end
 
+    # Embed sentiments
+    pairing = case Map.get(pairing, :sentiments) do
+      nil ->
+        pairing |> Map.drop([:sentiments])
+      _ ->
+        pairing
+    end
+
     pairing
   end
 end
