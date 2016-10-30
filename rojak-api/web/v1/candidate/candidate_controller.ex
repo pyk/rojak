@@ -183,5 +183,4 @@ defmodule RojakAPI.V1.CandidateController do
     render(conn, "media_sentiments.json", media_sentiments: media_sentiments)
   end
 
-
 end

@@ -40,6 +40,55 @@ defmodule RojakAPI.PairOfCandidates do
     |> Repo.get!(id)
   end
 
+  def fetch_media_sentiments(%{id: id, limit: limit, offset: offset}) do
+    pairing = Repo.get! PairOfCandidates, id
+
+    query = from m in RojakAPI.Media,
+      join: cagub_sentiments in fragment("""
+        SELECT
+          s.candidate_id,
+          n.media_id,
+          COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,
+          COUNT(CASE WHEN s.name like 'net%' THEN 1 END) neutral,
+          COUNT(CASE WHEN s.name like 'con%' THEN 1 END) negative
+        FROM news_sentiment ns
+        JOIN news n ON ns.news_id = n.id
+        JOIN sentiment s ON ns.sentiment_id = s.id
+        GROUP BY s.candidate_id, n.media_id
+        """), on: cagub_sentiments.media_id == m.id and cagub_sentiments.candidate_id == ^pairing.cagub_id,
+      join: cawagub_sentiments in fragment("""
+        SELECT
+          s.candidate_id,
+          n.media_id,
+          COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,
+          COUNT(CASE WHEN s.name like 'net%' THEN 1 END) neutral,
+          COUNT(CASE WHEN s.name like 'con%' THEN 1 END) negative
+        FROM news_sentiment ns
+        JOIN news n ON ns.news_id = n.id
+        JOIN sentiment s ON ns.sentiment_id = s.id
+        GROUP BY s.candidate_id, n.media_id
+        """), on: cawagub_sentiments.media_id == m.id and cawagub_sentiments.candidate_id == ^pairing.cawagub_id,
+      limit: ^limit,
+      offset: ^offset,
+      select: %{m |
+        sentiments: %{
+          cagub: %{
+            positive: cagub_sentiments.positive,
+            neutral: cagub_sentiments.neutral,
+            negative: cagub_sentiments.negative
+          },
+          cawagub: %{
+            positive: cawagub_sentiments.positive,
+            neutral: cawagub_sentiments.neutral,
+            negative: cawagub_sentiments.negative
+          }
+        }
+      }
+
+    query
+    |> Repo.all
+  end
+
   defp fetch_embed(query, embed) when is_nil(embed), do: query
   defp fetch_embed(query, embed) do
     query
