@@ -6,7 +6,7 @@ API untuk komunikasi antara rojak-ui-* dengan rojak-database.
 |-------------------|--------|
 | Schema Data       | v0.4   |
 | API Specification | v0.2   |
-| App               | v0.1.0 |
+| App               | v0.2.0 |
 
 ## Development
 
@@ -79,7 +79,7 @@ Berikut adalah langkah untuk generate dokumentasi API:
 1. Pastikan [apiDoc](http://apidocjs.com/#getting-started) sudah terinstall.
 2. Untuk mengubah/menghapus/menambahkan dokumentasi API, dapat dilakukan di atas code handler masing-masing controller.
 3. ApiDoc akan men-generate semua comment paramater apidoc yang berada di dalam scope
-   
+
     ```
       @apidoc """
         comment parameter apidoc
@@ -88,13 +88,17 @@ Berikut adalah langkah untuk generate dokumentasi API:
 
 4. Parameter yang digunakan dapat dilihat di [sini](http://apidocjs.com/#params).
 5. Jalankan perintah ```apidoc -i web/v1/ -o spec/``` di terminal dari path `/rojak-api/`
-   
-   Perintah `-i web/v1/` akan mengambil input `@apiDoc` dari masing-masing controller di path `web/v1`. 
-   
+
+   Perintah `-i web/v1/` akan mengambil input `@apiDoc` dari masing-masing controller di path `web/v1`.
+
    Perintah `-o spec/` akan menaruh semua hasil output yang di-generate ke dalam direktori `spec/`
 6. Hasil generated doc dapat dilihat di file `spec/index.html`
 
 ## Changelog
+
+### 0.2.0
+
+- Implementasi fetching sentiments
 
 ### 0.1.0
 
