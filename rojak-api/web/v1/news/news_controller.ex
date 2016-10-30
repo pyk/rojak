@@ -4,7 +4,7 @@ defmodule RojakAPI.V1.NewsController do
   alias RojakAPI.News
 
   @apidoc """
-    @api {get} /news Get News 
+    @api {get} /news Get News
     @apiGroup News
     @apiName GetNews
     @apiVersion 1.0.0
@@ -30,7 +30,7 @@ defmodule RojakAPI.V1.NewsController do
           "author_name": "Anto",
           "inserted_at": 1341533193,
           "updated_at": 1341533193,
-          "mentions": 
+          "mentions":
           [
             {
               "id": 1,
@@ -61,7 +61,7 @@ defmodule RojakAPI.V1.NewsController do
           "author_name": "Anto",
           "inserted_at": 1341533201,
           "updated_at": 1341533201,
-          "mentions": 
+          "mentions":
           [
             {
               "id": 1,
@@ -124,7 +124,7 @@ defmodule RojakAPI.V1.NewsController do
         "author_name": "Anto",
         "inserted_at": 1341533193,
         "updated_at": 1341533193,
-        "mentions": 
+        "mentions":
         [
           {
             "id": 1,
@@ -149,7 +149,7 @@ defmodule RojakAPI.V1.NewsController do
       }
     @apiErrorExample {json} Item Not Found
       HTTP/1.1 404 Not Found
-      { 
+      {
         "message" : "item not found"
       }
   """
