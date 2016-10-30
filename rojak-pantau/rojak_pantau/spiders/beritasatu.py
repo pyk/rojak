@@ -87,7 +87,7 @@ class BeritasatuSpider(BaseSpider):
             # Will be dropped on the item pipeline
             return loader.load_item()
         title = title_selectors.extract()[0]
-        loader.add_value('title', title)
+        loader.add_value('title', title.strip())
 
         # Extract raw html, not the text
         raw_content_selectors = response.css('div.content-body')
