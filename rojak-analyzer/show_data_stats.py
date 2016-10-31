@@ -4,7 +4,7 @@ import re
 
 from bs4 import BeautifulSoup
 
-csv_file = open('data_detikcom_labelled.csv')
+csv_file = open('data_detikcom_labelled_740.csv')
 csv_reader = csv.DictReader(csv_file)
 
 words = []
@@ -65,7 +65,7 @@ for row in csv_reader:
         print 'WARNING: "{}" does not have label'.format(title)
 
 print 'Unique label statistics:'
-for key in unique_label_counter:
+for key in sorted(unique_label_counter):
     label_name = key
     label_count = unique_label_counter[key]
     print '{}: {}'.format(label_name, label_count)
