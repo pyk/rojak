@@ -213,11 +213,11 @@ class RojakOvR():
             news_labels = self.training_data_class[key]
             
             # Create feature extractor
-            feature_extractor = TfidfVectorizer(ngram_range=(1,1), 
+            feature_extractor = TfidfVectorizer(ngram_range=(1,3), 
                 decode_error='ignore', min_df=3, 
                 stop_words=stopwords.stopwords)
             feature_extractor.fit(news_texts)
-            
+
             # For debugging purpose
             # print '=========='
             # print key
