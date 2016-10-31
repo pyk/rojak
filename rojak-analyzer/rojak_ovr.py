@@ -18,6 +18,8 @@ matplotlib.use('Agg')
 from matplotlib import pyplot
 import numpy as np
 
+import stopwords
+
 # Compile regex to remove non-alphanum char
 nonalpha = re.compile('[^a-z\-]+')
 
@@ -44,6 +46,33 @@ def clean_string(s):
     # For each word we clear out the extra format
     for w in clean_str.split(' '):
         word = normalize_word(w)
+        # TODO: handle negation & synonym
+        
+        # Remove -kan in di..kan form
+        # Example: disebutkan => disebut
+        if (len(word) > 5 and word[:2] == 'di' and word[-3:] == 'kan'):
+            word = word[:len(word)-3]
+        
+        # Remove -kan in me..kan form
+        # Example: menyetorkan => menyetor
+        if (len(word) > 5 and word[:2] == 'me' and word[-3:] == 'kan'):
+            word = word[:len(word)-3]
+        
+        # Remove -lah form
+        # Example: bukanlah
+        if (len(word) > 5 and word[-3:] == 'lah'):
+            word = word[:len(word)-3] 
+        
+        # Remove -nya form
+        # Example: bukannya => bukan, disayanginya => disayang, 
+        # komunikasinya => komunikasi
+        if (len(word) > 5 and word[-3:] == 'nya'):
+            word = word[:len(word)-3]
+
+        # Normalize the negation
+        if word in ['tidak', 'enggak', 'bukan', 'tdk', 'bkn']:
+            word = 'tidak'
+
         if word != '' and word != '-':
             result_str.append(word)
 
@@ -184,9 +213,18 @@ class RojakOvR():
             news_labels = self.training_data_class[key]
             
             # Create feature extractor
-            feature_extractor = TfidfVectorizer(ngram_range=(1,3), 
-                decode_error='ignore', min_df=3)
+            feature_extractor = TfidfVectorizer(ngram_range=(1,1), 
+                decode_error='ignore', min_df=3, 
+                stop_words=stopwords.stopwords)
             feature_extractor.fit(news_texts)
+            
+            # For debugging purpose
+            # print '=========='
+            # print key
+            # print '----------'
+            # for word in feature_extractor.get_feature_names():
+            #     print word
+            # print '=========='
 
             # Extract the features
             X = feature_extractor.transform(news_texts)
@@ -206,9 +244,12 @@ class RojakOvR():
         pickle.dump(self.classifiers, open(output_file, 'w'), 
             protocol=pickle.HIGHEST_PROTOCOL)
 
+    def load_model(self, model):
+        self.classifiers = pickle.load(open(model))
+
     def eval(self, model, test_data):
         # Load the model
-        self.classifiers = pickle.load(open(model))
+        self.load_model(model)
 
         # Collect the test data
         self._collect_data_from_csv(test_data, self.test_data_text, 
@@ -246,7 +287,7 @@ class RojakOvR():
                 title='Confusion matrix without normalization',
                 classifier_name=key)
 
-    def predict(self, news_texts):
+    def predict_proba(self, news_texts, threshold=-1):
         result = []
         for key in self.classifiers:
             classifier = self.classifiers[key]['classifier']
@@ -258,8 +299,8 @@ class RojakOvR():
 
 if __name__ == '__main__':
     rojak = RojakOvR()
-    rojak.train('data_detikcom_labelled_740.csv', 'rojak_ovr_model.bin')
-    rojak.eval('rojak_ovr_model.bin', 'data_detikcom_labelled_740.csv')
+    rojak.train('data_detikcom_labelled_740.csv', 'rojak_ovr_stopwords_2_model.bin')
+    rojak.eval('rojak_ovr_stopwords_2_model.bin', 'data_detikcom_labelled_740.csv')
     
     print '== Test'
     test_news_texts = ['''
@@ -325,7 +366,7 @@ if __name__ == '__main__':
     imk)</strong>"
     ''']
     test_news_label = 'pos_agus'
-    prediction = rojak.predict(test_news_texts)
+    prediction = rojak.predict_proba(test_news_texts)
     print 'Text news:'
     print test_news_texts
     print 'True label:', test_news_label
