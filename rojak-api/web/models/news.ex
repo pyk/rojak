@@ -51,11 +51,11 @@ defmodule RojakAPI.News do
   defp fetch_embed(query, embed) when is_nil(embed), do: query
   defp fetch_embed(query, embed) do
     query
-    |> fetch_mentions(Enum.member?(embed, "mentions"))
+    |> fetch_sentiments(Enum.member?(embed, "sentiments"))
   end
 
-  defp fetch_mentions(query, embed?) when not embed?, do: query
-  defp fetch_mentions(query, _) do
+  defp fetch_sentiments(query, embed?) when not embed?, do: query
+  defp fetch_sentiments(query, _) do
     from q in query,
       join: ns in assoc(q, :sentiments),
       join: s in assoc(ns, :sentiment),

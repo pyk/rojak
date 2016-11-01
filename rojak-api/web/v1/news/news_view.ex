@@ -25,7 +25,7 @@ defmodule RojakAPI.V1.NewsView do
       %Ecto.Association.NotLoaded{} ->
         news
       _ ->
-        mentions =
+        sentiments =
           Enum.map sentiments, fn news_sentiment ->
             candidate =
               news_sentiment
@@ -50,7 +50,7 @@ defmodule RojakAPI.V1.NewsView do
             }
           end
 
-        Map.put news, :mentions, mentions
+        Map.put news, :sentiments, sentiments
     end
 
     news
