@@ -6,7 +6,7 @@ API untuk komunikasi antara rojak-ui-* dengan rojak-database.
 |-------------------|--------|
 | Schema Data       | v0.4   |
 | API Specification | v0.2   |
-| App               | v0.2.0 |
+| App               | v0.2.1 |
 
 ## Development
 
@@ -95,6 +95,10 @@ Berikut adalah langkah untuk generate dokumentasi API:
 6. Hasil generated doc dapat dilihat di file `spec/index.html`
 
 ## Changelog
+
+### 0.2.1
+
+- Bugfix: ubah `join` ke `left_join` untuk ngehandle data yang ga ada.
 
 ### 0.2.0
 

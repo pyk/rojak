@@ -44,7 +44,7 @@ defmodule RojakAPI.PairOfCandidates do
     pairing = Repo.get! PairOfCandidates, id
 
     query = from m in RojakAPI.Media,
-      join: cagub_sentiments in fragment("""
+      left_join: cagub_sentiments in fragment("""
         SELECT
           s.candidate_id,
           n.media_id,
@@ -56,7 +56,7 @@ defmodule RojakAPI.PairOfCandidates do
         JOIN sentiment s ON ns.sentiment_id = s.id
         GROUP BY s.candidate_id, n.media_id
         """), on: cagub_sentiments.media_id == m.id and cagub_sentiments.candidate_id == ^pairing.cagub_id,
-      join: cawagub_sentiments in fragment("""
+      left_join: cawagub_sentiments in fragment("""
         SELECT
           s.candidate_id,
           n.media_id,
@@ -143,14 +143,14 @@ defmodule RojakAPI.PairOfCandidates do
   defp fetch_candidates(query, embed?) when not embed?, do: query
   defp fetch_candidates(query, _) do
     from q in query,
-      join: cagub in assoc(q, :cagub),
-      join: cawagub in assoc(q, :cawagub)
+      left_join: cagub in assoc(q, :cagub),
+      left_join: cawagub in assoc(q, :cawagub)
   end
 
   defp fetch_sentiments(query, embed?) when not embed?, do: query
   defp fetch_sentiments(query, _) do
     from q in query,
-      join: cagub_sentiments in fragment("""
+      left_join: cagub_sentiments in fragment("""
         SELECT
           s.candidate_id,
           COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,
@@ -160,7 +160,7 @@ defmodule RojakAPI.PairOfCandidates do
         JOIN sentiment s ON ns.sentiment_id = s.id
         GROUP BY s.candidate_id
         """), on: cagub_sentiments.candidate_id == q.cagub_id,
-      join: cawagub_sentiments in fragment("""
+      left_join: cawagub_sentiments in fragment("""
         SELECT
           s.candidate_id,
           COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,

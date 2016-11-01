@@ -41,7 +41,7 @@ defmodule RojakAPI.Candidate do
 
   def fetch_media_sentiments(%{id: id, limit: limit, offset: offset}) do
     query = from m in RojakAPI.Media,
-      join: s in fragment("""
+      left_join: s in fragment("""
         SELECT
           s.candidate_id,
           n.media_id,
@@ -112,7 +112,7 @@ defmodule RojakAPI.Candidate do
   defp fetch_sentiments(query, embed?) when not embed?, do: query
   defp fetch_sentiments(query, _) do
     from q in query,
-      join: s in fragment("""
+      left_join: s in fragment("""
         SELECT
           s.candidate_id,
           COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,
