@@ -38,7 +38,7 @@ defmodule RojakAPI.CandidateControllerTest do
     candidate_item = List.first(candidate_list)
     assert item_has_valid_properties?(candidate_item), "Item is missing valid properties."
 
-    # TODO: check if sentiments are embedded
+    assert Map.has_key?(candidate_item, "sentiments")
   end
 
   test "renders invalid parameters when trying to embed invalid field on index", %{conn: conn} do
@@ -58,7 +58,7 @@ defmodule RojakAPI.CandidateControllerTest do
     candidate_item = json_response(conn, 200)
     assert item_has_valid_properties?(candidate_item), "Item is missing valid properties."
 
-    # TODO: check if sentiments are embedded
+    assert Map.has_key?(candidate_item, "sentiments")
     assert Map.has_key?(candidate_item, "pairing")
   end
 
@@ -72,6 +72,15 @@ defmodule RojakAPI.CandidateControllerTest do
     assert_error_sent 404, fn ->
       get conn, v1_candidate_path(conn, :show, -1)
     end
+  end
+
+  test "list media with their sentiments on :media_sentiments", %{conn: conn} do
+    conn = get conn, v1_candidate_path(conn, :media_sentiments, 1)
+    media_sentiment_list = json_response(conn, 200)
+    assert Enum.count(media_sentiment_list) >= 0
+
+    media_sentiment_item = List.first(media_sentiment_list)
+    assert Map.has_key?(media_sentiment_item, "sentiments")
   end
 
   defp item_has_valid_properties?(item) do
