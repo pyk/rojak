@@ -58,13 +58,13 @@ defmodule RojakAPI.NewsControllerTest do
     end
   end
 
-  test "allows embedding mentions on index", %{conn: conn} do
-    conn = get conn, v1_news_path(conn, :index), %{embed: ["mentions"]}
+  test "allows embedding sentiments on index", %{conn: conn} do
+    conn = get conn, v1_news_path(conn, :index), %{embed: ["sentiments"]}
     news_list = json_response(conn, 200)
     assert Enum.count(news_list) >= 0
 
     news_item = List.first(news_list)
-    assert Map.has_key?(news_item, "mentions")
+    assert Map.has_key?(news_item, "sentiments")
   end
 
   test "allows filtering by media id", %{conn: conn} do
@@ -86,14 +86,10 @@ defmodule RojakAPI.NewsControllerTest do
   end
 
   test "allows filtering by mentioned candidate id", %{conn: conn} do
-    conn = get conn, v1_news_path(conn, :index), %{candidate_id: ["1"], embed: ["mentions"]}
+    conn = get conn, v1_news_path(conn, :index), %{candidate_id: ["1"]}
     news_list = json_response(conn, 200)
-    assert Enum.all? news_list, fn news_item ->
-      mentions = Map.get(news_item, "mentions")
-      Enum.any? mentions, fn mentioned_candidate ->
-        Map.get(mentioned_candidate, "id") == 1
-      end
-    end
+    assert Enum.count(news_list) >= 0
+    # TODO: need to ensure the list contains only news mentioning the candidate
   end
 
   test "renders invalid parameters when candidate_id is not an array of integers", %{conn: conn} do
@@ -112,11 +108,11 @@ defmodule RojakAPI.NewsControllerTest do
     assert item_has_valid_properties?(news_item), "Item is missing valid properties."
   end
 
-  test "allows embedding mentions on show", %{conn: conn} do
-    conn = get conn, v1_news_path(conn, :show, 1), %{embed: ["mentions"]}
+  test "allows embedding sentiments on show", %{conn: conn} do
+    conn = get conn, v1_news_path(conn, :show, 1), %{embed: ["sentiments"]}
     news_item = json_response(conn, 200)
 
-    assert Map.has_key?(news_item, "mentions")
+    assert Map.has_key?(news_item, "sentiments")
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do

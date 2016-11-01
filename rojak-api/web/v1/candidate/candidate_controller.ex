@@ -4,7 +4,7 @@ defmodule RojakAPI.V1.CandidateController do
   alias RojakAPI.Candidate
 
   @apidoc """
-    @api {get} /candidates Get Candidates 
+    @api {get} /candidates Get Candidates
     @apiGroup Candidates
     @apiName GetCandidates
     @apiVersion 1.0.0
@@ -119,8 +119,8 @@ defmodule RojakAPI.V1.CandidateController do
       }
     @apiErrorExample {json} Item Not Found
       HTTP/1.1 404 Not Found
-      { 
-        "message" : "item not found" 
+      {
+        "message" : "item not found"
       }
   """
   defparams candidate_show_params(%{
@@ -171,5 +171,16 @@ defmodule RojakAPI.V1.CandidateController do
         }
       ]
   """
+  defparams candidate_media_sentiments_params %{
+    id!: :integer,
+    limit: [field: :integer, default: 10],
+    offset: [field: :integer, default: 0],
+  }
+
+  def media_sentiments(conn, params) do
+    validated_params = ParamsValidator.validate params, &candidate_media_sentiments_params/1
+    media_sentiments = Candidate.fetch_media_sentiments(validated_params)
+    render(conn, "media_sentiments.json", media_sentiments: media_sentiments)
+  end
 
 end

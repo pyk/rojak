@@ -4,7 +4,7 @@ defmodule RojakAPI.V1.NewsController do
   alias RojakAPI.News
 
   @apidoc """
-    @api {get} /news Get News 
+    @api {get} /news Get News
     @apiGroup News
     @apiName GetNews
     @apiVersion 1.0.0
@@ -30,7 +30,7 @@ defmodule RojakAPI.V1.NewsController do
           "author_name": "Anto",
           "inserted_at": 1341533193,
           "updated_at": 1341533193,
-          "mentions": 
+          "mentions":
           [
             {
               "id": 1,
@@ -61,8 +61,7 @@ defmodule RojakAPI.V1.NewsController do
           "author_name": "Anto",
           "inserted_at": 1341533201,
           "updated_at": 1341533201,
-          "mentions": 
-          [
+          "sentiments": [
             {
               "id": 1,
               "full_name": "Basuki Tjahaja Purnama",
@@ -95,7 +94,7 @@ defmodule RojakAPI.V1.NewsController do
   }) do
     def changeset(ch, params) do
       cast(ch, params, [:limit, :offset, :embed, :media_id, :candidate_id])
-      |> validate_subset(:embed, ["mentions"])
+      |> validate_subset(:embed, ["sentiments"])
     end
   end
 
@@ -111,7 +110,7 @@ defmodule RojakAPI.V1.NewsController do
     @apiName GetANews
     @apiVersion 1.0.0
     @apiParam {String} newsId
-    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>mentions</code> </br></br> Example:
+    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
     @apiDescription Get a news article based on {newsId}, optionally with mentioned candidates.
     @apiSuccessExample {json} Success
@@ -124,8 +123,7 @@ defmodule RojakAPI.V1.NewsController do
         "author_name": "Anto",
         "inserted_at": 1341533193,
         "updated_at": 1341533193,
-        "mentions": 
-        [
+        "sentiments": [
           {
             "id": 1,
             "full_name": "Basuki Tjahaja Purnama",
@@ -149,7 +147,7 @@ defmodule RojakAPI.V1.NewsController do
       }
     @apiErrorExample {json} Item Not Found
       HTTP/1.1 404 Not Found
-      { 
+      {
         "message" : "item not found"
       }
   """
@@ -159,7 +157,7 @@ defmodule RojakAPI.V1.NewsController do
   }) do
     def changeset(ch, params) do
       cast(ch, params, [:id, :embed])
-      |> validate_subset(:embed, ["mentions"])
+      |> validate_subset(:embed, ["sentiments"])
     end
   end
 
