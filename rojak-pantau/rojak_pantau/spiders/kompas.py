@@ -66,7 +66,7 @@ class KompasSpider(BaseSpider):
             template_url = 'http://lipsus.kompas.com/topikpilihanlist/3754/{}/Pilkada.DKI.2017'
             for i in xrange(25):
                 page = i + 1
-                url = template_url.format(page)
+                next_url = template_url.format(page)
                 yield Request(next_url, callback=self.parse)
             self.first_time = False
 
