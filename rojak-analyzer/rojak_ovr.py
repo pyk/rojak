@@ -44,7 +44,18 @@ def clean_string(s):
     clean_str = author_signature.sub(' ', clean_str)
 
     # For each word we clear out the extra format
-    for w in clean_str.split(' '):
+    words = clean_str.split(' ')
+    word_len = len(words)
+    skipword = False
+    for i in xrange(word_len):
+        # Skip negation bigram
+        # Example: 'tidak_bisa' we skip the 'bisa'
+        if skipword:
+            skipword = False
+            continue
+
+        # Current word
+        w = words[i]
         word = normalize_word(w)
         # TODO: handle negation & synonym
         
@@ -70,8 +81,12 @@ def clean_string(s):
             word = word[:len(word)-3]
 
         # Normalize the negation
-        if word in ['tidak', 'enggak', 'bukan', 'tdk', 'bkn']:
-            word = 'tidak'
+        if word in ['tidak', 'enggak', 'bukan', 'tdk', 'bkn', 'tak']:
+            if i < (word_len-2):
+                word = '{}_{}'.format('tidak', words[i+1])
+                skipword = True
+            else:
+                word = 'tidak'
 
         if word != '' and word != '-':
             result_str.append(word)
@@ -218,13 +233,13 @@ class RojakOvR():
                 stop_words=stopwords.stopwords)
             feature_extractor.fit(news_texts)
 
-            # For debugging purpose
-            # print '=========='
-            # print key
-            # print '----------'
-            # for word in feature_extractor.get_feature_names():
-            #     print word
-            # print '=========='
+            For debugging purpose
+            print '=========='
+            print key
+            print '----------'
+            for word in feature_extractor.get_feature_names():
+                print word
+            print '=========='
 
             # Extract the features
             X = feature_extractor.transform(news_texts)
@@ -299,8 +314,8 @@ class RojakOvR():
 
 if __name__ == '__main__':
     rojak = RojakOvR()
-    rojak.train('data_detikcom_labelled_740.csv', 'rojak_ovr_stopwords_2_model.bin')
-    rojak.eval('rojak_ovr_stopwords_2_model.bin', 'data_detikcom_labelled_740.csv')
+    rojak.train('data_detikcom_labelled_740.csv', 'rojak_ovr_stopwords_5_model.bin')
+    rojak.eval('rojak_ovr_stopwords_5_model.bin', 'data_detikcom_labelled_740.csv')
     
     print '== Test'
     test_news_texts = ['''
