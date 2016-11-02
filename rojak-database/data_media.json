@@ -111,6 +111,14 @@
         "fbpage_username": "tribunnews",
         "twitter_username": "tribunnews",
         "instagram_username": "tribunnews"
+    },
+    {
+        "name": "hallojakarta",
+        "website_url": "http://www.hallojakarta.com",
+        "logo_url": "http://hallojakarta.com/wp-content/uploads/2016/08/hallojakarta.png",
+        "fbpage_username": "",
+        "twitter_username": "hallojakarta",
+        "instagram_username": ""
     }
     ]
 }
