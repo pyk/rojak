@@ -44,7 +44,7 @@ defmodule RojakAPI.News do
   defp filter_by_candidates(query, candidate_ids) when is_nil(candidate_ids), do: query
   defp filter_by_candidates(query, candidate_ids) do
     from q in query,
-      join: c in assoc(q, :mentions),
+      left_join: c in assoc(q, :mentions),
       where: c.id in ^candidate_ids
   end
 
@@ -57,9 +57,9 @@ defmodule RojakAPI.News do
   defp fetch_sentiments(query, embed?) when not embed?, do: query
   defp fetch_sentiments(query, _) do
     from q in query,
-      join: ns in assoc(q, :sentiments),
-      join: s in assoc(ns, :sentiment),
-      join: c in assoc(s, :candidate),
+      left_join: ns in assoc(q, :sentiments),
+      left_join: s in assoc(ns, :sentiment),
+      left_join: c in assoc(s, :candidate),
       preload: [sentiments: {ns, sentiment: {s, candidate: c}}]
   end
 

@@ -34,9 +34,9 @@ defmodule RojakAPI.Media do
 
   def fetch_sentiments(%{id: id}) do
     query = from p in RojakAPI.PairOfCandidates,
-      join: cagub in assoc(p, :cagub),
-      join: cawagub in assoc(p, :cawagub),
-      join: cagub_sentiments in fragment("""
+      left_join: cagub in assoc(p, :cagub),
+      left_join: cawagub in assoc(p, :cawagub),
+      left_join: cagub_sentiments in fragment("""
         SELECT
           s.candidate_id,
           n.media_id,
@@ -48,7 +48,7 @@ defmodule RojakAPI.Media do
         JOIN sentiment s ON ns.sentiment_id = s.id
         GROUP BY s.candidate_id, n.media_id
         """), on: cagub_sentiments.candidate_id == p.cawagub_id and cagub_sentiments.media_id == ^id,
-      join: cawagub_sentiments in fragment("""
+      left_join: cawagub_sentiments in fragment("""
         SELECT
           s.candidate_id,
           n.media_id,
