@@ -111,6 +111,15 @@
         "fbpage_username": "tribunnews",
         "twitter_username": "tribunnews",
         "instagram_username": "tribunnews"
+    },
+    {
+        "name": "republikaonline",
+        "website_url": "http://www.republika.co.id",
+        "logo_url": "http://www.republika.co.id/files/images/1republika.co.id_03.png",
+        "fbpage_username": "RepublikaOnline",
+        "twitter_username": "republikaonline",
+        "instagram_username": "republikaonline"
     }
+ 
     ]
 }
