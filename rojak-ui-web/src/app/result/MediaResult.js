@@ -4,7 +4,7 @@ import styles from './result.css'
 
 const MediaResult = () => {
   return (
-    <ResultGateway showIn={['media']}>
+    <ResultGateway showIn={[/^(media: )/]}>
       <div className={styles.resultWrapper}>
         THIS IS MEDIA
       </div>

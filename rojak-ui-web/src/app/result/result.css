@@ -1,3 +1,15 @@
+.resultHeader {
+  font-size: 20px;
+}
+
+.resultRow {
+  line-height: 2;
+}
+
+.resultCell {
+  font-size: 18px;
+}
+
 .resultWrapper {
   height: 100%;
   position: fixed;
@@ -6,6 +18,7 @@
   right: 0;
   bottom: 0;
   z-index: 0;
+  padding: 25px;
   -webkit-animation: fadeIn 1s ;
   -o-animation: fadeIn 1s;
   animation: fadeIn 1s;

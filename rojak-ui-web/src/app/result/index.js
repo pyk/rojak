@@ -2,6 +2,7 @@ import ResultWrapper from './ResultWrapper'
 import DefaultResult from './DefaultResult'
 import MediaResult from './MediaResult'
 import KandidatResult from './KandidatResult'
+import OpenKandidat from './OpenKandidat'
 import PasanganResult from './PasanganResult'
 
 export {
@@ -9,5 +10,6 @@ export {
   DefaultResult,
   MediaResult,
   KandidatResult,
-  PasanganResult
+  PasanganResult,
+  OpenKandidat,
 }

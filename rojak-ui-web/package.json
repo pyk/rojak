@@ -9,7 +9,7 @@
     "lint": "eslint src/**"
   },
   "keywords": [],
-  "author": "Donny Stark",
+  "author": "Rojak Team",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.0.20",

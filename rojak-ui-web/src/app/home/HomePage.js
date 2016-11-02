@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Link from 'react-router/lib/Link';
 import withRouter from 'react-router/lib/withRouter';
 import SearchBox from './SearchBox';
-import { ResultWrapper, DefaultResult, MediaResult, KandidatResult, PasanganResult } from '../result'
+import { ResultWrapper, DefaultResult, MediaResult, KandidatResult, OpenKandidat, PasanganResult } from '../result'
 
 class HomePage extends Component {
     render() {
@@ -13,6 +13,7 @@ class HomePage extends Component {
                 <SearchBox params={params} />
                 <ResultWrapper>
                     <DefaultResult />
+                    <OpenKandidat />
                     <MediaResult />
                     <KandidatResult />
                     <PasanganResult />
