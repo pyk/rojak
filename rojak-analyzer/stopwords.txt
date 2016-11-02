@@ -49,7 +49,6 @@ doang
 gimana
 hati
 ia
-ingin
 ini
 itu
 jadi
@@ -154,117 +153,117 @@ telah
 teman
 
 # Nama-nama orang yg jadi noise
-abdul
-abraham
-abdurrahman
-ace
-adjie
-agung
-ahmad
-akbar
-alam
-alfarabie
-alfaraby
-ali
-amalia
-amar
-amien
-amier
-andreas
-andriadi
-andrino
-annisa
-anung
-anwar
-arianto
-arief
-arif
-arifin
-arsul
-arya
-arwani
-atik
-awi
-ayuningtyas
-aziz
-baal
-basarah
-baskoro
-cak
-charles
-cyrus
-dahlia
-damarjati
-dhani
-daniel
-dedy
-denny
-djan
-ernest
-estianty
-faridz
-fernandez
-fadli
-fahira
-fahri
-hana
-haryani
-hasan
-hayono
-hermanto
-heru
-hugo
-ibas
-idrus
-imin
-irwansyah
-jufri
-kurnia
-laksono
-latjuba
-lulung
-lunggana
-maia
-mardani
-masdar
-miryam
-muzani
-nusron
-pareira
-patria
-pohan
-poyuono
-prasetio
-pratikno
-puyono
-qodari
-rahman
-rais
-ramli
-risma
-riza
-rizal
-romi
-ruhut
-sadikin
-saiful
-saleh
-sani
-sera
-setiyono
-sitompul
-sophia
-syadzily
-syaiful
-syamsuddin
-thomafi
-wahid
-yunus
-yusril
-yusuf
-yusufmansurnew
-zulkifi
-zulkifli
+# abdul
+# abraham
+# abdurrahman
+# ace
+# adjie
+# agung
+# ahmad
+# akbar
+# alam
+# alfarabie
+# alfaraby
+# ali
+# amalia
+# amar
+# amien
+# amier
+# andreas
+# andriadi
+# andrino
+# annisa
+# anung
+# anwar
+# arianto
+# arief
+# arif
+# arifin
+# arsul
+# arya
+# arwani
+# atik
+# awi
+# ayuningtyas
+# aziz
+# baal
+# basarah
+# baskoro
+# cak
+# charles
+# cyrus
+# dahlia
+# damarjati
+# dhani
+# daniel
+# dedy
+# denny
+# djan
+# ernest
+# estianty
+# faridz
+# fernandez
+# fadli
+# fahira
+# fahri
+# hana
+# haryani
+# hasan
+# hayono
+# hermanto
+# heru
+# hugo
+# ibas
+# idrus
+# imin
+# irwansyah
+# jufri
+# kurnia
+# laksono
+# latjuba
+# lulung
+# lunggana
+# maia
+# mardani
+# masdar
+# miryam
+# muzani
+# nusron
+# pareira
+# patria
+# pohan
+# poyuono
+# prasetio
+# pratikno
+# puyono
+# qodari
+# rahman
+# rais
+# ramli
+# risma
+# riza
+# rizal
+# romi
+# ruhut
+# sadikin
+# saiful
+# saleh
+# sani
+# sera
+# setiyono
+# sitompul
+# sophia
+# syadzily
+# syaiful
+# syamsuddin
+# thomafi
+# wahid
+# yunus
+# yusril
+# yusuf
+# yusufmansurnew
+# zulkifi
+# zulkifli
 
 # Nama service, noise
 facebook
@@ -277,34 +276,36 @@ dll
 dr
 
 # Nama tempat/kota, karena noise
-aceh
-jakarta
-pejaten
-pendopo
-kantor
-amerika
-serikat
-grand
-sahid
-indonesia
-gedung
-auditorium
-ruang
-balai
-bandara
-bank
-banten
-bistro
-blitar
-borobudur
-cibubur
-cikeas
-cikini
-cilangkap
-ciliwung
-cipinang
-dki
-doli
+# aceh
+# amerika
+# auditorium
+# balai
+# bandara
+# bandung
+# bank
+# banten
+# belitung
+# bistro
+# blitar
+# borobudur
+# cibubur
+# cikeas
+# cikini
+# cilangkap
+# ciliwung
+# cipinang
+# dki
+# doli
+# gedung
+# grand
+# indonesia
+# jakarta
+# kantor
+# pejaten
+# pendopo
+# ruang
+# sahid
+# serikat
 
 # Nama object
 baliho
@@ -334,9 +335,20 @@ nanti
 pukul
 hari
 detik
+senin
+selasa
+rabu
+kamis
+jumat
+jum'at
+sabtu
+minggu
 
 # Nama media
 detikcom
+detik
+cnnindonesia
+cnn
 
 # strange words
 ad
@@ -378,6 +390,7 @@ deadlinenya
 deadlock
 deal
 desmond
+com
 
 # Other, kita gak mau Rojak jadi SARA :)
 agama
