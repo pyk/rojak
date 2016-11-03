@@ -4,7 +4,7 @@ import re
 
 from bs4 import BeautifulSoup
 
-csv_file = open('data_detikcom_740_cnn_127_labelled_7_labels.csv')
+csv_file = open('data_training_7_labels_latest.csv')
 csv_reader = csv.DictReader(csv_file)
 
 words = []

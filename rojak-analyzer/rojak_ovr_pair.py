@@ -382,10 +382,10 @@ class RojakOvRPair():
 
 if __name__ == '__main__':
     rojak = RojakOvRPair()
-    rojak.train('data_detikcom_labelled_740_7_labels.csv', 
-        'rojak_ovr_pair_detikcom_740_trigram_model.bin')
-    rojak.eval('rojak_ovr_pair_detikcom_740_trigram_model.bin', 
-        'data_detikcom_labelled_740_7_labels.csv')
+    rojak.train('data_training_7_labels_latest.csv', 
+        'rojak_ovr_pair_latest_trigram_model.bin')
+    rojak.eval('rojak_ovr_pair_latest_trigram_model.bin', 
+        'data_training_7_labels_latest.csv')
     
     print '== Test'
     test_news_text = '''
