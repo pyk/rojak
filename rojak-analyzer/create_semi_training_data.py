@@ -11,7 +11,7 @@ from rojak_ovr_pair import RojakOvRPair
 
 MEDIA_NAME = os.getenv('MEDIA_NAME', 'cnnindonesia')
 MODEL_NAME = os.getenv('MODEL_NAME', 
-    'rojak_ovr_pair_detikcom_740_trigram_model.bin')
+    'rojak_ovr_pair_latest_trigram_model.bin')
 THRESHOLD = float(os.getenv('THRESHOLD', 0.5))
 ROJAK_DB_HOST = os.getenv('ROJAK_DB_HOST', 'localhost')
 ROJAK_DB_PORT = int(os.getenv('ROJAK_DB_PORT', 3306))
@@ -77,6 +77,11 @@ if __name__ == '__main__':
             continue
         raw_text = '{} {}'.format(title, raw_content)
         pred = rojak.predict_proba(raw_text, threshold=THRESHOLD)
+        print '=== start DEBUG'
+        print title
+        print pred['labels']
+        print pred['confident_score']
+        print '=== end DEBUG'
         label_str = ','.join(pred['labels'])
         data = {'title': title, 'raw_content': raw_content, 
             'predicted_labels': label_str}
