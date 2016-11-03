@@ -4,7 +4,7 @@ import re
 
 from bs4 import BeautifulSoup
 
-csv_file = open('data_detikcom_labelled_740.csv')
+csv_file = open('data_training_7_labels_latest.csv')
 csv_reader = csv.DictReader(csv_file)
 
 words = []
@@ -30,30 +30,12 @@ for row in csv_reader:
         if word != '':
             words.append(word)
 
-    labels = []
-    sentiment_1 = row['sentiment_1']
-    if sentiment_1 != '':
-        labels.append(sentiment_1)
-        if sentiment_1 in unique_label_counter:
-            unique_label_counter[sentiment_1] += 1
+    labels = row['labels'].split(',')
+    for label in labels:
+        if label in unique_label_counter:
+            unique_label_counter[label] += 1
         else:
-            unique_label_counter[sentiment_1] = 1
-
-    sentiment_2 = row['sentiment_2']
-    if sentiment_2 != '':
-        labels.append(sentiment_2)
-        if sentiment_2 in unique_label_counter:
-            unique_label_counter[sentiment_2] += 1
-        else:
-            unique_label_counter[sentiment_2] = 1
-
-    sentiment_3 = row['sentiment_3']
-    if sentiment_3 != '':
-        labels.append(sentiment_3)
-        if sentiment_3 in unique_label_counter:
-            unique_label_counter[sentiment_3] += 1
-        else:
-            unique_label_counter[sentiment_3] = 1
+            unique_label_counter[label] = 1
 
     label_name = ','.join(sorted(labels))
     if label_name != '':
