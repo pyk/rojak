@@ -119,6 +119,14 @@
         "fbpage_username": "",
         "twitter_username": "hallojakarta",
         "instagram_username": ""
+    },
+    {
+        "name": "tirtoid",
+        "website_url": "http://tirto.id",
+        "logo_url": "https://tirto.id/assets/v1/images/logo-tirto-id.svg",
+        "fbpage_username": "TirtoID",
+        "twitter_username": "TirtoID",
+        "instagram_username": "TirtoID"
     }
     ]
 }
