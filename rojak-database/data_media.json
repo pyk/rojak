@@ -127,6 +127,14 @@
         "fbpage_username": "TirtoID",
         "twitter_username": "TirtoID",
         "instagram_username": "TirtoID"
+    },
+    {
+        "name": "republikaonline",
+        "website_url": "http://www.republika.co.id",
+        "logo_url": "http://www.republika.co.id/files/images/1republika.co.id_03.png",
+        "fbpage_username": "RepublikaOnline",
+        "twitter_username": "republikaonline",
+        "instagram_username": "republikaonline"
     }
     ]
 }
