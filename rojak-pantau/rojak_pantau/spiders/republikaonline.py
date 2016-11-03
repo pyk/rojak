@@ -82,11 +82,11 @@ class RepublikaOnlineSpider(BaseSpider):
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
 
-        title_selectors = response.css('div.wrap-head > h2 > a::text')
+        title_selectors = response.css('div.wrap-head > h2 > a')
         if not title_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        title = title_selectors.extract()[0]
+        title = ''.join(title_selectors[0].xpath('.//text()').extract())
         loader.add_value('title', title.strip())
 
         # Parse date information
