@@ -349,6 +349,8 @@ detikcom
 detik
 cnnindonesia
 cnn
+tirto.id
+tirtoid
 
 # strange words
 ad

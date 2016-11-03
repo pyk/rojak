@@ -245,6 +245,8 @@ stopwords = set([
     "tentang", 
     "terus", 
     "tionghoa", 
+    "tirto.id", 
+    "tirtoid", 
     "tuhan", 
     "twitter", 
     "untuk", 
