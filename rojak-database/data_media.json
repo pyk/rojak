@@ -135,6 +135,15 @@
         "fbpage_username": "RepublikaOnline",
         "twitter_username": "republikaonline",
         "instagram_username": "republikaonline"
+    },
+    {
+        "name": "wowkeren",
+        "website_url": "http://www.wowkeren.com",
+        "logo_url": "",
+        "fbpage_username": "",
+        "twitter_username": "",
+        "instagram_username": ""
     }
+ 
     ]
 }
