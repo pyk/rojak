@@ -8,9 +8,8 @@ defmodule RojakAPI.Router do
   scope "/", RojakAPI do
     pipe_through :api
 
-    get "/", IndexController, :index
-
     scope "/v1", V1, as: :v1 do
+      get "/", IndexController, :index
       get "/pairings", PairingController, :index
       get "/pairings/:id", PairingController, :show
       get "/pairings/:id/media-sentiments", PairingController, :media_sentiments
