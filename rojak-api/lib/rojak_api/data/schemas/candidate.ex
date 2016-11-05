@@ -1,5 +1,5 @@
 defmodule RojakAPI.Data.Schemas.Candidate do
-  use RojakAPI.Web, :schema
+  use Ecto.Schema
 
   schema "candidate" do
     field :full_name, :string

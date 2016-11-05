@@ -1,6 +1,7 @@
 defmodule RojakAPI.Data.News do
-  use RojakAPI.Web, :query
+  import Ecto.Query
 
+  alias RojakAPI.Repo
   alias RojakAPI.Data.Schemas.News
 
   def fetch(%{limit: limit, offset: offset, embed: embed, media_id: media_id, candidate_id: candidate_id}) do

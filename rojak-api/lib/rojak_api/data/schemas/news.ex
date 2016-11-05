@@ -1,5 +1,5 @@
 defmodule RojakAPI.Data.Schemas.News do
-  use RojakAPI.Web, :schema
+  use Ecto.Schema
 
   schema "news" do
     field :title, :string

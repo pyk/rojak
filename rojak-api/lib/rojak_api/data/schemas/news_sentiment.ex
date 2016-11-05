@@ -1,5 +1,5 @@
 defmodule RojakAPI.Data.Schemas.NewsSentiment do
-  use RojakAPI.Web, :schema
+  use Ecto.Schema
 
   schema "news_sentiment" do
     field :score, :float

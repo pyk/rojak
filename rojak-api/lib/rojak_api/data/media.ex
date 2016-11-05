@@ -1,6 +1,7 @@
 defmodule RojakAPI.Data.Media do
-  use RojakAPI.Web, :query
+  import Ecto.Query
 
+  alias RojakAPI.Repo
   alias RojakAPI.Data.Schemas.{
     Media,
     PairOfCandidates

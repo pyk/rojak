@@ -1,5 +1,5 @@
 defmodule RojakAPI.Data.Schemas.Sentiment do
-  use RojakAPI.Web, :schema
+  use Ecto.Schema
 
   schema "sentiment" do
     field :name, :string

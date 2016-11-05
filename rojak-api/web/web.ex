@@ -16,20 +16,6 @@ defmodule RojakAPI.Web do
   below.
   """
 
-  def schema do
-    quote do
-      use Ecto.Schema
-    end
-  end
-
-  def query do
-    quote do
-      import Ecto.Query
-
-      alias RojakAPI.Repo
-    end
-  end
-
   def controller do
     quote do
       use Phoenix.Controller, namespace: RojakAPI
@@ -47,7 +33,7 @@ defmodule RojakAPI.Web do
   def view do
     quote do
       use Phoenix.View, root: "web/templates", namespace: RojakAPI
-      
+
       import RojakAPI.Router.Helpers
       import RojakAPI.ErrorHelpers
       import RojakAPI.Gettext

@@ -1,5 +1,5 @@
 defmodule RojakAPI.Data.Schemas.Media do
-  use RojakAPI.Web, :schema
+  use Ecto.Schema
 
   schema "media" do
     field :name, :string

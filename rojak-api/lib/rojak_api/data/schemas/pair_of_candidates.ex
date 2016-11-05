@@ -1,5 +1,5 @@
 defmodule RojakAPI.Data.Schemas.PairOfCandidates do
-  use RojakAPI.Web, :schema
+  use Ecto.Schema
 
   schema "pair_of_candidates" do
     field :name, :string
