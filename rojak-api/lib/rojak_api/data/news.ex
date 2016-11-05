@@ -1,21 +1,8 @@
-defmodule RojakAPI.News do
-  use RojakAPI.Web, :model
+defmodule RojakAPI.Data.News do
+  import Ecto.Query
 
-  # Self-alias
-  alias RojakAPI.News
-
-  schema "news" do
-    field :title, :string
-    field :url, :string
-    field :author_name, :string
-
-    # Relationship
-    belongs_to :media, RojakAPI.Media
-    has_many :sentiments, RojakAPI.NewsSentiment
-    many_to_many :mentions, RojakAPI.Candidate, join_through: "mention"
-
-    timestamps()
-  end
+  alias RojakAPI.Repo
+  alias RojakAPI.Data.Schemas.News
 
   def fetch(%{limit: limit, offset: offset, embed: embed, media_id: media_id, candidate_id: candidate_id}) do
     query = from n in News,

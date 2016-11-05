@@ -1,31 +1,12 @@
-defmodule RojakAPI.Candidate do
-  use RojakAPI.Web, :model
+defmodule RojakAPI.Data.Candidate do
+  import Ecto.Query
 
-  # Self alias
-  alias RojakAPI.Candidate
-
-  schema "candidate" do
-    field :full_name, :string
-    field :alias_name, :string
-    field :place_of_birth, :string
-    field :date_of_birth, Ecto.Date
-    field :religion, :string
-    field :website_url, :string
-    field :photo_url, :string
-    field :fbpage_username, :string
-    field :instagram_username, :string
-    field :twitter_username, :string
-
-    # Virtual fields for embedding joins
-    field :pairing, :map, virtual: true
-    field :sentiments, :map, virtual: true
-
-    # Relationship
-    # has_many :sentiments, RojakAPI.Sentiment
-    many_to_many :mentioned_in, RojakAPI.News, join_through: "mention"
-
-    timestamps()
-  end
+  alias RojakAPI.Repo
+  alias RojakAPI.Data.Schemas.{
+    Candidate,
+    Media,
+    PairOfCandidates
+  }
 
   def fetch(%{embed: embed}) do
     Candidate
@@ -40,7 +21,7 @@ defmodule RojakAPI.Candidate do
   end
 
   def fetch_media_sentiments(%{id: id, limit: limit, offset: offset}) do
-    query = from m in RojakAPI.Media,
+    query = from m in Media,
       left_join: s in fragment("""
         SELECT
           s.candidate_id,
@@ -106,7 +87,7 @@ defmodule RojakAPI.Candidate do
   defp fetch_pairing(query, embed?) when not embed?, do: query
   defp fetch_pairing(query, _) do
     from q in query,
-      join: p in RojakAPI.PairOfCandidates, on: q.id == p.cagub_id or q.id == p.cawagub_id
+      join: p in PairOfCandidates, on: q.id == p.cagub_id or q.id == p.cawagub_id
   end
 
   defp fetch_sentiments(query, embed?) when not embed?, do: query

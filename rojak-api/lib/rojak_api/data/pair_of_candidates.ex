@@ -1,32 +1,11 @@
-defmodule RojakAPI.PairOfCandidates do
-  use RojakAPI.Web, :model
+defmodule RojakAPI.Data.PairOfCandidates do
+  import Ecto.Query
 
-  # Self alias
-  alias RojakAPI.PairOfCandidates
-
-  schema "pair_of_candidates" do
-    field :name, :string
-    field :website_url, :string
-    field :logo_url, :string
-    field :fbpage_username, :string
-    field :twitter_username, :string
-    field :instagram_username, :string
-    field :slogan, :string
-    field :description, :string
-    field :cagub_id, :integer
-    field :cawagub_id, :integer
-
-    # Virtual fields for embedding joins
-    field :candidates, :map, virtual: true
-    field :sentiments, :map, virtual: true
-
-    # Relationship
-    has_one :cagub, RojakAPI.Candidate, foreign_key: :id, references: :cagub_id
-    has_one :cawagub, RojakAPI.Candidate, foreign_key: :id,
-      references: :cawagub_id
-
-    timestamps()
-  end
+  alias RojakAPI.Repo
+  alias RojakAPI.Data.Schemas.{
+    PairOfCandidates,
+    Media
+  }
 
   def fetch(%{embed: embed}) do
     PairOfCandidates
@@ -43,7 +22,7 @@ defmodule RojakAPI.PairOfCandidates do
   def fetch_media_sentiments(%{id: id, limit: limit, offset: offset}) do
     pairing = Repo.get! PairOfCandidates, id
 
-    query = from m in RojakAPI.Media,
+    query = from m in Media,
       left_join: cagub_sentiments in fragment("""
         SELECT
           s.candidate_id,

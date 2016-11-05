@@ -1,7 +1,7 @@
 defmodule RojakAPI.V1.CandidateController do
   use RojakAPI.Web, :controller
 
-  alias RojakAPI.Candidate
+  alias RojakAPI.Data.Candidate
 
   @apidoc """
     @api {get} /candidates Get Candidates

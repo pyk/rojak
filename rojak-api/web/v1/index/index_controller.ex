@@ -1,4 +1,4 @@
-defmodule RojakAPI.IndexController do
+defmodule RojakAPI.V1.IndexController do
   use RojakAPI.Web, :controller
 
   def index(conn, _params) do

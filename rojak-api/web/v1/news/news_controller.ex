@@ -1,7 +1,7 @@
 defmodule RojakAPI.V1.NewsController do
   use RojakAPI.Web, :controller
 
-  alias RojakAPI.News
+  alias RojakAPI.Data.News
 
   @apidoc """
     @api {get} /news Get News

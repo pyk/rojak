@@ -1,25 +1,11 @@
-defmodule RojakAPI.Media do
-  use RojakAPI.Web, :model
+defmodule RojakAPI.Data.Media do
+  import Ecto.Query
 
-  # Self-alias
-  alias RojakAPI.Media
-
-  schema "media" do
-    field :name, :string
-    field :website_url, :string
-    field :logo_url, :string
-    field :fbpage_username, :string
-    field :twitter_username, :string
-    field :instagram_username, :string
-
-    # Virtual fields for embedding joins
-    field :sentiments, :map, virtual: true
-
-    # Relationship
-    has_many :news, RojakAPI.News
-
-    timestamps()
-  end
+  alias RojakAPI.Repo
+  alias RojakAPI.Data.Schemas.{
+    Media,
+    PairOfCandidates
+  }
 
   def fetch(%{limit: limit, offset: offset}) do
     query = from Media, limit: ^limit, offset: ^offset
@@ -33,7 +19,7 @@ defmodule RojakAPI.Media do
   end
 
   def fetch_sentiments(%{id: id}) do
-    query = from p in RojakAPI.PairOfCandidates,
+    query = from p in PairOfCandidates,
       left_join: cagub in assoc(p, :cagub),
       left_join: cawagub in assoc(p, :cawagub),
       left_join: cagub_sentiments in fragment("""
