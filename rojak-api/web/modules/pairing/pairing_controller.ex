@@ -1,7 +1,7 @@
 defmodule RojakAPI.V1.PairingController do
   use RojakAPI.Web, :controller
 
-  alias RojakAPI.PairOfCandidates
+  alias RojakAPI.Data.PairOfCandidates
 
   @apidoc """
     @api {get} /pairings Get Pairs

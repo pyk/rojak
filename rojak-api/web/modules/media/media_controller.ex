@@ -1,7 +1,7 @@
 defmodule RojakAPI.V1.MediaController do
   use RojakAPI.Web, :controller
 
-  alias RojakAPI.Media
+  alias RojakAPI.Data.Media
 
   @apidoc """
     @api {get} /media Get Media
