@@ -71,8 +71,9 @@ INSERT INTO `news`(`media_id`, `title`, `raw_content`, `url`)
 VALUES ('{}', '{}', '{}', '{}');
 '''
 sql_insert_sentiment = '''
-INSERT INTO `news_sentiment`(`news_id`, `sentiment_id`, `score`)
-VALUES ('{}', '{}', '{}');
+INSERT INTO `news_sentiment`(`news_id`, `sentiment_id`, 
+    `confident_score_raw`, `confident_score_scaled`)
+VALUES ('{}', '{}', '{}', '{}');
 '''
 sql_insert_mention = '''
 INSERT INTO `mention`(`news_id`, `candidate_id`)
@@ -113,7 +114,7 @@ for media in medias:
             for sentiment_id in sentiments:
                 score = random.uniform(0.5, 1.0)
                 insert_sql = sql_insert_sentiment.format(news_id,
-                        sentiment_id, score)
+                        sentiment_id, score, score)
                 cursor.execute(insert_sql)
 
             for candidate_id in mentions:
