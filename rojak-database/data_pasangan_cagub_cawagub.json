@@ -32,7 +32,11 @@
             "twitter_username": "",
             "instagram_username": "",
             "website_url": ""
-        }
+        },
+        "sentiments": [
+            "pos_ahok_djarot",
+            "neg_ahok_djarot"
+        ]
     },
     {
         "name": "Anies Sandi",
@@ -66,7 +70,11 @@
             "twitter_username": "sandiuno",
             "instagram_username": "sandiuno",
             "website_url": "http://sandiuno.com"
-        }
+        },
+        "sentiments": [
+            "pos_anies_sandi",
+            "neg_anies_sandi"
+        ]
     },
     {
         "name": "Agus Sylvi",
@@ -100,7 +108,11 @@
             "twitter_username": "sylviana_murni",
             "instagram_username": "sylvianamurni_",
             "website_url": "http://sylvianamurni.com"
-        }
+        },
+        "sentiments": [
+            "pos_agus_sylvi",
+            "neg_agus_sylvi"
+        ]
     }
     ]
 }
