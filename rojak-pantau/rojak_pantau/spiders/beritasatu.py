@@ -6,6 +6,7 @@ from scrapy import Request
 from scrapy.exceptions import CloseSpider
 from scrapy.loader import ItemLoader
 from scrapy.http import HtmlResponse
+from bs4 import BeautifulSoup
 
 from rojak_pantau.items import News
 from rojak_pantau.i18n import _
@@ -82,11 +83,18 @@ class BeritasatuSpider(BaseSpider):
         loader = ItemLoader(item=News(), response=response)
         loader.add_value('url', response.url)
 
-        title_selectors = response.css('div.content-detail > h4::text')
+        xpath_title = '//h4[@class="content-detail-title"]'
+        title_selectors = response.xpath(xpath_title)
         if not title_selectors:
             # Will be dropped on the item pipeline
             return loader.load_item()
-        title = title_selectors.extract()[0]
+        # Example: 
+        # [u'<h4 class="content-detail-title" align="center">
+        # Median: <i>Swing Voters</i> di DKI Diprediksi 19,4 Persen</h4>']
+        title_html_str = ' '.join(title_selectors.extract())
+        # Clean the html tag
+        # Example: u'Median: Swing Voters di DKI Diprediksi 19,4 Persen'
+        title = BeautifulSoup(title_html_str, 'lxml').text
         loader.add_value('title', title.strip())
 
         # Extract raw html, not the text
@@ -97,6 +105,7 @@ class BeritasatuSpider(BaseSpider):
         raw_content = raw_content_selectors.extract()
         raw_content = ' '.join([w.strip() for w in raw_content])
         raw_content = raw_content.strip()
+        raw_content = raw_content.replace('\n', ' ')
         loader.add_value('raw_content', raw_content)
 
         # Example: Selasa, 11 Oktober 2016 | 10:48
