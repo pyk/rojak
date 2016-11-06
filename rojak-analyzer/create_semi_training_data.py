@@ -78,9 +78,11 @@ if __name__ == '__main__':
         raw_text = '{} {}'.format(title, raw_content)
         pred = rojak.predict_proba(raw_text, threshold=THRESHOLD)
         print '=== start DEBUG'
-        print title
-        print pred['labels']
-        print pred['confident_score']
+        print 'title:', title
+        print 'labels:', sorted(pred['labels'])
+        print 'confident_score:'
+        for label in sorted(pred['confident_score']):
+            print label, pred['confident_score'][label]
         print '=== end DEBUG'
         label_str = ','.join(pred['labels'])
         data = {'title': title, 'raw_content': raw_content, 

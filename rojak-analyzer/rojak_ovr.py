@@ -233,7 +233,7 @@ class RojakOvR():
                 stop_words=stopwords.stopwords)
             feature_extractor.fit(news_texts)
 
-            For debugging purpose
+            # For debugging purpose
             print '=========='
             print key
             print '----------'
