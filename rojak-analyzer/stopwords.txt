@@ -46,6 +46,7 @@ di
 dia
 dirinya
 doang
+deh
 gimana
 hati
 ia
@@ -70,6 +71,7 @@ mah
 maka
 mereka
 nah
+nih
 nya
 oleh
 pak
@@ -343,17 +345,58 @@ jumat
 jum'at
 sabtu
 minggu
+wib
+wit
+wita
 
 # Nama media
 detikcom
+alief-detikcom
 detik
 cnnindonesia
+cnnindonesia.com
 cnn
 tirto.id
 tirtoid
+tirto
+kompas
+kompas.com
+kompascom
+
+# Nama situs
+acch.kpk.go.id
+
+# A useless single char
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+y
+x
 
 # strange words
 ad
+an
 afc
 dok
 ah
@@ -369,6 +412,10 @@ de
 dh
 djaw
 dominggus
+jl
+mh
+of
+per
 
 # Bukan bahasa
 and
@@ -393,11 +440,22 @@ deadlock
 deal
 desmond
 com
+is
+it
+if
+iv
+ja
+all
+no
+am
+at
 
 # Other, kita gak mau Rojak jadi SARA :)
 agama
 alhamdulillah
+alhamdulilah
 allah
+al-quran
 alquran
 amin
 antargolongan
@@ -421,3 +479,12 @@ muhammad
 yesus
 muslim
 nasrani
+beristigfar..
+
+# Symbols
+--
+ii
+iii
+.
+..
+...
