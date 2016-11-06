@@ -5,3 +5,6 @@
 *.log
 *.bin
 *.png
+
+# Training/Test data
+*.csv

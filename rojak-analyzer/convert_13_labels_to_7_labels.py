@@ -5,9 +5,9 @@ import re
 import os
 
 OUTPUT_NAME = os.getenv('OUTPUT_NAME', 
-    'sentiment_classification_data.csv')
+    'data_detikcom_labelled_740_7_class.csv')
 
-csv_file = open('data_detikcom_labelled.csv')
+csv_file = open('data_detikcom_labelled_740.csv')
 csv_reader = csv.DictReader(csv_file)
 
 # Tranform individual label to candidate pair label

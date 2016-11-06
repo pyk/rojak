@@ -1,21 +1,8 @@
-defmodule RojakAPI.News do
-  use RojakAPI.Web, :model
+defmodule RojakAPI.Data.News do
+  import Ecto.Query
 
-  # Self-alias
-  alias RojakAPI.News
-
-  schema "news" do
-    field :title, :string
-    field :url, :string
-    field :author_name, :string
-
-    # Relationship
-    belongs_to :media, RojakAPI.Media
-    has_many :sentiments, RojakAPI.NewsSentiment
-    many_to_many :mentions, RojakAPI.Candidate, join_through: "mention"
-
-    timestamps()
-  end
+  alias RojakAPI.Repo
+  alias RojakAPI.Data.Schemas.News
 
   def fetch(%{limit: limit, offset: offset, embed: embed, media_id: media_id, candidate_id: candidate_id}) do
     query = from n in News,
@@ -44,21 +31,23 @@ defmodule RojakAPI.News do
   defp filter_by_candidates(query, candidate_ids) when is_nil(candidate_ids), do: query
   defp filter_by_candidates(query, candidate_ids) do
     from q in query,
-      join: c in assoc(q, :mentions),
+      left_join: c in assoc(q, :mentions),
       where: c.id in ^candidate_ids
   end
 
   defp fetch_embed(query, embed) when is_nil(embed), do: query
   defp fetch_embed(query, embed) do
     query
-    |> fetch_mentions(Enum.member?(embed, "mentions"))
+    |> fetch_sentiments(Enum.member?(embed, "sentiments"))
   end
 
-  defp fetch_mentions(query, embed?) when not embed?, do: query
-  defp fetch_mentions(query, _) do
+  defp fetch_sentiments(query, embed?) when not embed?, do: query
+  defp fetch_sentiments(query, _) do
     from q in query,
-      join: m in assoc(q, :mentions),
-      preload: [mentions: m]
+      left_join: ns in assoc(q, :sentiments),
+      left_join: s in assoc(ns, :sentiment),
+      left_join: c in assoc(s, :candidate),
+      preload: [sentiments: {ns, sentiment: {s, candidate: c}}]
   end
 
 end

@@ -12,18 +12,45 @@ defmodule RojakAPI.V1.NewsView do
   def render("news.json", %{news: news}) do
     news =
       news
-      |> Map.drop([:__meta__, :media, :sentiments, :mentioned_candidates])
+      |> Map.drop([:__meta__, :media, :mentions])
+
+    sentiments = Map.get(news, :sentiments)
+
+    news =
+      news
+      |> Map.drop([:sentiments])
 
     # Embed mentions
-    news = case Map.get(news, :mentions) do
+    news = case sentiments do
       %Ecto.Association.NotLoaded{} ->
-        news |> Map.drop([:mentions])
-      mentions ->
-        Map.update! news, :mentions, fn _ ->
-          Enum.map mentions, fn mention ->
-            Map.drop(mention, [:__meta__, :mentioned_in, :sentiments])
+        news
+      _ ->
+        sentiments =
+          Enum.map sentiments, fn news_sentiment ->
+            candidate =
+              news_sentiment
+              |> Map.get(:sentiment)
+              |> Map.get(:candidate)
+              |> Map.drop([:__meta__, :mentioned_in, :pairing, :sentiments])
+            sentiment_name =
+              news_sentiment
+              |> Map.get(:sentiment)
+              |> Map.get(:name)
+            sentiment_type = case sentiment_name do
+              "pro" <> _ -> "positive"
+              "net" <> _ -> "neutral"
+              "con" <> _ -> "negative"
+            end
+            score =
+              news_sentiment
+              |> Map.get(:score)
+            Map.put candidate, :sentiment, %{
+              type: sentiment_type,
+              score: score
+            }
           end
-        end
+
+        Map.put news, :sentiments, sentiments
     end
 
     news

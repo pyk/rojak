@@ -1,9 +1,7 @@
 defmodule RojakAPI.V1.PairingController do
   use RojakAPI.Web, :controller
 
-  alias RojakAPI.PairOfCandidates
-
-  # TODO: also load sentiments and candidates if `embed` parameter is set
+  alias RojakAPI.Data.PairOfCandidates
 
   @apidoc """
     @api {get} /pairings Get Pairs
@@ -138,8 +136,8 @@ defmodule RojakAPI.V1.PairingController do
       }
     @apiErrorExample {json} Item Not Found
       HTTP/1.1 404 Not Found
-      { 
-        "message" : "item not found" 
+      {
+        "message" : "item not found"
       }
   """
   defparams pairing_show_params(%{
@@ -190,5 +188,16 @@ defmodule RojakAPI.V1.PairingController do
         }
       ]
   """
+  defparams pairing_media_sentiments_params %{
+    id!: :integer,
+    limit: [field: :integer, default: 10],
+    offset: [field: :integer, default: 0],
+  }
+
+  def media_sentiments(conn, params) do
+    validated_params = ParamsValidator.validate params, &pairing_media_sentiments_params/1
+    media_sentiments = PairOfCandidates.fetch_media_sentiments(validated_params)
+    render(conn, "media_sentiments.json", media_sentiments: media_sentiments)
+  end
 
 end

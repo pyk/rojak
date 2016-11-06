@@ -1,0 +1,423 @@
+# List of stopwords/noise
+
+# Kata yang sering muncul dan gak ngaruh ke sentimen
+abang
+ada
+adalah
+adik
+air
+aja
+akankah
+akhir
+akhirnya
+aku
+ambil
+anak
+anda
+apa
+apabila
+apakah
+apalagi
+apapun
+ayah
+ayahnya
+ayam
+baca
+bagi
+bagian
+baginya
+bagai
+bagaimana
+bagaimanapun
+bahwa
+bahkan
+bang
+bangsa
+bapak
+bapaknya
+bu
+bulan
+bisnis
+cantik
+dari
+deh
+dengan
+di
+dia
+dirinya
+doang
+gimana
+hati
+ia
+ini
+itu
+jadi
+jam
+jika
+juga
+kalau
+kami
+kan
+ke
+kepada
+kini
+kita
+kok
+lagi
+lah
+lalu
+mah
+maka
+mereka
+nah
+nya
+oleh
+pak
+pasti
+pun
+saat
+saja
+sama
+saya
+sayur
+siapa
+sudah
+telah
+terus
+tentang
+untuk
+ya
+yaitu
+yang
+
+# Kata yang jarang muncul dan gak pengaruh ke sentimen
+adha
+akar
+akun
+alangkah
+almarhum
+aneh
+anggrek
+angin
+angka
+antar
+antara
+antaranya
+arah
+arena
+artinya
+artis
+arus
+asik
+asyik
+atas
+ataukah
+awal
+baju
+bakso
+berita
+berkas
+cucunya
+darahnya
+direktur
+dokter
+dokumen
+garis
+kata
+keluarga
+lain
+lainnya
+lalus
+lama
+mata
+masih
+nama
+nantinya
+pada
+paling
+panggung
+para
+pun
+sampai
+sejak
+sekitar
+selain
+selama
+sempat
+seperti
+sering
+serta
+setelah
+siap
+telah
+teman
+
+# Nama-nama orang yg jadi noise
+# abdul
+# abraham
+# abdurrahman
+# ace
+# adjie
+# agung
+# ahmad
+# akbar
+# alam
+# alfarabie
+# alfaraby
+# ali
+# amalia
+# amar
+# amien
+# amier
+# andreas
+# andriadi
+# andrino
+# annisa
+# anung
+# anwar
+# arianto
+# arief
+# arif
+# arifin
+# arsul
+# arya
+# arwani
+# atik
+# awi
+# ayuningtyas
+# aziz
+# baal
+# basarah
+# baskoro
+# cak
+# charles
+# cyrus
+# dahlia
+# damarjati
+# dhani
+# daniel
+# dedy
+# denny
+# djan
+# ernest
+# estianty
+# faridz
+# fernandez
+# fadli
+# fahira
+# fahri
+# hana
+# haryani
+# hasan
+# hayono
+# hermanto
+# heru
+# hugo
+# ibas
+# idrus
+# imin
+# irwansyah
+# jufri
+# kurnia
+# laksono
+# latjuba
+# lulung
+# lunggana
+# maia
+# mardani
+# masdar
+# miryam
+# muzani
+# nusron
+# pareira
+# patria
+# pohan
+# poyuono
+# prasetio
+# pratikno
+# puyono
+# qodari
+# rahman
+# rais
+# ramli
+# risma
+# riza
+# rizal
+# romi
+# ruhut
+# sadikin
+# saiful
+# saleh
+# sani
+# sera
+# setiyono
+# sitompul
+# sophia
+# syadzily
+# syaiful
+# syamsuddin
+# thomafi
+# wahid
+# yunus
+# yusril
+# yusuf
+# yusufmansurnew
+# zulkifi
+# zulkifli
+
+# Nama service, noise
+facebook
+instagram
+twitter
+
+# Singkatan
+dkk
+dll
+dr
+
+# Nama tempat/kota, karena noise
+# aceh
+# amerika
+# auditorium
+# balai
+# bandara
+# bandung
+# bank
+# banten
+# belitung
+# bistro
+# blitar
+# borobudur
+# cibubur
+# cikeas
+# cikini
+# cilangkap
+# ciliwung
+# cipinang
+# dki
+# doli
+# gedung
+# grand
+# indonesia
+# jakarta
+# kantor
+# pejaten
+# pendopo
+# ruang
+# sahid
+# serikat
+
+# Nama object
+baliho
+domba
+
+# Nama bulan/waktu, karena noise
+januari
+februari
+maret
+april
+mei
+juni
+juli
+agustus
+september
+oktober
+november
+desember
+tadi
+lusa
+kemaren
+besok
+sore
+siang
+malam
+nanti
+pukul
+hari
+detik
+senin
+selasa
+rabu
+kamis
+jumat
+jum'at
+sabtu
+minggu
+
+# Nama media
+detikcom
+detik
+cnnindonesia
+cnn
+tirto.id
+tirtoid
+
+# strange words
+ad
+afc
+dok
+ah
+acta
+an
+rptra
+agun
+al
+csis
+da
+danyonif
+de
+dh
+djaw
+dominggus
+
+# Bukan bahasa
+and
+proper
+vs
+ngepret
+baracudda
+black
+blunder
+by
+campaign
+car
+center
+centre
+ceo
+cfd
+cs
+dasco
+day
+deadlinenya
+deadlock
+deal
+desmond
+com
+
+# Other, kita gak mau Rojak jadi SARA :)
+agama
+alhamdulillah
+allah
+alquran
+amin
+antargolongan
+ayat
+bismillahirohmanirohim
+buddha
+hindu
+islam
+katolik
+khotbah
+kitab
+kristen
+suci
+tuhan
+etnis
+china
+tionghoa
+insya
+insyaallah
+muhammad
+yesus
+muslim
+nasrani
