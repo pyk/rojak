@@ -25,13 +25,95 @@ CLASSIFIER_ANIES_SANDI = 'classifier_anies_sandi'
 CLASSIFIER_OOT = 'classifier_oot'
 
 # Compile regex to remove non-alphanum char
-nonalpha = re.compile('[^a-z\-]+')
+nonalpha = re.compile('[^a-z\-\.]+')
+
+# Map the commonly used candidate name and their corresponding official pair 
+# name. This is used to improve classifier accuracy
+official_candidates = {
+    'agus': 'agus-sylvi',
+    'harimurti': 'agus-sylvi',
+    'yudhoyono': 'agus-sylvi',
+    'ahy': 'agus-sylvi',
+    'sylvi': 'agus-sylvi',
+    'sylviana': 'agus-sylvi',
+    'agus-sylviana': 'agus-sylvi',
+    'yudhoyono-sylviana': 'agus-sylvi',
+    'agus-sylvia': 'agus-sylvi',
+    'harimurti-sylviana': 'agus-sylvi',
+    'ahok': 'ahok-djarot',
+    'basuki': 'ahok-djarot',
+    'tjahaja': 'ahok-djarot',
+    'purnama': 'ahok-djarot',
+    'btp': 'ahok-djarot',
+    'djarot': 'ahok-djarot',
+    'saiful': 'ahok-djarot',
+    'hidayat': 'ahok-djarot',
+    'petahana': 'ahok-djarot',
+    'ahok-djarot': 'ahok-djarot',
+    'basuki-djarot': 'ahok-djarot',
+    'ahokdjarot.id': 'ahok-djarot',
+    'incumbent': 'ahok-djarot',
+    'petahana': 'ahok-djarot',
+    'anies': 'anies-sandi',
+    'baswedan': 'anies-sandi',
+    'sandi': 'anies-sandi',
+    'sandiaga': 'anies-sandi',
+    'uno': 'anies-sandi',
+    'anies-sandiaga': 'anies-sandi',
+    'baswedan-sandiaga': 'anies-sandi',
+    'anies-uno': 'anies-sandi',
+    'aniesbaswedan': 'anies-sandi',
+    'anis': 'anies-sandi'
+}
 
 # Normalize the word
-def normalize_word(w):
+def normalize_word(w, use_synonym=True):
     word = w.lower()
-    word = nonalpha.sub(' ', word)
+    word = nonalpha.sub('', word)
     word = word.strip()
+
+    # Remove -kan in di..kan form
+    # Example: disebutkan => disebut
+    # if (len(word) > 5 and word[:2] == 'di' and word[-3:] == 'kan'):
+    #     word = word[:len(word)-3]
+
+    # Remove -kan in me..kan form
+    # Example: menyetorkan => menyetor
+    # if (len(word) > 5 and word[:2] == 'me' and word[-3:] == 'kan'):
+    #     word = word[:len(word)-3]
+
+    # Remove -lah form
+    # Example: bukanlah
+    # lah_except = ['masalah']
+    # if (len(word) > 5 and word[-3:] == 'lah' and not word in lah_except):
+    #     word = word[:len(word)-3] 
+
+    # Remove -nya form
+    # Example: bukannya => bukan, disayanginya => disayang, 
+    # komunikasinya => komunikasi
+    if (len(word) > 5 and word[-3:] == 'nya'):
+        word = word[:len(word)-3]
+
+    # Remove the non-char '-' in front of the word
+    if len(word) > 0 and word[0] == '-':
+        word = word[1:]
+
+    # Remove the non-char '-' in the end of the word
+    if len(word) > 0 and word[-1] == '-':
+        word = word[:len(word)-1]
+
+    # Remove the non-char '.' in front of the word
+    if len(word) > 0 and word[0] == '.':
+        word = word[1:]
+
+    # Remove the non-char '.' in the end of the word
+    if len(word) > 0 and word[-1] == '.':
+        word = word[:len(word)-1]
+
+    # Replace the candidate name with their official pair name
+    if use_synonym and word in official_candidates:
+        word = official_candidates[word]
+
     return word
 
 # Compile regex to remove author signature from the text
@@ -39,7 +121,7 @@ def normalize_word(w):
 author_signature = re.compile('\([a-zA-Z]+/[a-zA-Z]+\)')
 
 # Function to clean the raw string
-def clean_string(s):
+def clean_string(s, use_synonym=True):
     result_str = []
 
     # Remove the noise: html tag
@@ -53,8 +135,8 @@ def clean_string(s):
     # Remove the stop words
     stopwords_removed = []
     for w in words:
-        word = normalize_word(w)
-        if not word in stopwords.stopwords:
+        word = normalize_word(w, use_synonym=use_synonym)
+        if word != '' and not word in stopwords.stopwords:
             stopwords_removed.append(word)
 
     word_len = len(stopwords_removed)
@@ -69,30 +151,9 @@ def clean_string(s):
         # Current word
         word = stopwords_removed[i]
 
-        # Remove -kan in di..kan form
-        # Example: disebutkan => disebut
-        if (len(word) > 5 and word[:2] == 'di' and word[-3:] == 'kan'):
-            word = word[:len(word)-3]
-        
-        # Remove -kan in me..kan form
-        # Example: menyetorkan => menyetor
-        if (len(word) > 5 and word[:2] == 'me' and word[-3:] == 'kan'):
-            word = word[:len(word)-3]
-        
-        # Remove -lah form
-        # Example: bukanlah
-        if (len(word) > 5 and word[-3:] == 'lah'):
-            word = word[:len(word)-3] 
-        
-        # Remove -nya form
-        # Example: bukannya => bukan, disayanginya => disayang, 
-        # komunikasinya => komunikasi
-        if (len(word) > 5 and word[-3:] == 'nya'):
-            word = word[:len(word)-3]
-
         # Normalize the negation
         negations = ['tidak', 'enggak', 'bukan', 'tdk', 'bkn', 'tak', 
-            'belum']
+            'belum', 'tidaklah', 'bukanlah', 'ga']
         if word in negations:
             if i < (word_len-2):
                 next_word = normalize_word(stopwords_removed[i+1])
@@ -102,10 +163,12 @@ def clean_string(s):
             else:
                 word = 'tidak'
 
+        # Collect the pre-processed word
         if word != '' and word != '-':
             result_str.append(word)
 
-    return ' '.join(result_str).encode('utf-8', 'ignore')
+    result = ' '.join(result_str).encode('utf-8', 'ignore')
+    return result
 
 # Plot confusion matrix
 def plot_confusion_matrix(cm, classes, normalize=False, title='',
@@ -133,6 +196,10 @@ def plot_confusion_matrix(cm, classes, normalize=False, title='',
     full_title = title + ' ' + classifier_name
     file_name = '_'.join(full_title.lower().split(' '))
     pyplot.savefig(file_name + '.png')
+
+# Custom tokenizer
+def whitespace_tokenizer(s):
+    return s.split(' ')
 
 class RojakOvRPair():
     # Storing classifier
@@ -169,6 +236,11 @@ class RojakOvRPair():
     test_data_text = {}
     test_data_class = {}
 
+    def __init__(self, max_ngram=3, min_df=3, tokenizer=None):
+        self.max_ngram = max_ngram
+        self.min_df = min_df
+        self.tokenizer = tokenizer
+
     # Collect the data from csv file
     def _collect_data_from_csv(self, input_file, container_text, 
             container_class):
@@ -189,6 +261,14 @@ class RojakOvRPair():
             clean_title = clean_string(title)
             clean_content = clean_string(raw_content)
             clean_text = '{} {}'.format(clean_title, clean_content)
+
+            # For debugging purpose
+            # print '=== Debug start'
+            # print 'title:', title
+            # print 'clean_title:', clean_title
+            # print 'raw_content:', raw_content
+            # print 'clean_content:', clean_content
+            # print '=== Debug end' 
 
             # Collect the labels
             for label in labels:
@@ -271,12 +351,14 @@ class RojakOvRPair():
             news_labels = self.training_data_class[key]
             
             # Create feature extractor
-            feature_extractor = TfidfVectorizer(ngram_range=(1,3), 
-                decode_error='ignore', min_df=3, 
-                stop_words=stopwords.stopwords)
+            feature_extractor = TfidfVectorizer(min_df=self.min_df,
+                ngram_range=(1,self.max_ngram), 
+                decode_error='ignore',
+                stop_words=stopwords.stopwords,
+                tokenizer=self.tokenizer)
             feature_extractor.fit(news_texts)
 
-            # For debugging purpose
+            # For debugging purpose, print out all the features
             # print '=========='
             # print key
             # print '----------'
@@ -327,6 +409,19 @@ class RojakOvRPair():
             # Predict
             y_pred = classifier.predict(X)
 
+            # For debugging purpose
+            # print '=== Start debug'
+            # print 'Classifier:', key
+            # for i in xrange(len(y_pred)):
+            #     true_label = y_true[i]
+            #     pred_label = y_pred[i]
+            #     if true_label != pred_label:
+            #         print 'content:', news_texts[i]
+            #         print 'true label:', true_label
+            #         print 'pred label:', pred_label
+            #         print '-------'
+            # print '=== End debug'
+
             # Evaluate the score
             precision = metrics.precision_score(y_true, y_pred, 
                 average='micro')
@@ -360,8 +455,10 @@ class RojakOvRPair():
             if key == CLASSIFIER_OOT:
                 if res[0][0] > 0:
                     oot_status = classifier.classes_[1]
+                    score['oot'] = res[0][0]
                 else:
                     oot_status = classifier.classes_[0]
+                    score['oot'] = res[0][0]
             else:
                 for i, class_name in enumerate(classifier.classes_):
                     confident_score = res[0][i]
@@ -381,7 +478,7 @@ class RojakOvRPair():
         return result
 
 if __name__ == '__main__':
-    rojak = RojakOvRPair()
+    rojak = RojakOvRPair(max_ngram=5, tokenizer=whitespace_tokenizer)
     rojak.train('data_training_7_labels_latest.csv', 
         'rojak_ovr_pair_latest_trigram_model.bin')
     rojak.eval('rojak_ovr_pair_latest_trigram_model.bin', 
@@ -450,7 +547,7 @@ if __name__ == '__main__':
     allowfullscreen=""allowfullscreen""></iframe>   <br> <br>   <strong>(ear/
     imk)</strong>"
     '''
-    test_news_label = 'pos_agus'
+    test_news_label = 'pos_agus_sylvi'
     prediction = rojak.predict_proba(test_news_text)
     print 'Text news:'
     print test_news_text
