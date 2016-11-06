@@ -50,9 +50,9 @@ class SearchBox extends React.Component {
           <SearchForm keyword={keyword} onKeywordChange={this.handleKeywordChange} />
 
           <div className={styles.searchCategories}>
-            <SearchCategory keyword="media" onClick={this.handleKeywordChange}>Media</SearchCategory>
-            <SearchCategory keyword="pasangan" onClick={this.handleKeywordChange}>Pasangan</SearchCategory>
-            <SearchCategory keyword="kandidat" onClick={this.handleKeywordChange}>Kandidat</SearchCategory>
+            <SearchCategory keyword="media: " onClick={this.handleKeywordChange}>Media</SearchCategory>
+            <SearchCategory keyword="pasangan: " onClick={this.handleKeywordChange}>Pasangan</SearchCategory>
+            <SearchCategory keyword="kandidat: " onClick={this.handleKeywordChange}>Kandidat</SearchCategory>
           </div>
 
           <ExpandedHidden expanded={expanded}>

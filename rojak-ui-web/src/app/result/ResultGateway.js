@@ -11,12 +11,18 @@ class ResultGateway extends React.Component {
 
   get managedChildren () {
     const { keyword, children, showIn, hideIn } = this.props
+    const shouldShow = (showIn || []).find(shw => shw.test(keyword));
+    const shouldHide = (hideIn || []).find(hid => hid.test(keyword));
 
-    if (!keyword || (showIn && showIn.indexOf(keyword) === -1) || (hideIn && hideIn.indexOf(keyword) > -1)) {
-      return null
+    if (shouldHide) {
+      return null;
     }
 
-    return children
+    if (shouldShow) {
+      return children;
+    }
+
+    return null
   }
 
   render () {

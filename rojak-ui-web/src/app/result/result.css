@@ -1,6 +1,29 @@
+.resultHeader {
+  font-size: 20px;
+}
+
+.resultRow {
+  line-height: 2;
+}
+
+.resultCell {
+  font-size: 18px;
+}
+
+.socialMedia {
+  float: right;
+}
+
+.socialIcon {
+  font-size: 30px;
+  margin: 5px;
+}
+
 .resultWrapper {
   height: 100%;
   position: fixed;
+  box-sizing: border-box;
+  overflow-y: auto;
   top: 0;
   left: 400px;
   right: 0;

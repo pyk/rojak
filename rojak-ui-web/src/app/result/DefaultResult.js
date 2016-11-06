@@ -4,7 +4,7 @@ import styles from './result.css'
 
 const DefaultResult = () => {
   return (
-    <ResultGateway hideIn={['media', 'kandidat', 'pasangan']}>
+    <ResultGateway hideIn={[/media: /, /kandidat: /, /pasangan: /]}>
       <div className={styles.resultWrapper}>
       THIS IS DEFAULT RESULT
         <div className="uk-grid-collapse" style={{ paddingTop: '20px' }}>

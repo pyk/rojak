@@ -2,6 +2,7 @@ import { createStore, combineReducers, compose } from 'redux'
 import { reduxReactRouter, routerStateReducer } from 'redux-router'
 import { createHistory } from 'history'
 
+import sentiments from './app/sentiments/reducer';
 import viewer from './app/viewer/reducer';
 import medias from './app/media/reducer';
 import candidates from './app/candidate/reducer';
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     viewer,
     medias,
     candidates,
-    root
+    sentiments,
+    root,
 });
 
 export default compose(
