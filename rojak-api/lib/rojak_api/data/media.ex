@@ -4,7 +4,8 @@ defmodule RojakAPI.Data.Media do
   alias RojakAPI.Repo
   alias RojakAPI.Data.Schemas.{
     Media,
-    PairOfCandidates
+    PairOfCandidates,
+    News
   }
 
   def fetch(%{limit: limit, offset: offset}) do
@@ -13,9 +14,26 @@ defmodule RojakAPI.Data.Media do
     |> Repo.all
   end
 
-  def fetch_one(%{id: id}) do
+  def fetch_one(%{id: id, embed: embed}) do
     Media
+    |> fetch_embed(embed)
     |> Repo.get!(id)
+  end
+
+  defp fetch_embed(query, embed) when is_nil(embed), do: query
+  defp fetch_embed(query, embed) do
+    query
+    |> fetch_latest_news(Enum.member?(embed, "latest_news"))
+    # |> fetch_sentiments(Enum.member?(embed, "sentiments_on_pairings"))
+  end
+
+  defp fetch_latest_news(query, embed?) when not embed?, do: query
+  defp fetch_latest_news(query, _) do
+    latest_news = from n in News,
+      limit: 5,
+      order_by: [desc: n.id]
+    from q in query,
+      preload: [latest_news: ^latest_news]
   end
 
   def fetch_sentiments(%{id: id}) do

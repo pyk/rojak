@@ -7,13 +7,11 @@ defmodule RojakAPI.V1.MediaController do
     @api {get} /media Get list of media
     @apiGroup Media
     @apiName MediaList
-    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>latest_news</code>, <code>sentiments_on_pairings</code> </br></br> Example:
-      <pre>?embed[]=field1&embed[]=field2</pre>
     @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
       <pre>?offset=20</pre>
     @apiParam {Integer} [limit=10] Limit the number of elements on the response. </br></br> Example:
       <pre>?limit=20</pre>
-    @apiDescription Get a list of media, optionally with <code>latest_news</code> and <code>sentiments_on_pairings</code>.
+    @apiDescription Get a list of media.
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -26,23 +24,7 @@ defmodule RojakAPI.V1.MediaController do
           "twitter_username": "detikcom",
           "instagram_username": "detikcom",
           "inserted_at": 1341533193,
-          "updated_at": 1341533193,
-
-          // embedded fields
-          "latest_news": [
-            {
-              // news data
-            }
-          ],
-          "sentiments_on_pairings": [
-            {
-              "pairing": {
-                // pairing data
-              },
-              "positive_news_count": 123,
-              "negative_news_count": 123
-            }
-          ]
+          "updated_at": 1341533193
         }
       ]
   """
@@ -100,9 +82,15 @@ defmodule RojakAPI.V1.MediaController do
         "message" : "item not found"
       }
   """
-  defparams media_show_params %{
+  defparams media_show_params(%{
     id!: :integer,
-  }
+    embed: [:string],
+  }) do
+    def changeset(ch, params) do
+      cast(ch, params, [:id, :embed])
+      |> validate_subset(:embed, ["latest_news", "sentiments_on_pairings"])
+    end
+  end
 
   def show(conn, params) do
     validated_params = ParamsValidator.validate params, &media_show_params/1

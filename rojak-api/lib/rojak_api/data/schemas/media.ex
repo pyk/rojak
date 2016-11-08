@@ -13,7 +13,8 @@ defmodule RojakAPI.Data.Schemas.Media do
     field :sentiments, :map, virtual: true
 
     # Relationship
-    has_many :news, RojakAPI.Data.Schemas.News
+    has_many :latest_news, RojakAPI.Data.Schemas.News,
+      foreign_key: :media_id
 
     timestamps()
   end

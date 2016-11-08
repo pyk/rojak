@@ -14,7 +14,25 @@ defmodule RojakAPI.V1.MediaView do
   end
 
   def render("media.json", %{media: media}) do
-    Map.drop media, [:__meta__, :news, :sentiments]
+    media =
+      media
+      |> Map.drop [:__meta__, :sentiments]
+
+    # embed latest_news
+    media = case Map.get(media, :latest_news) do
+      %Ecto.Association.NotLoaded{} ->
+        media
+        |> Map.drop([:latest_news])
+      latest_news ->
+        media
+        |> Map.update!(:latest_news, fn _ ->
+          Enum.map(latest_news, fn news ->
+            Map.drop news, [:__meta__, :media, :mentions, :sentiments]
+          end)
+        end)
+    end
+
+    media
   end
 
   def render("sentiment.json", %{sentiment: sentiment}) do
