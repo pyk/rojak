@@ -1,6 +1,7 @@
 {
   "name": "Rojak API",
-  "description": "Rojak API Specification v0.3",
+  "description": "Specification v0.3",
+  "title": "Rojak API Specification v0.3",
   "url" : "https://api.rojak.id/v1",
   "order": [
     "Candidate",
