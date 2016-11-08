@@ -25,16 +25,16 @@ defmodule RojakAPI.V1.PairingView do
       %{cagub: cagub, cawagub: cawagub} ->
         Map.update! pairing, :candidates, fn _ ->
           %{
-            cagub: Map.drop(cagub, [:__meta__, :mentioned_in, :sentiments]),
-            cawagub: Map.drop(cawagub, [:__meta__, :mentioned_in, :sentiments]),
+            cagub: Map.drop(cagub, [:__meta__, :mentioned_in]),
+            cawagub: Map.drop(cawagub, [:__meta__, :mentioned_in]),
           }
         end
     end
 
-    # Embed sentiments
-    pairing = case Map.get(pairing, :sentiments) do
+    # Embed overall_sentiments
+    pairing = case Map.get(pairing, :overall_sentiments) do
       nil ->
-        pairing |> Map.drop([:sentiments])
+        pairing |> Map.drop([:overall_sentiments])
       _ ->
         pairing
     end

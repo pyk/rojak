@@ -72,46 +72,30 @@ defmodule RojakAPI.Data.PairOfCandidates do
   defp fetch_embed(query, embed) do
     query
     |> fetch_candidates(Enum.member?(embed, "candidates"))
-    |> fetch_sentiments(Enum.member?(embed, "sentiments"))
+    |> fetch_sentiments(Enum.member?(embed, "overall_sentiments"))
     |> select_embed_fields(embed)
   end
 
   defp select_embed_fields(query, embed) do
-    case [Enum.member?(embed, "candidates"), Enum.member?(embed, "sentiments")] do
+    case [Enum.member?(embed, "candidates"), Enum.member?(embed, "overall_sentiments")] do
       [true, true] ->
-        from [q, cagub, cawagub, cagub_sentiments, cawagub_sentiments] in query,
+        from [q, cagub, cawagub, s] in query,
           select: %{q |
             candidates: %{cagub: cagub, cawagub: cawagub},
-            sentiments: %{
-              cagub: %{
-                positive: cagub_sentiments.positive,
-                neutral: cagub_sentiments.neutral,
-                negative: cagub_sentiments.negative,
-              },
-              cawagub: %{
-                positive: cawagub_sentiments.positive,
-                neutral: cawagub_sentiments.neutral,
-                negative: cawagub_sentiments.negative,
-              },
+            overall_sentiments: %{
+              positive_news_count: s.positive,
+              negative_news_count: s.negative
             }
           }
       [true, _] ->
         from [q, cagub, cawagub] in query,
           select: %{q | candidates: %{cagub: cagub, cawagub: cawagub}}
       [_, true] ->
-        from [q, cagub_sentiments, cawagub_sentiments] in query,
+        from [q, s] in query,
           select: %{q |
-            sentiments: %{
-              cagub: %{
-                positive: cagub_sentiments.positive,
-                neutral: cagub_sentiments.neutral,
-                negative: cagub_sentiments.negative,
-              },
-              cawagub: %{
-                positive: cawagub_sentiments.positive,
-                neutral: cawagub_sentiments.neutral,
-                negative: cawagub_sentiments.negative,
-              },
+            overall_sentiments: %{
+              positive_news_count: s.positive,
+              negative_news_count: s.negative
             }
           }
       _ ->
@@ -129,26 +113,15 @@ defmodule RojakAPI.Data.PairOfCandidates do
   defp fetch_sentiments(query, embed?) when not embed?, do: query
   defp fetch_sentiments(query, _) do
     from q in query,
-      left_join: cagub_sentiments in fragment("""
-        SELECT
-          s.candidate_id,
-          COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,
-          COUNT(CASE WHEN s.name like 'net%' THEN 1 END) neutral,
-          COUNT(CASE WHEN s.name like 'con%' THEN 1 END) negative
-        FROM news_sentiment ns
-        JOIN sentiment s ON ns.sentiment_id = s.id
-        GROUP BY s.candidate_id
-        """), on: cagub_sentiments.candidate_id == q.cagub_id,
-      left_join: cawagub_sentiments in fragment("""
-        SELECT
-          s.candidate_id,
-          COUNT(CASE WHEN s.name like 'pro%' THEN 1 END) positive,
-          COUNT(CASE WHEN s.name like 'net%' THEN 1 END) neutral,
-          COUNT(CASE WHEN s.name like 'con%' THEN 1 END) negative
-        FROM news_sentiment ns
-        JOIN sentiment s ON ns.sentiment_id = s.id
-        GROUP BY s.candidate_id
-        """), on: cawagub_sentiments.candidate_id == q.cawagub_id
+    left_join: s in fragment("""
+      SELECT
+        s.pair_of_candidates_id,
+        COUNT(CASE WHEN s.name like 'pos%' THEN 1 END) positive,
+        COUNT(CASE WHEN s.name like 'neg%' THEN 1 END) negative
+      FROM news_sentiment ns
+      JOIN sentiment s ON ns.sentiment_id = s.id
+      GROUP BY s.pair_of_candidates_id
+      """), on: s.pair_of_candidates_id == q.id
   end
 
 end
