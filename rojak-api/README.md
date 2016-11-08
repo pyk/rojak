@@ -96,6 +96,10 @@ Berikut adalah langkah untuk generate dokumentasi API:
 
 ## Changelog
 
+### 0.3.0
+
+- Implementasi API spec v0.3
+
 ### 0.2.2
 
 - Refactor: rename `models` jadi `data`, pindahkan `data` ke `lib/rojak_api`, dan memisahkan `model` menjadi `query` dan `schema`.
