@@ -9,10 +9,6 @@ defmodule RojakAPI.V1.PairingView do
     render_one(pairing, RojakAPI.V1.PairingView, "pairing.json")
   end
 
-  def render("media_sentiments.json", %{media_sentiments: media_sentiments}) do
-    render_many(media_sentiments, RojakAPI.V1.PairingView, "media_sentiment.json", as: :media_sentiment)
-  end
-
   def render("pairing.json", %{pairing: pairing}) do
     pairing =
       pairing
@@ -25,8 +21,8 @@ defmodule RojakAPI.V1.PairingView do
       %{cagub: cagub, cawagub: cawagub} ->
         Map.update! pairing, :candidates, fn _ ->
           %{
-            cagub: Map.drop(cagub, [:__meta__, :mentioned_in]),
-            cawagub: Map.drop(cawagub, [:__meta__, :mentioned_in]),
+            cagub: Map.drop(cagub, [:__meta__]),
+            cawagub: Map.drop(cawagub, [:__meta__]),
           }
         end
     end
@@ -46,18 +42,16 @@ defmodule RojakAPI.V1.PairingView do
       sentiments ->
         Map.update! pairing, :sentiments_by_media, fn _ ->
           Enum.map sentiments, fn sentiment ->
-            media = Map.get sentiment, :media
-            %{sentiment | media: Map.drop(media, [:__struct__, :__meta__, :news]) }
+            media =
+              sentiment
+              |> Map.get(:media)
+              |> Map.drop([:__struct__, :__meta__, :latest_news])
+            %{sentiment | media: media}
           end
         end
     end
 
     pairing
-  end
-
-  def render("media_sentiment.json", %{media_sentiment: media_sentiment}) do
-    media_sentiment
-    |> Map.drop([:__meta__, :news])
   end
 
 end

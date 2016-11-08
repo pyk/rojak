@@ -4,7 +4,6 @@ defmodule RojakAPI.Data.Candidate do
   alias RojakAPI.Repo
   alias RojakAPI.Data.Schemas.{
     Candidate,
-    Media,
     PairOfCandidates
   }
 

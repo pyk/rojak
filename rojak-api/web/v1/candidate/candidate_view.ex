@@ -12,7 +12,7 @@ defmodule RojakAPI.V1.CandidateView do
   def render("candidate.json", %{candidate: candidate}) do
     candidate =
       candidate
-      |> Map.drop([:__meta__, :mentioned_in])
+      |> Map.drop([:__meta__])
 
     # Embed pairing
     candidate = case Map.get(candidate, :pairing) do

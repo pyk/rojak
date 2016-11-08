@@ -12,7 +12,7 @@ defmodule RojakAPI.V1.MediaView do
   def render("media.json", %{media: media}) do
     media =
       media
-      |> Map.drop [:__meta__, :sentiments]
+      |> Map.drop([:__meta__])
 
     # embed latest_news
     media = case Map.get(media, :latest_news) do

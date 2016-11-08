@@ -22,7 +22,7 @@ defmodule RojakAPI.V1.NewsView do
       _ ->
         news
         |> Map.update!(:media, fn media ->
-          Map.drop media, [:__meta__, :news, :sentiments]
+          Map.drop media, [:__meta__, :latest_news]
         end)
     end
 
@@ -35,7 +35,7 @@ defmodule RojakAPI.V1.NewsView do
         news
         |> Map.update!(:mentions, fn mentions ->
           Enum.map mentions, fn candidate ->
-            Map.drop candidate, [:__meta__, :pairing, :mentioned_in]
+            Map.drop candidate, [:__meta__, :pairing]
           end
         end)
     end
