@@ -7,9 +7,9 @@ defmodule RojakAPI.V1.PairingController do
     @api {get} /pairings Get list of pairings
     @apiGroup Pairing
     @apiName PairingList
-    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>candidates</code>, <code>overall_sentiments</code>, <code>sentiments_by_media</code> </br></br> Example:
+    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>candidates</code>, <code>overall_sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a list of pairs of candidates running in the election, optionally with <code>candidates</code>, <code>overall_sentiments</code>, and <code>sentiments_by_media</code>.
+    @apiDescription Get a list of pairs of candidates running in the election, optionally with <code>candidates</code> and <code>overall_sentiments</code>.
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -40,16 +40,7 @@ defmodule RojakAPI.V1.PairingController do
           "overall_sentiments": {
             "positive_news_count": 1234,
             "negative_news_count": 1234
-          },
-          "sentiments_by_media": [
-            {
-              "media": {
-                // media data
-              },
-              "positive_news_count": 123,
-              "negative_news_count": 123
-            }
-          ]
+          }
         },
         {
           "id": 2,
@@ -78,16 +69,7 @@ defmodule RojakAPI.V1.PairingController do
           "overall_sentiments": {
             "positive_news_count": 1234,
             "negative_news_count": 1234
-          },
-          "sentiments_by_media": [
-            {
-              "media": {
-                // media data
-              },
-              "positive_news_count": 123,
-              "negative_news_count": 123
-            }
-          ]
+          }
         }
       ]
   """
@@ -96,7 +78,7 @@ defmodule RojakAPI.V1.PairingController do
   }) do
     def changeset(ch, params) do
       cast(ch, params, [:embed])
-      |> validate_subset(:embed, ["candidates", "overall_sentiments", "sentiments_by_media"])
+      |> validate_subset(:embed, ["candidates", "overall_sentiments"])
     end
   end
 

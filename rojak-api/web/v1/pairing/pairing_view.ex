@@ -39,6 +39,19 @@ defmodule RojakAPI.V1.PairingView do
         pairing
     end
 
+    # Embed sentiments_by_media
+    pairing = case Map.get(pairing, :sentiments_by_media) do
+      nil ->
+        pairing |> Map.drop([:sentiments_by_media])
+      sentiments ->
+        Map.update! pairing, :sentiments_by_media, fn _ ->
+          Enum.map sentiments, fn sentiment ->
+            media = Map.get sentiment, :media
+            %{sentiment | media: Map.drop(media, [:__struct__, :__meta__, :news]) }
+          end
+        end
+    end
+
     pairing
   end
 
