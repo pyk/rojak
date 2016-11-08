@@ -7,9 +7,11 @@ defmodule RojakAPI.V1.CandidateController do
     @api {get} /candidates Get list of candidates
     @apiGroup Candidate
     @apiName CandidateList
+    @apiDescription Get a list of candidates running in the election, optionally with <code>pairing</code>.
+
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>pairing</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a list of candidates running in the election, optionally with <code>pairing</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -74,10 +76,12 @@ defmodule RojakAPI.V1.CandidateController do
     @api {get} /candidates/:candidateId Get a single candidate
     @apiGroup Candidate
     @apiName CandidateSingle
+    @apiDescription Get a candidate based on {candidateId}, optionally with <code>pairing</code>.
+
     @apiParam {String} candidateId
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>pairing</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a candidate based on {candidateId}, optionally with <code>pairing</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       {

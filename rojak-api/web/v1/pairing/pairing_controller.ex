@@ -7,9 +7,11 @@ defmodule RojakAPI.V1.PairingController do
     @api {get} /pairings Get list of pairings
     @apiGroup Pairing
     @apiName PairingList
+    @apiDescription Get a list of pairs of candidates running in the election, optionally with <code>candidates</code> and <code>overall_sentiments</code>.
+
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>candidates</code>, <code>overall_sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a list of pairs of candidates running in the election, optionally with <code>candidates</code> and <code>overall_sentiments</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -92,10 +94,12 @@ defmodule RojakAPI.V1.PairingController do
     @api {get} /pairings/:pairingId Get a single pairing
     @apiGroup Pairing
     @apiName PairingSingle
+    @apiDescription Get a pair of candidates based on {pairingId}, optionally with <code>candidates</code>, <code>overall_sentiments</code>, and <code>sentiments_by_media</code>.
+
     @apiParam {String} pairingId
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>candidates</code>, <code>overall_sentiments</code>, <code>sentiments_by_media</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a pair of candidates based on {pairingId}, optionally with <code>candidates</code>, <code>overall_sentiments</code>, and <code>sentiments_by_media</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       {

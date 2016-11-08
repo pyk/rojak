@@ -7,6 +7,8 @@ defmodule RojakAPI.V1.NewsController do
     @api {get} /news Get list of news
     @apiGroup News
     @apiName NewsList
+    @apiDescription Get a list of news, optionally with <code>media</code>, <code>mentions</code>, and <code>sentiments</code>. Filterable by media and mentioned candidates.
+
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>media</code>, <code>mentions</code>, <code>sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
     @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
@@ -17,7 +19,7 @@ defmodule RojakAPI.V1.NewsController do
       <pre>?media_id[]=1&media_id[]=2</pre>
     @apiParam {Integer} [candidate_id[]] Filter articles based on <code>id</code> of mentioned candidates. </br></br> Example:
       <pre>?candidate_id[]=1&candidate_id[]=2</pre>
-    @apiDescription Get a list of news, optionally with <code>media</code>, <code>mentions</code>, and <code>sentiments</code>. Filterable by media and mentioned candidates.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -102,10 +104,12 @@ defmodule RojakAPI.V1.NewsController do
     @api {get} /news/:newsId Get a single news
     @apiGroup News
     @apiName NewsSingle
+    @apiDescription Get a news article based on {newsId}, optionally with <code>media</code>, <code>mentions</code>, and <code>sentiments</code>.
+
     @apiParam {String} newsId
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>media</code>, <code>mentions</code>, <code>sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a news article based on {newsId}, optionally with <code>media</code>, <code>mentions</code>, and <code>sentiments</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       {

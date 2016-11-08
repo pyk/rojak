@@ -7,11 +7,13 @@ defmodule RojakAPI.V1.MediaController do
     @api {get} /media Get list of media
     @apiGroup Media
     @apiName MediaList
+    @apiDescription Get a list of media.
+
     @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
       <pre>?offset=20</pre>
     @apiParam {Integer} [limit=10] Limit the number of elements on the response. </br></br> Example:
       <pre>?limit=20</pre>
-    @apiDescription Get a list of media.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -43,10 +45,12 @@ defmodule RojakAPI.V1.MediaController do
     @api {get} /media/:mediaId Get a single media
     @apiGroup Media
     @apiName MediaSingle
+    @apiDescription Get a media based on {mediaId}, optionally with <code>latest_news</code> and <code>sentiments_on_pairings</code>.
+
     @apiParam {String} mediaId
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>latest_news</code>, <code>sentiments_on_pairings</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a media based on {mediaId}, optionally with <code>latest_news</code> and <code>sentiments_on_pairings</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       {
