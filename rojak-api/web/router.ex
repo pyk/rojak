@@ -12,13 +12,13 @@ defmodule RojakAPI.Router do
       get "/", IndexController, :index
       get "/pairings", PairingController, :index
       get "/pairings/:id", PairingController, :show
-      get "/pairings/:id/media-sentiments", PairingController, :media_sentiments
       get "/candidates", CandidateController, :index
       get "/candidates/:id", CandidateController, :show
       get "/news", NewsController, :index
       get "/news/:id", NewsController, :show
       get "/media", MediaController, :index
       get "/media/:id", MediaController, :show
+      get "/stats", StatsController, :index
     end
   end
 end
