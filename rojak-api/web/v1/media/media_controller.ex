@@ -7,7 +7,6 @@ defmodule RojakAPI.V1.MediaController do
     @api {get} /media Get Media
     @apiGroup Media
     @apiName GetMedia
-    @apiVersion 1.0.0
     @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
       <pre>?offset=20</pre>
     @apiParam {Integer} [limit=10] Limit the number of elements on the response. </br></br> Example:
@@ -44,7 +43,6 @@ defmodule RojakAPI.V1.MediaController do
     @api {get} /media/:mediaId Get a Media
     @apiGroup Media
     @apiName GetAMedia
-    @apiVersion 1.0.0
     @apiParam {String} mediaId
     @apiDescription Get a media based on {mediaId}.
     @apiSuccessExample {json} Success
@@ -80,7 +78,6 @@ defmodule RojakAPI.V1.MediaController do
     @api {get} /media/:mediaId/sentiments Get Media-Sentiments
     @apiGroup Media
     @apiName GetMediaSentiments
-    @apiVersion 1.0.0
     @apiParam {String} mediaId
     @apiDescription Get a breakdown of sentiments for each pairing and candidate by this media.
     @apiSuccessExample {json} Success

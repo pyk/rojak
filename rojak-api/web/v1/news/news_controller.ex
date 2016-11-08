@@ -7,7 +7,6 @@ defmodule RojakAPI.V1.NewsController do
     @api {get} /news Get News
     @apiGroup News
     @apiName GetNews
-    @apiVersion 1.0.0
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>mentions</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
     @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
@@ -108,7 +107,6 @@ defmodule RojakAPI.V1.NewsController do
     @api {get} /news/:newsId Get a News
     @apiGroup News
     @apiName GetANews
-    @apiVersion 1.0.0
     @apiParam {String} newsId
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>

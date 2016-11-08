@@ -4,10 +4,9 @@ defmodule RojakAPI.V1.CandidateController do
   alias RojakAPI.Data.Candidate
 
   @apidoc """
-    @api {get} /candidates Get list of candidates.
+    @api {get} /candidates Get list of candidates
     @apiGroup Candidate
     @apiName CandidateList
-    @apiVersion 1.0.0
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>pairing</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
     @apiDescription Get a list of candidates running in the election, optionally with <code>pairing</code>.
@@ -72,10 +71,9 @@ defmodule RojakAPI.V1.CandidateController do
   end
 
   @apidoc """
-    @api {get} /candidates/:candidateId Get a single candidate.
+    @api {get} /candidates/:candidateId Get a single candidate
     @apiGroup Candidate
     @apiName CandidateSingle
-    @apiVersion 1.0.0
     @apiParam {String} candidateId
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>pairing</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>

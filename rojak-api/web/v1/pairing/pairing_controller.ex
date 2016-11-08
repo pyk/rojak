@@ -7,7 +7,6 @@ defmodule RojakAPI.V1.PairingController do
     @api {get} /pairings Get Pairs
     @apiGroup Pairings
     @apiName GetPairs
-    @apiVersion 1.0.0
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
     @apiDescription Get a list of pairs of candidates running in the election, optionally with <code>sentiments</code>.
@@ -75,7 +74,6 @@ defmodule RojakAPI.V1.PairingController do
     @api {get} /pairings/:pairingId Get a Pair
     @apiGroup Pairings
     @apiName GetPair
-    @apiVersion 1.0.0
     @apiParam {String} pairingId
     @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code>, <code>candidates</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
@@ -160,7 +158,6 @@ defmodule RojakAPI.V1.PairingController do
     @api {get} /pairings/:pairingId/media-sentiments Get Media-Sentiments
     @apiGroup Pairings
     @apiName GetPairMediaSentiments
-    @apiVersion 1.0.0
     @apiParam {String} pairingId
     @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
       <pre>?offset=20</pre>
