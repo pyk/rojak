@@ -4,10 +4,10 @@ defmodule RojakAPI.V1.NewsController do
   alias RojakAPI.Data.News
 
   @apidoc """
-    @api {get} /news Get News
+    @api {get} /news Get list of news
     @apiGroup News
-    @apiName GetNews
-    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>mentions</code> </br></br> Example:
+    @apiName NewsList
+    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>media</code>, <code>mentions</code>, <code>sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
     @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
       <pre>?offset=20</pre>
@@ -17,7 +17,7 @@ defmodule RojakAPI.V1.NewsController do
       <pre>?media_id[]=1&media_id[]=2</pre>
     @apiParam {Integer} [candidate_id[]] Filter articles based on <code>id</code> of mentioned candidates. </br></br> Example:
       <pre>?candidate_id[]=1&candidate_id[]=2</pre>
-    @apiDescription Get a list of news, optionally with mentioned candidates. Filterable by media and mentioned candidates.
+    @apiDescription Get a list of news, optionally with <code>media</code>, <code>mentions</code>, and <code>sentiments</code>. Filterable by media and mentioned candidates.
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -29,26 +29,23 @@ defmodule RojakAPI.V1.NewsController do
           "author_name": "Anto",
           "inserted_at": 1341533193,
           "updated_at": 1341533193,
-          "mentions":
-          [
+
+          // embedded fields
+          "media": {
+            // media data
+          },
+          "mentions": [
             {
-              "id": 1,
-              "full_name": "Basuki Tjahaja Purnama",
-              "alias_name": "Ahok",
-              "place_of_birth": "Manggar, Belitung Timur",
-              "date_of_birth": "1966-06-29",
-              "religion": "Kristen Protestan",
-              "website_url": "http://ahok.org",
-              "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
-              "fbpage_username": "AhokBTP",
-              "twitter_username": "basuki_btp",
-              "instagram_username": "basukibtp",
-              "inserted_at": 1341533193,
-              "updated_at": 1341533193,
-              "sentiment": {
-                "type": "positive",
-                "score": 0.123,
-              }
+              // candidate data
+            }
+          ],
+          "sentiments": [
+            {
+              pairing: {
+                // pairing data
+              },
+              type: 'positive',
+              confidentScore: 0.12345
             }
           ]
         },
@@ -60,25 +57,23 @@ defmodule RojakAPI.V1.NewsController do
           "author_name": "Anto",
           "inserted_at": 1341533201,
           "updated_at": 1341533201,
+
+          // embedded fields
+          "media": {
+            // media data
+          },
+          "mentions": [
+            {
+              // candidate data
+            }
+          ],
           "sentiments": [
             {
-              "id": 1,
-              "full_name": "Basuki Tjahaja Purnama",
-              "alias_name": "Ahok",
-              "place_of_birth": "Manggar, Belitung Timur",
-              "date_of_birth": "1966-06-29",
-              "religion": "Kristen Protestan",
-              "website_url": "http://ahok.org",
-              "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
-              "fbpage_username": "AhokBTP",
-              "twitter_username": "basuki_btp",
-              "instagram_username": "basukibtp",
-              "inserted_at": 1341533193,
-              "updated_at": 1341533193,
-              "sentiment": {
-                "type": "positive",
-                "score": 0.123,
-              }
+              pairing: {
+                // pairing data
+              },
+              type: 'positive',
+              confidentScore: 0.12345
             }
           ]
         }
@@ -104,13 +99,13 @@ defmodule RojakAPI.V1.NewsController do
   end
 
   @apidoc """
-    @api {get} /news/:newsId Get a News
+    @api {get} /news/:newsId Get a single news
     @apiGroup News
-    @apiName GetANews
+    @apiName NewsSingle
     @apiParam {String} newsId
-    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code> </br></br> Example:
+    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>media</code>, <code>mentions</code>, <code>sentiments</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a news article based on {newsId}, optionally with mentioned candidates.
+    @apiDescription Get a news article based on {newsId}, optionally with <code>media</code>, <code>mentions</code>, and <code>sentiments</code>.
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       {
@@ -121,25 +116,23 @@ defmodule RojakAPI.V1.NewsController do
         "author_name": "Anto",
         "inserted_at": 1341533193,
         "updated_at": 1341533193,
+
+        // embedded fields
+        "media": {
+          // media data
+        },
+        "mentions": [
+          {
+            // candidate data
+          }
+        ],
         "sentiments": [
           {
-            "id": 1,
-            "full_name": "Basuki Tjahaja Purnama",
-            "alias_name": "Ahok",
-            "place_of_birth": "Manggar, Belitung Timur",
-            "date_of_birth": "1966-06-29",
-            "religion": "Kristen Protestan",
-            "website_url": "http://ahok.org",
-            "photo_url": "https://upload.wikimedia.org/wikipedia/id/7/7a/Gubernur_DKI_Basuki.jpg",
-            "fbpage_username": "AhokBTP",
-            "twitter_username": "basuki_btp",
-            "instagram_username": "basukibtp",
-            "inserted_at": 1341533193,
-            "updated_at": 1341533193,
-            "sentiment": {
-              "type": "positive",
-              "score": 0.123,
-            }
+            pairing: {
+              // pairing data
+            },
+            type: 'positive',
+            confidentScore: 0.12345
           }
         ]
       }
