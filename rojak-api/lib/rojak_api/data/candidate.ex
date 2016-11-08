@@ -57,29 +57,10 @@ defmodule RojakAPI.Data.Candidate do
   end
 
   defp select_embed_fields(query, embed) do
-    case [Enum.member?(embed, "pairing"), Enum.member?(embed, "sentiments")] do
-      [true, true] ->
+    case [Enum.member?(embed, "pairing")] do
+      [true] ->
         from [q, p, s] in query,
-          select: %{q |
-            pairing: p,
-            sentiments: %{
-              positive: s.positive,
-              neutral: s.neutral,
-              negative: s.negative,
-            }
-          }
-      [true, _] ->
-        from [q, p] in query,
-          select: %{q | pairing: p}
-      [_, true] ->
-        from [q, s] in query,
-          select: %{q |
-            sentiments: %{
-              positive: s.positive,
-              neutral: s.neutral,
-              negative: s.negative,
-            }
-          }
+          select: %{q | pairing: p }
       _ -> query
     end
   end

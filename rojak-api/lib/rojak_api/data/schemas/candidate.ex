@@ -15,7 +15,6 @@ defmodule RojakAPI.Data.Schemas.Candidate do
 
     # Virtual fields for embedding joins
     field :pairing, :map, virtual: true
-    field :sentiments, :map, virtual: true
 
     # Relationship
     # has_many :sentiments, RojakAPI.Data.Schemas.Sentiment
