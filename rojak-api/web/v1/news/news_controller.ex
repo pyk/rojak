@@ -88,7 +88,7 @@ defmodule RojakAPI.V1.NewsController do
   }) do
     def changeset(ch, params) do
       cast(ch, params, [:limit, :offset, :embed, :media_id, :candidate_id])
-      |> validate_subset(:embed, ["sentiments"])
+      |> validate_subset(:embed, ["media", "mentions", "sentiments"])
     end
   end
 
@@ -148,7 +148,7 @@ defmodule RojakAPI.V1.NewsController do
   }) do
     def changeset(ch, params) do
       cast(ch, params, [:id, :embed])
-      |> validate_subset(:embed, ["sentiments"])
+      |> validate_subset(:embed, ["media", "mentions", "sentiments"])
     end
   end
 
