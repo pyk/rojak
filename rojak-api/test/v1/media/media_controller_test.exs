@@ -66,32 +66,26 @@ defmodule RojakAPI.MediaControllerTest do
     assert item_has_valid_properties?(media_item), "Item is missing valid properties."
   end
 
+  test "allows embedding latest_news on show", %{conn: conn} do
+    conn = get conn, v1_media_path(conn, :show, 1), %{embed: ["latest_news"]}
+    media_item = json_response(conn, 200)
+    assert item_has_valid_properties?(media_item), "Item is missing valid properties."
+
+    assert Map.has_key?(media_item, "latest_news")
+  end
+
+  test "allows embedding sentiments_on_pairings on show", %{conn: conn} do
+    conn = get conn, v1_media_path(conn, :show, 1), %{embed: ["sentiments_on_pairings"]}
+    media_item = json_response(conn, 200)
+    assert item_has_valid_properties?(media_item), "Item is missing valid properties."
+
+    assert Map.has_key?(media_item, "sentiments_on_pairings")
+  end
+
   test "renders page not found when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
       get conn, v1_media_path(conn, :show, -1)
     end
-  end
-
-  test "list sentiments of the candidates on :sentiments", %{conn: conn} do
-    conn = get conn, v1_media_path(conn, :sentiments, 1)
-    sentiment_list = json_response(conn, 200)
-    assert Enum.count(sentiment_list) >= 0
-
-    sentiment_item = List.first(sentiment_list)
-    assert Map.has_key?(sentiment_item, "pairing")
-    assert Map.has_key?(sentiment_item, "candidates")
-
-    pairing = Map.get(sentiment_item, "pairing")
-    assert Map.has_key?(pairing, "sentiments")
-
-    candidates = Map.get(sentiment_item, "candidates")
-    assert Map.has_key?(candidates, "cagub")
-    assert Map.has_key?(candidates, "cawagub")
-
-    cagub = Map.get(candidates, "cagub")
-    cawagub = Map.get(candidates, "cawagub")
-    assert Map.has_key?(cagub, "sentiments")
-    assert Map.has_key?(cawagub, "sentiments")
   end
 
   defp item_has_valid_properties?(item) do
