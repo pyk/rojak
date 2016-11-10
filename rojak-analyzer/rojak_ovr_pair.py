@@ -478,11 +478,11 @@ class RojakOvRPair():
         return result
 
 if __name__ == '__main__':
-    rojak = RojakOvRPair(max_ngram=5, tokenizer=whitespace_tokenizer)
-    rojak.train('data_training_7_labels_latest.csv', 
-        'rojak_ovr_pair_latest_trigram_model.bin')
-    rojak.eval('rojak_ovr_pair_latest_trigram_model.bin', 
-        'data_training_7_labels_latest.csv')
+    max_ngram = 5
+    rojak = RojakOvRPair(max_ngram=max_ngram, tokenizer=whitespace_tokenizer)
+    model_name = 'rojak_ovr_pair_latest_{}_gram_model.bin'.format(max_ngram)
+    rojak.train('data_training_7_labels_latest.csv', model_name)
+    rojak.eval(model_name, 'data_training_7_labels_latest.csv')
     
     print '== Test'
     test_news_text = '''
