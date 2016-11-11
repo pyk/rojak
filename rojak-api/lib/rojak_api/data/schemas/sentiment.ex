@@ -5,7 +5,8 @@ defmodule RojakAPI.Data.Schemas.Sentiment do
     field :name, :string
 
     # Relationship
-    belongs_to :candidate, RojakAPI.Data.Schemas.Candidate
+    belongs_to :pairing, RojakAPI.Data.Schemas.PairOfCandidates,
+      foreign_key: :pair_of_candidates_id
     has_many :news, RojakAPI.Data.Schemas.NewsSentiment
 
     timestamps()

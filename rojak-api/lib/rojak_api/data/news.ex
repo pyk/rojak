@@ -6,6 +6,7 @@ defmodule RojakAPI.Data.News do
 
   def fetch(%{limit: limit, offset: offset, embed: embed, media_id: media_id, candidate_id: candidate_id}) do
     query = from n in News,
+      where: n.is_analyzed == true,
       limit: ^limit,
       offset: ^offset,
       order_by: [desc: n.id]
@@ -38,16 +39,28 @@ defmodule RojakAPI.Data.News do
   defp fetch_embed(query, embed) when is_nil(embed), do: query
   defp fetch_embed(query, embed) do
     query
+    |> fetch_media(Enum.member?(embed, "media"))
+    |> fetch_mentions(Enum.member?(embed, "mentions"))
     |> fetch_sentiments(Enum.member?(embed, "sentiments"))
+  end
+
+  defp fetch_media(query, embed?) when not embed?, do: query
+  defp fetch_media(query, _) do
+    from q in query,
+      left_join: med in assoc(q, :media),
+      preload: [media: med]
+  end
+
+  defp fetch_mentions(query, embed?) when not embed?, do: query
+  defp fetch_mentions(query, _) do
+    from q in query,
+      preload: [:mentions]
   end
 
   defp fetch_sentiments(query, embed?) when not embed?, do: query
   defp fetch_sentiments(query, _) do
     from q in query,
-      left_join: ns in assoc(q, :sentiments),
-      left_join: s in assoc(ns, :sentiment),
-      left_join: c in assoc(s, :candidate),
-      preload: [sentiments: {ns, sentiment: {s, candidate: c}}]
+      preload: [sentiments: [sentiment: :pairing]]
   end
 
 end

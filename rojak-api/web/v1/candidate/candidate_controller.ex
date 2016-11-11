@@ -4,13 +4,14 @@ defmodule RojakAPI.V1.CandidateController do
   alias RojakAPI.Data.Candidate
 
   @apidoc """
-    @api {get} /candidates Get Candidates
-    @apiGroup Candidates
-    @apiName GetCandidates
-    @apiVersion 1.0.0
-    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code> </br></br> Example:
+    @api {get} /candidates Get list of candidates
+    @apiGroup Candidate
+    @apiName CandidateList
+    @apiDescription Get a list of candidates running in the election, optionally with <code>pairing</code>.
+
+    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>pairing</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a list of candidates running in the election, optionally with <code>sentiments</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       [
@@ -28,10 +29,10 @@ defmodule RojakAPI.V1.CandidateController do
           "instagram_username": "basukibtp",
           "inserted_at": 1341533193,
           "updated_at": 1341533193
-          "sentiments": {
-            "positive": 0.41256,
-            "negative": 0.12345,
-            "neutral": 0.46399
+
+          // embeddable fields
+          "pairing": {
+            // pairing data
           }
         },
         {
@@ -48,10 +49,10 @@ defmodule RojakAPI.V1.CandidateController do
           "instagram_username": "aniesbaswedan",
           "inserted_at": 1341533193,
           "updated_at": 1341533193
-          "sentiments": {
-            "positive": 0.41256,
-            "negative": 0.12345,
-            "neutral": 0.46399
+
+          // embeddable fields
+          "pairing": {
+            // pairing data
           }
         }
       ]
@@ -61,7 +62,7 @@ defmodule RojakAPI.V1.CandidateController do
   }) do
     def changeset(ch, params) do
       cast(ch, params, [:embed])
-      |> validate_subset(:embed, ["sentiments"])
+      |> validate_subset(:embed, ["pairing"])
     end
   end
 
@@ -72,14 +73,15 @@ defmodule RojakAPI.V1.CandidateController do
   end
 
   @apidoc """
-    @api {get} /candidates/:candidateId Get a Candidate
-    @apiGroup Candidates
-    @apiName GetCandidate
-    @apiVersion 1.0.0
+    @api {get} /candidates/:candidateId Get a single candidate
+    @apiGroup Candidate
+    @apiName CandidateSingle
+    @apiDescription Get a candidate based on {candidateId}, optionally with <code>pairing</code>.
+
     @apiParam {String} candidateId
-    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>sentiments</code>, <code>candidates</code> </br></br> Example:
+    @apiParam {String} [embed[]] Fields to embed on the response. Available fields: <code>pairing</code> </br></br> Example:
       <pre>?embed[]=field1&embed[]=field2</pre>
-    @apiDescription Get a candidates based on {candidateId}, optionally with <code>sentiments</code> and <code>pairing</code>.
+
     @apiSuccessExample {json} Success
       HTTP/1.1 200 OK
       {
@@ -96,25 +98,10 @@ defmodule RojakAPI.V1.CandidateController do
         "instagram_username": "basukibtp",
         "inserted_at": 1341533193,
         "updated_at": 1341533193,
-        "sentiments": {
-          "positive": 0.41256,
-          "negative": 0.12345,
-          "neutral": 0.46399
-        },
+
+        // embeddable fields
         "pairing": {
-          "id": 3,
-          "name": "Agus Sylvi",
-          "cagub_id": 5,
-          "cawagub_id": 6,
-          "website_url": "http://relawanagussylvi.com",
-          "logo_url": "https://pbs.twimg.com/profile_images/783564904460460032/VgVxZX-l.jpg",
-          "fbpage_username": "RelawanAgusSylvi",
-          "twitter_username": "RelAgusSylvi",
-          "instagram_username": "",
-          "slogan": "Jakarta Untuk Rakyat",
-          "description": "",
-          "inserted_at": 1341533193,
-          "updated_at": 1341533193
+          // pairing data
         }
       }
     @apiErrorExample {json} Item Not Found
@@ -129,7 +116,7 @@ defmodule RojakAPI.V1.CandidateController do
   }) do
     def changeset(ch, params) do
       cast(ch, params, [:id, :embed])
-      |> validate_subset(:embed, ["sentiments", "pairing"])
+      |> validate_subset(:embed, ["pairing"])
     end
   end
 
@@ -137,50 +124,6 @@ defmodule RojakAPI.V1.CandidateController do
     validated_params = ParamsValidator.validate params, &candidate_show_params/1
     candidate = Candidate.fetch_one(validated_params)
     render(conn, "show.json", candidate: candidate)
-  end
-
-  @apidoc """
-    @api {get} /candidates/:candidateId/media-sentiments Get Media-Sentiments
-    @apiGroup Candidates
-    @apiName GetCandidateMediaSentiments
-    @apiVersion 1.0.0
-    @apiParam {String} candidateId
-    @apiParam {Integer} [offset=0] Skip over a number of elements by specifying an offset value for the query. </br></br> Example:
-      <pre>?offset=20</pre>
-    @apiParam {Integer} [limit=10] Limit the number of elements on the response. </br></br> Example:
-      <pre>?limit=20</pre>
-    @apiDescription Get a breakdown of media sentiments for this candidate.
-    @apiSuccessExample {json} Success
-      HTTP/1.1 200 OK
-      [
-        {
-          "id": 1,
-          "name": "detikcom",
-          "website_url": "http://detik.com",
-          "logo_url": "https://cdn.detik.net.id/detik2/images/logodetikcom.png?1",
-          "fbpage_username": "detikcom",
-          "twitter_username": "detikcom",
-          "instagram_username": "detikcom",
-          "inserted_at": 1341533193,
-          "updated_at": 1341533193,
-          "sentiments": {
-            "positive": 0.41256,
-            "negative": 0.12345,
-            "neutral": 0.46399
-          }
-        }
-      ]
-  """
-  defparams candidate_media_sentiments_params %{
-    id!: :integer,
-    limit: [field: :integer, default: 10],
-    offset: [field: :integer, default: 0],
-  }
-
-  def media_sentiments(conn, params) do
-    validated_params = ParamsValidator.validate params, &candidate_media_sentiments_params/1
-    media_sentiments = Candidate.fetch_media_sentiments(validated_params)
-    render(conn, "media_sentiments.json", media_sentiments: media_sentiments)
   end
 
 end

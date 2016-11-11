@@ -1,25 +1,23 @@
 {
   "name": "Rojak API",
-  "version": "1.0.0",
-  "description": "Rojak API Documentation",
-  "apidoc": {
-    "title": "Rojak API",
-    "url" : "https://api.rojak.id/v1"
-  },
+  "description": "Specification v0.3",
+  "title": "Rojak API Specification v0.3",
+  "url" : "https://api.rojak.id/v1",
   "order": [
-    "Candidates",
-    "GetCandidates",
-    "GetCandidate",
-    "GetCandidateMediaSentiments",
-    "Pairings",
-    "GetPairs",
-    "GetPair",
-    "GetPairMediaSentiments",
+    "Candidate",
+    "CandidateList",
+    "CandidateSingle",
+    "Pairing",
+    "PairingList",
+    "PairingSingle",
     "News",
-    "GetNews",
-    "GetANews",
+    "NewsList",
+    "NewsSingle",
     "Media",
-    "GetMedia",
-    "GetAMedia"
-  ]
+    "MediaList",
+    "MediaSingle"
+  ],
+  "template": {
+    "withCompare": false
+  }
 }

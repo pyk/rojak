@@ -58,6 +58,24 @@ defmodule RojakAPI.NewsControllerTest do
     end
   end
 
+  test "allows embedding media on index", %{conn: conn} do
+    conn = get conn, v1_news_path(conn, :index), %{embed: ["media"]}
+    news_list = json_response(conn, 200)
+    assert Enum.count(news_list) >= 0
+
+    news_item = List.first(news_list)
+    assert Map.has_key?(news_item, "media")
+  end
+
+  test "allows embedding mentions on index", %{conn: conn} do
+    conn = get conn, v1_news_path(conn, :index), %{embed: ["mentions"]}
+    news_list = json_response(conn, 200)
+    assert Enum.count(news_list) >= 0
+
+    news_item = List.first(news_list)
+    assert Map.has_key?(news_item, "mentions")
+  end
+
   test "allows embedding sentiments on index", %{conn: conn} do
     conn = get conn, v1_news_path(conn, :index), %{embed: ["sentiments"]}
     news_list = json_response(conn, 200)
@@ -86,10 +104,14 @@ defmodule RojakAPI.NewsControllerTest do
   end
 
   test "allows filtering by mentioned candidate id", %{conn: conn} do
-    conn = get conn, v1_news_path(conn, :index), %{candidate_id: ["1"]}
+    conn = get conn, v1_news_path(conn, :index), %{candidate_id: ["1"], embed: ["mentions"]}
     news_list = json_response(conn, 200)
     assert Enum.count(news_list) >= 0
-    # TODO: need to ensure the list contains only news mentioning the candidate
+    assert Enum.all? news_list, fn news_item ->
+      Enum.any? Map.get(news_item, "mentions"), fn candidate ->
+        Map.get(candidate, "id") == 1
+      end
+    end
   end
 
   test "renders invalid parameters when candidate_id is not an array of integers", %{conn: conn} do
@@ -106,6 +128,20 @@ defmodule RojakAPI.NewsControllerTest do
     conn = get conn, v1_news_path(conn, :show, 1)
     news_item = json_response(conn, 200)
     assert item_has_valid_properties?(news_item), "Item is missing valid properties."
+  end
+
+  test "allows embedding media on show", %{conn: conn} do
+    conn = get conn, v1_news_path(conn, :show, 1), %{embed: ["media"]}
+    news_item = json_response(conn, 200)
+
+    assert Map.has_key?(news_item, "media")
+  end
+
+  test "allows embedding mentions on show", %{conn: conn} do
+    conn = get conn, v1_news_path(conn, :show, 1), %{embed: ["mentions"]}
+    news_item = json_response(conn, 200)
+
+    assert Map.has_key?(news_item, "mentions")
   end
 
   test "allows embedding sentiments on show", %{conn: conn} do

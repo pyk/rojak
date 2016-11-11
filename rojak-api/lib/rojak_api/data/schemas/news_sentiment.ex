@@ -2,7 +2,7 @@ defmodule RojakAPI.Data.Schemas.NewsSentiment do
   use Ecto.Schema
 
   schema "news_sentiment" do
-    field :score, :float
+    field :confident_score_scaled, :float
 
     # Relationship
     belongs_to :news, RojakAPI.Data.Schemas.News

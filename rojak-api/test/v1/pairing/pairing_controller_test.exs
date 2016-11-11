@@ -30,15 +30,26 @@ defmodule RojakAPI.PairingControllerTest do
     assert item_has_valid_properties?(pairing_item), "Item is missing valid properties."
   end
 
-  test "allows embedding sentiments on index", %{conn: conn} do
-    conn = get conn, v1_pairing_path(conn, :index), %{embed: ["sentiments"]}
+  test "allows embedding candidates on index", %{conn: conn} do
+    conn = get conn, v1_pairing_path(conn, :index), %{embed: ["candidates"]}
     pairing_list = json_response(conn, 200)
     assert Enum.count(pairing_list) >= 0
 
     pairing_item = List.first(pairing_list)
     assert item_has_valid_properties?(pairing_item), "Item is missing valid properties."
 
-    assert Map.has_key?(pairing_item, "sentiments")
+    assert Map.has_key?(pairing_item, "candidates")
+  end
+
+  test "allows embedding overall_sentiments on index", %{conn: conn} do
+    conn = get conn, v1_pairing_path(conn, :index), %{embed: ["overall_sentiments"]}
+    pairing_list = json_response(conn, 200)
+    assert Enum.count(pairing_list) >= 0
+
+    pairing_item = List.first(pairing_list)
+    assert item_has_valid_properties?(pairing_item), "Item is missing valid properties."
+
+    assert Map.has_key?(pairing_item, "overall_sentiments")
   end
 
   test "renders invalid parameters when trying to embed invalid field on index", %{conn: conn} do
@@ -53,13 +64,28 @@ defmodule RojakAPI.PairingControllerTest do
     assert item_has_valid_properties?(pairing_item), "Item is missing valid properties."
   end
 
-  test "allows embedding sentiments and candidates on show", %{conn: conn} do
-    conn = get conn, v1_pairing_path(conn, :show, 1), %{embed: ["sentiments", "candidates"]}
+  test "allows embedding candidates on show", %{conn: conn} do
+    conn = get conn, v1_pairing_path(conn, :show, 1), %{embed: ["candidates"]}
     pairing_item = json_response(conn, 200)
     assert item_has_valid_properties?(pairing_item), "Item is missing valid properties."
 
-    assert Map.has_key?(pairing_item, "sentiments")
     assert Map.has_key?(pairing_item, "candidates")
+  end
+
+  test "allows embedding overall_sentiments on show", %{conn: conn} do
+    conn = get conn, v1_pairing_path(conn, :show, 1), %{embed: ["overall_sentiments"]}
+    pairing_item = json_response(conn, 200)
+    assert item_has_valid_properties?(pairing_item), "Item is missing valid properties."
+
+    assert Map.has_key?(pairing_item, "overall_sentiments")
+  end
+
+  test "allows embedding sentiments_by_media on show", %{conn: conn} do
+    conn = get conn, v1_pairing_path(conn, :show, 1), %{embed: ["sentiments_by_media"]}
+    pairing_item = json_response(conn, 200)
+    assert item_has_valid_properties?(pairing_item), "Item is missing valid properties."
+
+    assert Map.has_key?(pairing_item, "sentiments_by_media")
   end
 
   test "renders invalid parameters when trying to embed invalid field on show", %{conn: conn} do
@@ -72,15 +98,6 @@ defmodule RojakAPI.PairingControllerTest do
     assert_error_sent 404, fn ->
       get conn, v1_pairing_path(conn, :show, -1)
     end
-  end
-
-  test "list media with their sentiments on :media_sentiments", %{conn: conn} do
-    conn = get conn, v1_pairing_path(conn, :media_sentiments, 1)
-    media_sentiment_list = json_response(conn, 200)
-    assert Enum.count(media_sentiment_list) >= 0
-
-    media_sentiment_item = List.first(media_sentiment_list)
-    assert Map.has_key?(media_sentiment_item, "sentiments")
   end
 
   defp item_has_valid_properties?(item) do

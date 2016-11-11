@@ -15,7 +15,7 @@ defmodule RojakAPI.Data.Schemas.PairOfCandidates do
 
     # Virtual fields for embedding joins
     field :candidates, :map, virtual: true
-    field :sentiments, :map, virtual: true
+    field :overall_sentiments, :map, virtual: true
 
     # Relationship
     has_one :cagub, RojakAPI.Data.Schemas.Candidate, foreign_key: :id, references: :cagub_id
