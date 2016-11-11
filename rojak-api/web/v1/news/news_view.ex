@@ -12,7 +12,7 @@ defmodule RojakAPI.V1.NewsView do
   def render("news.json", %{news: news}) do
     news =
       news
-      |> Map.drop([:__meta__])
+      |> Map.drop([:__meta__, :is_analyzed])
 
     # Embed media
     news = case Map.get(news, :media) do

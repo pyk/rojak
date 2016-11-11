@@ -6,6 +6,7 @@ defmodule RojakAPI.Data.News do
 
   def fetch(%{limit: limit, offset: offset, embed: embed, media_id: media_id, candidate_id: candidate_id}) do
     query = from n in News,
+      where: n.is_analyzed == true,
       limit: ^limit,
       offset: ^offset,
       order_by: [desc: n.id]

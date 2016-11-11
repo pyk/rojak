@@ -5,6 +5,7 @@ defmodule RojakAPI.Data.Schemas.News do
     field :title, :string
     field :url, :string
     field :author_name, :string
+    field :is_analyzed, :boolean
 
     # Relationship
     belongs_to :media, RojakAPI.Data.Schemas.Media
