@@ -13,7 +13,8 @@ defmodule RojakAPI.V1.StatsController do
       HTTP/1.1 200 OK
       {
         "media_count": 20,
-        "news_count": 1000,
+        "total_news_count": 1000,
+        "analyzed_news_count": 800,
         "total_sentiments_count": 2000,
         "positive_sentiments_count": 1000,
         "negative_sentiments_count": 700,

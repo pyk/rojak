@@ -10,7 +10,13 @@ defmodule RojakAPI.Data.Stats do
 
   def get do
     media_count = Repo.aggregate(Media, :count, :id)
-    news_count = Repo.aggregate(News, :count, :id)
+    news_query =
+      from n in News,
+        select: %{
+          total: fragment("COUNT(1) AS total"),
+          analyzed: fragment("COUNT(CASE WHEN ? = 1 THEN 1 END) AS analyzed", field(n, :is_analyzed))
+        }
+    news_count = news_query |> Repo.one
     sentiments_query =
       from ns in NewsSentiment,
         left_join: s in assoc(ns, :sentiment),
@@ -27,7 +33,8 @@ defmodule RojakAPI.Data.Stats do
       negative_sentiments_count: sentiments_count.negative,
       oot_sentiments_count: sentiments_count.oot,
       media_count: media_count,
-      news_count: news_count
+      total_news_count: news_count.total,
+      analyzed_news_count: news_count.analyzed
     }
   end
 
