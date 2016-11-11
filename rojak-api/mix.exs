@@ -3,7 +3,7 @@ defmodule RojakAPI.Mixfile do
 
   def project do
     [app: :rojak_api,
-     version: "0.3.0-beta",
+     version: "0.3.0-beta.1",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
