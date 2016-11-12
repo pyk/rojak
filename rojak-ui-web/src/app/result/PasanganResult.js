@@ -4,10 +4,8 @@ import styles from './result.css'
 
 const PasanganResult = () => {
   return (
-    <ResultGateway showIn={[/^(pasangan: )/]}>
-      <div className={styles.resultWrapper}>
-        THIS IS PASANGAN RESULT
-      </div>
+    <ResultGateway showIn={[/^(pasangan)$/]}>
+      THIS IS PASANGAN RESULT
     </ResultGateway>
   )
 }
