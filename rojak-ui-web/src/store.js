@@ -1,6 +1,7 @@
-import { createStore, combineReducers, compose } from 'redux'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import { reduxReactRouter, routerStateReducer } from 'redux-router'
 import { createHistory } from 'history'
+import thunk from 'redux-thunk'
 
 import sentiments from './app/sentiments/reducer';
 import viewer from './app/viewer/reducer';
@@ -19,5 +20,6 @@ const reducers = combineReducers({
 
 export default compose(
   reduxReactRouter({ createHistory }),
+  applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)(reducers)
