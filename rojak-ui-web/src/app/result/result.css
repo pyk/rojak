@@ -1,24 +1,3 @@
-.resultHeader {
-  font-size: 20px;
-}
-
-.resultRow {
-  line-height: 2;
-}
-
-.resultCell {
-  font-size: 18px;
-}
-
-.socialMedia {
-  float: right;
-}
-
-.socialIcon {
-  font-size: 30px;
-  margin: 5px;
-}
-
 .resultWrapper {
   height: 100%;
   position: fixed;
@@ -35,7 +14,9 @@
   animation: fadeIn 1s;
 }
 
-
+.resultWrapper .resultHeader {
+  font-size: 20px;
+}
 
 @keyframes fadeIn {
   from {
