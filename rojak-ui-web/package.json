@@ -55,6 +55,7 @@
     "react-uikit-nav": "^2.0.1",
     "redux": "^3.6.0",
     "redux-router": "^2.1.2",
+    "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
     "ufunc": "^2.0.0",
     "webpack": "1.13.1",

@@ -1,0 +1,11 @@
+.simpleList {
+  font-size: 16px;
+  line-height: 2;
+}
+
+.simpleList thead > tr > th {
+  font-weight: 600;
+}
+.simpleList tbody > tr > td {
+  font-weight: 300;
+}
