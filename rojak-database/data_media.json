@@ -151,6 +151,14 @@
         "fbpage_username": "arahdotcom",
         "twitter_username": "arahdotcom",
         "instagram_username": "arahdotcom"
+    },
+    {
+        "name": "qureta",
+        "website_url": "http://www.qureta.com",
+        "logo_url": "http://www.qureta.com/sites/default/files/qlogo.png",
+        "fbpage_username": "qureta",
+        "twitter_username": "qureta",
+        "instagram_username": "quretacom"
     }
     ]
 }
