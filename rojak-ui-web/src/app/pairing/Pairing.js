@@ -60,6 +60,10 @@ class Pairing extends React.Component {
                 <dd>{pairing.slogan}</dd>
                 <dt>Website</dt>
                 <dd><a href={pairing.website_url} target="_blank">{pairing.website_url}</a></dd>
+                <dt>Sentimen Positif</dt>
+                <dd>{pairing.overall_sentiments && pairing.overall_sentiments.positive_news_count}</dd>
+                <dt>Sentimen Negatif</dt>
+                <dd>{pairing.overall_sentiments && pairing.overall_sentiments.negative_news_count}</dd>
               </dl>
             </div>
             <div className="uk-width-1-3">
