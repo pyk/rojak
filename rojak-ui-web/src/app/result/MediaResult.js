@@ -5,7 +5,7 @@ import styles from './result.css'
 const MediaResult = () => {
   return (
     <ResultGateway showIn={[/^(media)$/]}>
-      THIS IS MEDIA
+      <p>THIS IS MEDIA</p>
     </ResultGateway>
   )
 }
