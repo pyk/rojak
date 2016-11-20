@@ -159,6 +159,14 @@
         "fbpage_username": "qureta",
         "twitter_username": "qureta",
         "instagram_username": "quretacom"
+    },
+    {
+        "name": "nusanews",
+        "website_url": "http://www.nusanews.co",
+        "logo_url": "https://pbs.twimg.com/profile_images/689139230967136256/FIomqj5U_400x400.png",
+        "fbpage_username": "Nusanewsdotcom",
+        "twitter_username": "NUSANEWScom",
+        "instagram_username": "nusanews"
     }
     ]
 }
