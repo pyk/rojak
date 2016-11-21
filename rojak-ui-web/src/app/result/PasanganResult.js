@@ -1,11 +1,11 @@
 import React from 'react'
 import ResultGateway from './ResultGateway'
-import styles from './result.css'
+import Pairings from '../pairing/Pairings'
 
 const PasanganResult = () => {
   return (
     <ResultGateway showIn={[/^(pasangan)$/]}>
-      THIS IS PASANGAN RESULT
+      <Pairings />
     </ResultGateway>
   )
 }
