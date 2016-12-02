@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import SimpleList from '../kit/SimpleList'
-import { fetchPairings } from './actions'
+import React from 'react';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import SimpleList from '../kit/SimpleList';
+import { fetchPairings } from './actions';
 
 class Pairings extends React.Component {
   static propTypes = {
@@ -11,7 +11,7 @@ class Pairings extends React.Component {
   }
 
   componentWillMount () {
-    this.props.fetchPairings()
+    this.props.fetchPairings();
   }
 
   render () {
@@ -23,10 +23,10 @@ class Pairings extends React.Component {
           </Link>
         </td>
       </tr>
-    ))
+    ));
     return (
       <div>
-        <h2>Pasangan</h2>
+        <h2 style={{fontWeight:'bold', fontSize: 'xx-large'}}>Pasangan</h2>
         <SimpleList>
           <thead>
             <tr>
@@ -38,12 +38,12 @@ class Pairings extends React.Component {
           </tbody>
         </SimpleList>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
   pairings: state.pairings
-})
+});
 
-export default connect(mapStateToProps, { fetchPairings })(Pairings)
+export default connect(mapStateToProps, { fetchPairings })(Pairings);
