@@ -1,27 +1,14 @@
-import { ajax } from '../services'
+import { ajax } from '../services';
 
-export const SET_PAIRINGS = 'SET_PAIRINGS'
-export const SET_PAIRING = 'SET_PAIRING'
+export const SET_PAIRINGS = 'SET_PAIRINGS';
+export const SET_PAIRING = 'SET_PAIRING';
 
-export const setPairings = pairings => ({
+export const fetchPairings = () => ({
   type: SET_PAIRINGS,
-  payload: { pairings }
-})
+  payload: ajax.get('pairings')
+});
 
-export const setPairing = pairing => ({
+export const fetchPairing = (id) => ({
   type: SET_PAIRING,
-  payload: { pairing }
-})
-
-export const fetchPairings = () => dispatch => {
-  ajax.get('pairings').then((res) => {
-    dispatch(setPairings(res.data))
-  })
-}
-
-export const fetchPairing = id => dispatch => {
-  ajax.get(`pairings/${id}?embed[]=overall_sentiments&embed[]=sentiments_by_media`).then((res) => {
-    dispatch(setPairing(res.data))
-  })
-}
-
+  payload: ajax.get(`pairings/${id}?embed[]=overall_sentiments&embed[]=sentiments_by_media`)
+});

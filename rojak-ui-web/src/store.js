@@ -2,6 +2,7 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import { reduxReactRouter, routerStateReducer } from 'redux-router'
 import { createHashHistory } from 'history'
 import thunk from 'redux-thunk'
+import promise from 'redux-promise-middleware'
 
 import sentiments from './app/sentiments/reducer'
 import viewer from './app/viewer/reducer'
@@ -22,6 +23,6 @@ const reducers = combineReducers({
 
 export default compose(
   reduxReactRouter({ createHistory: createHashHistory }),
-  applyMiddleware(thunk),
+  applyMiddleware(promise(), thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)(reducers)
